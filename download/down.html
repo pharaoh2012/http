@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>添加下载</title>
+</head>
+<body>
+<div id="result">添加中。。。</div>
+
+<script type="text/javascript">
+
+function showmsg(msg) {
+    document.getElementById('result').innnerText = msg;
+}
+
+(function() {
+    var durl = location.hash.substr(1);
+    if(!durl) {
+        showmsg("need download url");
+        alert("need download url");
+        return;
+    }
+    if(location.protocol == "https:") {
+        location.href = location.href.replace("https:","http:");
+        return;
+    }
+    DownloadRemote(durl);
+
+})();
+
+function postUrl(url, data, callback,fallcallback) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if(xmlhttp.status == 200) {
+                if (callback) {
+                    callback(xmlhttp.responseText);
+                } else {
+                    console.info(xmlhttp.responseText);
+                } 
+            } else {
+                console.error(xmlhttp);
+                if(fallcallback) fallcallback(xmlhttp.status,xmlhttp.responseText);
+            }
+
+        }
+    };
+    xmlhttp.open("POST", url, true);
+    xmlhttp.send(data);
+}
+
+function DownloadRemote(url) {
+    var datas = `[{
+        "jsonrpc": "2.0",
+        "method": "aria2.addUri",
+        "id": 1,
+        "params": ["token:abcd1234", ["${url}"], {}]
+    }]`;
+    var urlServer = "http://138.128.218.157:6800/jsonrpc";
+    postUrl(urlServer, datas, function(ret) {
+        console.info(ret);
+        showmsg("添加下载成功！");
+        alert("添加下载成功！");
+    },function(status,msg){
+        showmsg("添加下载失败！\n"+msg);
+    });
+}    
+</script>
+</body>
+</html>
+
