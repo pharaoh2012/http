@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>翻译</title>
+
+  </head>
+  <body>
+  <h1 id="name"></h1>
+    <pre id="result"></pre>
+
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    	var url = 'https://fanyi.youdao.com/openapi.do?keyfrom=fortestyoudaoapi&key=400652204&type=data&doctype=jsonp&callback=?&version=1.1&q=';
+    	function doTranslation(name) {
+    		document.getElementById('name').innerText = name;
+    		$.getJSON(url+name,function(ret){
+    			console.info(ret);
+    			showResult(ret.translation.join("\n"));
+    		});
+    	}
+    	var name = location.hash.substr(1);
+    	if(name) {
+    		doTranslation(name);
+    	} else  {
+    		showResult("need hash");
+    	}
+    	function showResult(msg) {
+    		document.getElementById('result').innerText = msg;
+    	}
+    </script>
+
+  </body>
+</html>
