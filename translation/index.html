@@ -16,7 +16,7 @@
     <script type="text/javascript">
     	var url = 'https://fanyi.youdao.com/openapi.do?keyfrom=fortestyoudaoapi&key=400652204&type=data&doctype=jsonp&callback=?&version=1.1&q=';
     	function doTranslation(name) {
-    		document.getElementById('name').value = name;
+    		document.getElementById('name').value =decodeURIComponent(name);
     		$.getJSON(url+name,function(ret){
     			console.info(ret);
     			showResult(ret.translation.join("\n"));
