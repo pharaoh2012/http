@@ -8,14 +8,15 @@
 
   </head>
   <body>
-  <h1 id="name"></h1>
-    <pre id="result"></pre>
+  <input type="text" id="name">
+      <pre style="font-size: 20px;" id="result"></pre>
+
 
     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript">
     	var url = 'https://fanyi.youdao.com/openapi.do?keyfrom=fortestyoudaoapi&key=400652204&type=data&doctype=jsonp&callback=?&version=1.1&q=';
     	function doTranslation(name) {
-    		document.getElementById('name').innerText = name;
+    		document.getElementById('name').value = name;
     		$.getJSON(url+name,function(ret){
     			console.info(ret);
     			showResult(ret.translation.join("\n"));
@@ -31,6 +32,7 @@
     		document.getElementById('result').innerText = msg;
     	}
     </script>
-
+<div id="YOUDAO_SELECTOR_WRAPPER" style="display:none; margin:0; border:0; padding:0; width:320px; height:240px;"></div>
+<script type="text/javascript" src="http://fanyi.youdao.com/openapi.do?keyfrom=youdaotestpage&key=1868337716&type=selector&version=1.2&translate=on" charset="utf-8"></script>
   </body>
 </html>
