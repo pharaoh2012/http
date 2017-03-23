@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>添加下载</title>
+</head>
+
+<body>
+<form onsubmit="add();return false;">
+    <input style="width: 100%" type="url" id="url"  /> 
+    <input type="submit" value="添加" />
+</form>
+    
+    
+    <h2>已有链接：</h2>
+    <ul id="links"></ul>
+    <script src="https://cdn.wilddog.com/sdk/js/2.5.2/wilddog.js"></script>
+    <script type="text/javascript">
+    var config = {
+        syncURL: "https://mydownload.wilddogio.com/download" //输入节点 URL
+    };
+    wilddog.initializeApp(config);
+    var ref = wilddog.sync().ref();
+
+    ref.on('value', function(snapshot) {
+        var newPost = snapshot.val();
+        var html=[];
+        for(var key in newPost) {
+            var u = newPost[key];
+            console.info(newPost[key]);
+            html.push("<li><a href='"+u+"'>"+u+"</a></li>")
+        }
+        document.getElementById("links").innerHTML = html.join("");
+        console.info(newPost);
+    }, function(error) {
+        console.log(error);
+
+    });
+
+
+    function add() {
+        var u = document.getElementById('url').value;
+        if(!u) return false;
+        ref.push(u);
+        return false;
+    }
+    </script>
+</body>
+
+</html>
