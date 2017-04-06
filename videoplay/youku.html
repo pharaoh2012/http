@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>优酷视频播放</title>
+</head>
+<body>
+
+<!-- <iframe src="http://www.haofangyuan.net/youku/videoyk.jsp?token=v&width=620&height=400&auto=no&id=XMjYxNTM0MjYxNg==" width="620" height="400" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe> -->
+
+<script type="text/javascript">
+(function() {
+  var id = location.hash.substr(1);
+  if(!id) {
+  	document.write("need id");
+  	return;
+  }
+  document.write('<iframe src="http://www.haofangyuan.net/youku/videoyk.jsp?token=v&width=620&height=400&auto=no&id='+id+'" width="620" height="400" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>');
+})();
+
+</script>
+
+</body>
+</html>
