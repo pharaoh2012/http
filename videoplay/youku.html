@@ -11,11 +11,32 @@
 (function() {
   var id = location.hash.substr(1);
   if(!id) {
-  	document.write("need id");
+  	checkReferrer();
   	return;
-  }
-  document.write('<iframe src="http://www.haofangyuan.net/youku/videoyk.jsp?token=v&width=620&height=400&auto=no&id='+id+'" width="620" height="400" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>');
+  } else {
+  	showPlay(id);
+	}
 })();
+
+function checkReferrer() {
+	var ref = document.referrer;
+	if(!ref) {
+		document.write("need id");
+		return;
+	}
+	var ret = /^.+?v\.youku\.com.+?id_(.+?)\.html/.exec(ref);
+	if(ret) {
+		var id =ret[1];
+		showPlay(id);
+	} else {
+		alert("不是视频播放页面！");
+		history.back();
+	}
+}
+
+function showPlay(id) {
+document.write('<iframe src="http://www.haofangyuan.net/youku/videoyk.jsp?token=v&width=620&height=400&auto=no&id='+id+'" width="620" height="400" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"></iframe>');	
+}
 
 </script>
 
