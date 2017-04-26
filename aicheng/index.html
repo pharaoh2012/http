@@ -12,8 +12,20 @@
 </head>
 
 <body>
-    <h1>爱城</h1>
-    <div id="toolbar"> <a href="https://bthliang.now.sh/download" target="_blank" class="btn btn-default">更新数据</a> </div>
+    <div id="toolbar" class="form-inline" role="form">
+        <div class="form-group">
+            <span>类型：</span>
+            <select id="types" class="form-control">
+                <option></option>
+                <option value="亚洲">亚洲</option>
+                <option value="国产">国产</option>
+                <option value="三级">三级</option>
+                <option value="欧美贴图">欧美贴图</option>
+                <option value="亚洲贴图">亚洲贴图</option>
+            </select>
+        </div>
+         
+    </div>
     <table id="table" 
     data-toggle="table" 
     data-cache="false" 
@@ -87,13 +99,18 @@
 
     function createQueryParams(params) {
         console.info(params);
+        var f={};
         if(params.search) {
-            var f={};
             f.title = {
                 "$regex":params.search
             }
-            params.filter = JSON.stringify(f);
+            
         }
+        var types = document.getElementById('types').value;
+        if(types) {
+            f.type = types;
+        }
+        params.filter = JSON.stringify(f);
         
         return params;
     }
@@ -159,6 +176,10 @@ var oneday = moment().add(-1,"days");
     function detailFormatter(index,row) {
         return row['content'];
     }
+
+    $("#types").on("change",function(){
+        $("#table").bootstrapTable('refresh');
+    });
 
     </script>
 </body>
