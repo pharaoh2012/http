@@ -147,10 +147,14 @@ var oneday = moment().add(-1,"days");
         return {};
     }
 
-    // $("#table").on("click-row.bs.table",function (e,row, $element) {
-    //     console.info("click",row['content']);
-    //     document.getElementById('detail').innerHTML = row['content'];
-    // });
+    $("#table").on("click-row.bs.table",function (e,row, $element) {
+        var index = $element.data('index');
+        var isExpand = $element.next("tr").is(".detail-view");
+        if(isExpand) {
+            $("#table").bootstrapTable('collapseRow',index);
+        } else 
+            $("#table").bootstrapTable('expandRow',index);
+    });
 
     function detailFormatter(index,row) {
         return row['content'];
