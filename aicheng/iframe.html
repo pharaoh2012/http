@@ -16,15 +16,34 @@
         text-align: left;
         font: 14px / 1.5 "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
     }
+    body {
+        counter-reset: section;    
+    }
+
+    #header {
+        position: fixed;
+        z-index: 1000;
+    }
     
     #imgList .imgBox {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         border-bottom: 1px solid #333333;
+        position: relative;
     }
+
+    #imgList .imgBox::before {
+        counter-increment: section;     
+        content: counter(section);
+        position: absolute;
+        right: 10px;
+        top: 0px;
+        z-index: 1000;        
+    }    
     
     #imgList img {
         max-width: 95%;
         position: relative;
+        padding-top: 25px;
     }
     
     img.current {
@@ -65,27 +84,31 @@
                 },
                 doubleTap: function() {
                     img.initScale = img.scaleX = img.scaleY = 1;
+                    img.translateX = img.translateY = 0;
                     //img.style.zIndex = 0;
-                    evt.preventDefault();
+                    //evt.preventDefault();
                 },
-                longTap: function(evt) {
-                    // console.info('longTap');
-                    evt.preventDefault();
-                    //alert('longTap'); 
-                    img.isLongTap = 1;
+                // longTap: function(evt) {
+                //     // console.info('longTap');
+                //     evt.preventDefault();
+                //     //alert('longTap'); 
+                //     img.isLongTap = 1;
                     
-                },
-                touchEnd: function(evt) {
-                    img.isLongTap = 0;
-                    evt.preventDefault();
-                },
+                // },
+                // touchEnd: function(evt) {
+                //     img.isLongTap = 0;
+                //     evt.preventDefault();
+                // },
                 // swipe:function(evt) {
                 //     console.info("swipe:",evt);
                 // }
                 pressMove: function(evt) {
                     //if(img.isLongTap == 1) 
-                    if(img.scaleX>1)
-                    img.translateX += evt.deltaX;
+                    if(img.scaleX>1) {
+                        img.translateX += evt.deltaX;
+                        img.translateY += evt.deltaY;
+                        evt.preventDefault();
+                    }
                 }
             });
 
