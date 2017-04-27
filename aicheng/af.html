@@ -38,7 +38,7 @@
     </style>
 </head>
 <body>
-    <div class="header">AlloyFinger</div>
+    <div class="header" onclick="showAllImages();">AlloyFinger</div>
 
     <div class="imgBox">
         <img class="pinchImg" src="./test.png" />
@@ -87,6 +87,24 @@
             });
 
         });
+
+        function hideImageFrame() {
+            $("iframe").remove();
+        }
+
+    function showAllImages() {
+        $(document.body).append('<iframe src="iframe.html" ></iframe>');
+        window.history.pushState(null,"","#imgList")  
+    }
+
+window.addEventListener("popstate", function(e) {
+    console.info(e);
+    var state = e.state;
+    hideImageFrame();
+    // do something...
+});    
+
+window.history.pushState(null,"","#imgList")    
 
     </script>
 

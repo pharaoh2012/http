@@ -199,10 +199,14 @@ var oneday = moment().add(-1,"days");
     }
     function showAllImages() {
         $(document.body).append('<iframe src="iframe.html" ></iframe>');
+        window.history.pushState(null,"","#imgList")  
     }
     function hideImageFrame() {
         $("iframe").remove();
     }
+    window.addEventListener("popstate", function(e) {
+        hideImageFrame();
+    });       
 
     </script>
 </body>
