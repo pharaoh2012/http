@@ -9,6 +9,17 @@
     <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
+    <style type="text/css">
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+        } 
+    </style>
+
 </head>
 
 <body>
@@ -23,6 +34,8 @@
                 <option value="欧美贴图">欧美贴图</option>
                 <option value="亚洲贴图">亚洲贴图</option>
             </select>
+            <button onclick="expandAll();" class="btn btn-default">展开全部</button>
+            <button onclick="showAllImages();" class="btn btn-default">图片浏览</button>
         </div>
          
     </div>
@@ -180,6 +193,16 @@ var oneday = moment().add(-1,"days");
     $("#types").on("change",function(){
         $("#table").bootstrapTable('refresh');
     });
+
+    function expandAll() {
+        $("#table").bootstrapTable('expandAllRows');
+    }
+    function showAllImages() {
+        $(document.body).append('<iframe src="iframe.html" ></iframe>');
+    }
+    function hideImageFrame() {
+        $("iframe").remove();
+    }
 
     </script>
 </body>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://alloyteam.github.io/AlloyFinger/ -->
+<html>
+
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>AlloyFinger</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background-color: #ccc;
+        text-align: left;
+        font: 14px / 1.5 "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+    }
+    
+    #imgList .imgBox {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #333333;
+    }
+    
+    #imgList img {
+        max-width: 95%;
+        position: relative;
+    }
+    
+    img.current {
+        z-index: 100;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="header">AlloyFinger</div>
+    <div id="imgList">
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script src="./js/transform.js"></script>
+    <script src="./js/alloy_finger.js"></script>
+    <script>
+    (function() {
+        var html = [];
+        var imgs = parent.document.images;
+        var length = imgs.length;
+        for (var i = 0; i < length; i++) {
+            html.push('<div class="imgBox"><img src="', imgs[i].src, '" /></div>')
+        }
+        document.getElementById('header').innerText = "共" + length + "个图片";
+        document.getElementById('imgList').innerHTML = html.join('');
+        $("#imgList img").each(function(index, img) {
+            Transform(img);
+            img.initScale = 1;
+            var af = new AlloyFinger(img, {
+                multipointStart: function() {
+                    img.initScale = img.scaleX;
+                    $("#imgList img.current").removeClass("current");
+                    img.classList.add("current")
+                    evt.preventDefault();
+                },
+                pinch: function(evt) {
+                    img.scaleX = img.scaleY = img.initScale * evt.scale;
+                },
+                doubleTap: function() {
+                    img.initScale = img.scaleX = img.scaleY = 1;
+                    //img.style.zIndex = 0;
+                    evt.preventDefault();
+                },
+                longTap: function(evt) {
+                    // console.info('longTap');
+                    evt.preventDefault();
+                    //alert('longTap'); 
+                    img.isLongTap = 1;
+                    
+                },
+                touchEnd: function(evt) {
+                    img.isLongTap = 0;
+                    evt.preventDefault();
+                },
+                // swipe:function(evt) {
+                //     console.info("swipe:",evt);
+                // }
+                pressMove: function(evt) {
+                    //if(img.isLongTap == 1) 
+                    if(img.scaleX>1)
+                    img.translateX += evt.deltaX;
+                }
+            });
+
+        });
+
+
+    })();
+
+    window.oncontextmenu = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    };
+
+    $("#header").on('click', function() {
+        parent.hideImageFrame();
+    });
+    </script>
+</body>
+
+</html>
