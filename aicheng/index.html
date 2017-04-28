@@ -10,16 +10,15 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
     <style type="text/css">
-        iframe {
-            border: none;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            left: 0;
-            top: 0;
-        } 
+    iframe {
+        border: none;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
     </style>
-
 </head>
 
 <body>
@@ -37,60 +36,35 @@
                 <option value="动漫区">动漫区</option>
                 <option value="亚洲有码区">亚洲有码区</option>
             </select>
-            <button onclick="expandAll();" class="btn btn-default">展开全部</button>
-            <button onclick="showAllImages();" class="btn btn-default">图片浏览</button>
+            <button onclick="expandAll();" class="btn btn-default"><span class="glyphicon glyphicon-expand"></span></button>
+            <button onclick="showAllImages();" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span></button>
+            <button onclick="prePage();" class="btn btn-default">‹</button>
+            <button onclick="nextPage();" class="btn btn-default">›</button>
         </div>
-         
     </div>
-    <table id="table" 
-    data-toggle="table" 
-    data-cache="false" 
-    data-url="https://bthliang.now.sh/lists?table=aichengurl" 
-    data-pagination="true" 
-    data-side-pagination="server" 
-    data-striped="true"
-    data-sort-name="time"
-    data-sort-order="desc"
-    data-search="true"
-    data-search-on-enter-key="true"
-    data-show-columns="true"
-    data-show-refresh="true"
-    data-show-toggle="true"
-    data-unique-id="_id"
-    data-click-to-select="true"
-    data-silent-sort="false"
-    data-query-params="createQueryParams"
-    data-toolbar="#toolbar"
-    data-row-style="rowStyle"
-    data-detail-view="true"
-    data-detail-formatter="detailFormatter"
-    >
+    <table id="table" data-toggle="table" data-cache="false" data-url="https://bthliang.now.sh/lists?table=aichengurl" data-pagination="true" data-side-pagination="server" data-striped="true" data-sort-name="time" data-sort-order="desc" data-search="true" data-search-on-enter-key="true" data-show-columns="true" data-show-refresh="true" data-show-toggle="true" data-unique-id="_id" data-click-to-select="true" data-silent-sort="false" data-query-params="createQueryParams" data-toolbar="#toolbar" data-row-style="rowStyle" data-detail-view="true" data-detail-formatter="detailFormatter">
         <thead>
             <tr>
-                <th data-field="title" data-sortable="true" >标题</th>
-                 <th data-field="type" data-sortable="true">类型</th>
+                <th data-field="title" data-sortable="true">标题</th>
+                <th data-field="type" data-sortable="true">类型</th>
                 <th data-field="time" data-sortable="true" data-formatter="timeFormatter">时间</th>
                 <th data-field="url" data-visible="false" data-formatter="titleFormatter">查看</th>
             </tr>
         </thead>
     </table>
-
     <div id="detail"></div>
-
     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-
     <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.17.0/locale/zh-cn.js"></script>
-
     <script type="text/javascript">
-
-    function titleFormatter(value,row,index) {
+    function titleFormatter(value, row, index) {
         return `<a href="${value}" target="_blank">查看</a>`;
     }
-    function timeFormatter(value,row,index) {
+
+    function timeFormatter(value, row, index) {
         var dt = new moment(value);
         return `<span title="${dt.format('lll')}">${dt.fromNow()}</span>`;
     }
@@ -115,102 +89,114 @@
 
     function createQueryParams(params) {
         console.info(params);
-        var f={};
-        if(params.search) {
+        var f = {};
+        if (params.search) {
             f.title = {
-                "$regex":params.search
+                "$regex": params.search
             }
-            
+
         }
         var types = document.getElementById('types').value;
-        if(types) {
+        if (types) {
             f.type = types;
         }
         params.filter = JSON.stringify(f);
-        
+
         return params;
     }
 
 
-function getUrl(url, callback) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
-            if (callback) {
-                callback(xmlhttp.responseText);
-            } else {
-                console.info(xmlhttp.responseText);
+    function getUrl(url, callback) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+                if (callback) {
+                    callback(xmlhttp.responseText);
+                } else {
+                    console.info(xmlhttp.responseText);
+                }
             }
-        }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send(null);
-}
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send(null);
+    }
 
-function postUrl(url, data, callback) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
-            if (callback) {
-                callback(xmlhttp.responseText);
-            } else {
-                console.info(xmlhttp.responseText);
+    function postUrl(url, data, callback) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+                if (callback) {
+                    callback(xmlhttp.responseText);
+                } else {
+                    console.info(xmlhttp.responseText);
+                }
             }
-        }
-    };
-    xmlhttp.open("POST", url, true);
-    xmlhttp.send(data);
-}
+        };
+        xmlhttp.open("POST", url, true);
+        xmlhttp.send(data);
+    }
 
-var oneday = moment().add(-1,"days");
+    var oneday = moment().add(-1, "days");
 
-    function rowStyle(row,index) {
-        console.info(row,index);
-        if(!row["content"]) {
+    function rowStyle(row, index) {
+        console.info(row, index);
+        if (!row["content"]) {
             return {
-                classes:"error"
+                classes: "error"
             };
         }
-        if(moment(row["time"])>oneday) {
+        if (moment(row["time"]) > oneday) {
             return {
-                classes:"info"
+                classes: "info"
             }
         }
         console.info(row["time"]);
         return {};
     }
 
-    $("#table").on("click-row.bs.table",function (e,row, $element) {
+    $("#table").on("click-row.bs.table", function(e, row, $element) {
         var index = $element.data('index');
         var isExpand = $element.next("tr").is(".detail-view");
-        if(isExpand) {
-            $("#table").bootstrapTable('collapseRow',index);
-        } else 
-            $("#table").bootstrapTable('expandRow',index);
+        if (isExpand) {
+            $("#table").bootstrapTable('collapseRow', index);
+        } else
+            $("#table").bootstrapTable('expandRow', index);
     });
 
-    function detailFormatter(index,row) {
+    function detailFormatter(index, row) {
         return row['content'];
     }
 
-    $("#types").on("change",function(){
+    $("#types").on("change", function() {
         $("#table").bootstrapTable('refresh');
     });
 
     function expandAll() {
-        $("#table").bootstrapTable('expandAllRows');
+        if ($(".detail-view").length) {
+            $("#table").bootstrapTable('collapseAllRows');
+        } else {
+            $("#table").bootstrapTable('expandAllRows');
+        }
     }
+
     function showAllImages() {
         $(document.body).append('<iframe src="iframe.html" ></iframe>');
-        window.history.pushState(null,"","#imgList")  
+        window.history.pushState(null, "", "#imgList")
     }
+
     function hideImageFrame() {
         $("iframe").remove();
     }
     window.addEventListener("popstate", function(e) {
         hideImageFrame();
-    });       
+    });
 
+    function prePage() {
+        $("#table").bootstrapTable('prevPage');
+    }
+    function nextPage() {
+        $("#table").bootstrapTable('nextPage');
+    }
     </script>
 </body>
 
