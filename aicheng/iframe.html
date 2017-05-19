@@ -70,6 +70,12 @@
         document.getElementById('header').innerText = "共" + length + "个图片";
         document.getElementById('imgList').innerHTML = html.join('');
         $("#imgList img").each(function(index, img) {
+            $(img).on('error',function(){
+                var src = this.src;
+                if(src.indexOf('getpage.now.sh')>0) return;
+                this.src = "https://getpage.now.sh/?url="+encodeURIComponent(this.src);
+                //$(this).prop('src','img/broken.png');
+            });
             Transform(img);
             img.initScale = 1;
             var af = new AlloyFinger(img, {
