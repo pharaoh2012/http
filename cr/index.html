@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>皇室战争宝箱</title>
+    <style type="text/css">
+    .user-grade {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-top: 4px;
+        margin-left: 5px;
+        font-size: 12px;
+        color: #fff;
+        line-height: 30px;
+        vertical-align: top;
+        font-style: normal;
+        text-align: center;
+        background: url(http://pub.dwstatic.com/p/crashroyale/1.0.0/img/user_grade_icon_663abd4.png) no-repeat left center
+    }
+    
+    .disabled-box {
+        opacity: 0.5;
+    }
+    
+    .box-icon {
+        width: 48px;
+    }
+    
+    li {
+        list-style: none;
+        position: relative;
+        float: left;
+        width: 123px;
+        text-align: center;
+    }
+    
+    #names {
+        width: 95%;
+    }
+    
+    .clearfix:after {
+        visibility: hidden;
+        clear: both;
+        display: block;
+        content: ".";
+        height: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <h1></h1>
+    <select id="names" onchange="doSearch();">
+        <option label="pharaoh" value="UQ280VL0"></option>
+        <option label="God" value="UQJGLQQ2"></option>
+        <option label="2017" value="2PGL8C290"></option>
+    </select>
+    <div id="playinfo"></div>
+    <div>
+        <h2 class="header">近期宝箱</h2>
+        <ul id='chests' class="clearfix"></ul>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    function doSearch() {
+        var name = document.getElementById('names').value;
+        if (!name) return;
+        $("#chests").html('');
+        $("#playinfo").html('正在查询。。。');
+        $.getJSON('http://dwadd.duowan.com/?r=card/Profile&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
+            console.info(data);
+            if ((data.code != 1) || (data.msg != 'success')) {
+                $("#playinfo").text("加载错误！5s重试！");
+                setTimeout(function() {
+                    doSearch();
+                }, 5000);
+                return;
+            }
+            var playInfo = data.data.player_info;
+            $("#playinfo").html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg}`);
+            var chestInfo = data.data.chests;
+            var htmls = chestInfo.map(function(item) {
+                return `<li class="box__item"><div class="img-wrap ${item.disabled?'disabled-box':''}"><img src="${item.img}" class="box-icon"><p>${item.chestnumber}</p>
+        </div></li>`;
+            });
+            $("#chests").html(htmls.join(''));
+        });
+    }
+    doSearch();
+    </script>
+</body>
+
+</html>
