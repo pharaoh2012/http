@@ -51,6 +51,10 @@
         content: ".";
         height: 0;
     }
+
+    button {
+        width: 46%;
+    }
     </style>
 </head>
 
@@ -61,6 +65,8 @@
         <option label="God" value="UQJGLQQ2"></option>
         <option label="2017" value="2PGL8C290"></option>
     </select>
+    <button onclick="doSearch();">获取信息</button>
+    <button onclick="doRefesh();">刷新信息</button>
     <div id="playinfo"></div>
     <div>
         <h2 class="header">近期宝箱</h2>
@@ -93,6 +99,26 @@
         });
     }
     doSearch();
+
+    function doRefesh() {
+        var name = document.getElementById('names').value;
+        if (!name) return;        
+        $("#chests").html('');
+        $("#playinfo").html('正在刷新信息。。。');
+        $.getJSON('http://dwadd.duowan.com/?r=card/ProfileRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
+            console.info(data);
+
+
+            $("#playinfo").html('<pre>'+JSON.stringify(data,null,2)+'</pre>');
+        });
+        $.getJSON('http://dwadd.duowan.com/?r=card/BattlesRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
+            console.info(data);
+
+
+            $("#playinfo").html('<pre>'+JSON.stringify(data,null,2)+'</pre>');
+        });        
+    }
+
     </script>
 </body>
 
