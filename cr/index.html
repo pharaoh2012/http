@@ -52,8 +52,14 @@
         height: 0;
     }
 
+    #msg {
+    	width: 95%;
+    	height: 50px;
+    }
+
+
     button {
-        width: 46%;
+        width: 32%;
     }
     </style>
 </head>
@@ -67,35 +73,64 @@
     </select>
     <button onclick="doSearch();">获取信息</button>
     <button onclick="doRefesh();">刷新信息</button>
+    <button onclick="document.getElementById('msg').value = '';">清空消息</button>
+    <textarea id="msg"></textarea>
     <div id="playinfo"></div>
     <div>
         <h2 class="header">近期宝箱</h2>
         <ul id='chests' class="clearfix"></ul>
     </div>
     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
     <script type="text/javascript">
-    function doSearch() {
-        var name = document.getElementById('names').value;
-        if (!name) return;
-        $("#chests").html('');
-        $("#playinfo").html('正在查询。。。');
-        $.getJSON('http://dwadd.duowan.com/?r=card/Profile&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
-            console.info(data);
-            if ((data.code != 1) || (data.msg != 'success')) {
-                $("#playinfo").text("加载错误！5s重试！");
-                setTimeout(function() {
-                    doSearch();
-                }, 5000);
-                return;
-            }
+    moment.locale("zh-cn");
+    function showMsg(msg) {
+    	document.getElementById('msg').value += msg+"\n";
+    }
+
+    function showPlayInfo(data,isCache) {
             var playInfo = data.data.player_info;
+            if(data.time) {
+            	playInfo.profile_refresh_msg = "更新于 " + moment(data.time).fromNow();
+            }
             $("#playinfo").html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg}`);
             var chestInfo = data.data.chests;
             var htmls = chestInfo.map(function(item) {
                 return `<li class="box__item"><div class="img-wrap ${item.disabled?'disabled-box':''}"><img src="${item.img}" class="box-icon"><p>${item.chestnumber}</p>
         </div></li>`;
             });
-            $("#chests").html(htmls.join(''));
+            $("#chests").html(htmls.join(''));    	
+    }
+
+    function doSearch() {
+        var name = document.getElementById('names').value;
+        if (!name) return;
+        showMsg('正在查询:'+name);
+        var data = localStorage.getItem("cr_"+name);
+        if(data) {
+        	data = JSON.parse(data);
+        	showPlayInfo(data,1);
+        }
+        $.getJSON('http://dwadd.duowan.com/?r=card/Profile&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
+            console.info(data);
+            if ((data.code != 1) || (data.msg != 'success')) {
+                showMsg("加载错误！5s重试！");
+                setTimeout(function() {
+                    doSearch();
+                }, 5000);
+                return;
+            }
+            var timeText = data.data.player_info.profile_refresh_msg;
+            var ret = /(\d+) ([a-z]*)/.exec(timeText);
+            if(ret) {
+            	var dt = moment().subtract(ret[1],ret[2]);
+            	data.time = dt;
+            }
+            showMsg("查询成功："+name);
+            localStorage.setItem("cr_"+name,JSON.stringify(data));
+
+            showPlayInfo(data,0);
         });
     }
     doSearch();
@@ -103,19 +138,18 @@
     function doRefesh() {
         var name = document.getElementById('names').value;
         if (!name) return;        
-        $("#chests").html('');
-        $("#playinfo").html('正在刷新信息。。。');
+        showMsg('正在刷新信息:'+name);
         $.getJSON('http://dwadd.duowan.com/?r=card/ProfileRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
             console.info(data);
 
 
-            $("#playinfo").html('<pre>'+JSON.stringify(data,null,2)+'</pre>');
+            showMsg(JSON.stringify(data,null,2));
         });
         $.getJSON('http://dwadd.duowan.com/?r=card/BattlesRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
             console.info(data);
 
 
-            $("#playinfo").html('<pre>'+JSON.stringify(data,null,2)+'</pre>');
+            showMsg(JSON.stringify(data,null,2));
         });        
     }
 
