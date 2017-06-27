@@ -54,7 +54,7 @@
 
     #msg {
     	width: 95%;
-    	height: 50px;
+    	height: 250px;
     }
 
 
@@ -74,12 +74,13 @@
     <button onclick="doSearch();">获取信息</button>
     <button onclick="doRefesh();">刷新信息</button>
     <button onclick="document.getElementById('msg').value = '';">清空消息</button>
-    <textarea id="msg"></textarea>
+    
     <div id="playinfo"></div>
     <div>
         <h2 class="header">近期宝箱</h2>
         <ul id='chests' class="clearfix"></ul>
     </div>
+    <textarea id="msg"></textarea>
     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
@@ -87,14 +88,18 @@
     moment.locale("zh-cn");
     function showMsg(msg) {
     	document.getElementById('msg').value += msg+"\n";
+        $("#msg").scrollTop($("#msg")[0].scrollHeight);  
     }
 
     function showPlayInfo(data,isCache) {
             var playInfo = data.data.player_info;
             if(data.time) {
-            	playInfo.profile_refresh_msg = "更新于 " + moment(data.time).fromNow();
+            	playInfo.profile_refresh_msg = "用户信息更新于<b>" + moment(data.time).fromNow()+"</b> ";
             }
-            $("#playinfo").html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg}`);
+            if(data.battles_time) {
+                playInfo.profile_refresh_msg += "战争信息更新于<b>"+moment(data.battles_time).fromNow()+"</b> ";
+            }
+            $("#playinfo").html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg} 获取时间：<b>${moment(data.getTime).fromNow()}</b>`);
             var chestInfo = data.data.chests;
             var htmls = chestInfo.map(function(item) {
                 return `<li class="box__item"><div class="img-wrap ${item.disabled?'disabled-box':''}"><img src="${item.img}" class="box-icon"><p>${item.chestnumber}</p>
@@ -127,6 +132,13 @@
             	var dt = moment().subtract(ret[1],ret[2]);
             	data.time = dt;
             }
+            ret = /(\d+) ([a-z]*)/.exec(data.data.player_info.battles_refresh_msg);
+            if(ret) {
+                var dt = moment().subtract(ret[1],ret[2]);
+                data.battles_time = dt;
+            }
+
+            data.getTime = new Date();
             showMsg("查询成功："+name);
             localStorage.setItem("cr_"+name,JSON.stringify(data));
 
