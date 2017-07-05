@@ -92,7 +92,7 @@
         $("#msg").scrollTop($("#msg")[0].scrollHeight);  
     }
 
-    function showPlayInfo(data,name) {
+    function showPlayInfo(data,name,isCache) {
             var playInfo = data.data.player_info;
             if(data.time) {
             	playInfo.profile_refresh_msg = "用户信息更新于<b>" + moment(data.time).fromNow()+"</b> ";
@@ -100,7 +100,7 @@
             if(data.battles_time) {
                 playInfo.profile_refresh_msg += "战争信息更新于<b>"+moment(data.battles_time).fromNow()+"</b> ";
             }
-            $("#playinfo_"+name).html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg} 获取时间：<b>${moment(data.getTime).fromNow()}</b>`);
+            $("#playinfo_"+name).html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg} 获取时间：<b>${moment(data.getTime).fromNow()}</b> ${isCache?"":"√"}`);
             var chestInfo = data.data.chests;
             var htmls = chestInfo.map(function(item) {
                 return `<div class="box__item ${item.type} ${item.disabled?"disabled-box":""}">${item.chestnumber}&nbsp;</div>`;
@@ -117,7 +117,7 @@
         var data = localStorage.getItem("cr_"+name);
         if(data) {
         	data = JSON.parse(data);
-        	showPlayInfo(data,name);
+        	showPlayInfo(data,name,1);
         }
         $.getJSON('http://dwadd.duowan.com/?r=card/Profile&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
             console.info(data);
@@ -144,7 +144,7 @@
             showMsg("查询成功："+names[name]);
             localStorage.setItem("cr_"+name,JSON.stringify(data));
 
-            showPlayInfo(data,name);
+            showPlayInfo(data,name,0);
         });
     }
     doSearch();
