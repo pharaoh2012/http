@@ -26,41 +26,36 @@
         opacity: 0.5;
     }
     
-    .box-icon {
-        width: 48px;
+    .box__item {
+        width:50px;
+        height: 50px;
+        margin: 5px;
+        display:inline-block;
+        font-size: 14px;
+        font-weight: 800;
+        text-shadow: 0 2px 4px rgba(0,0,0,.83);
+        color: #fff;
+        text-align: right;
+        vertical-align: top;
     }
-    ul {
-    	padding: 5px;
-    }
-    li {
-        list-style: none;
-        position: relative;
-        float: left;
-        width: 60px;
-        text-align: center;
-    }
-    
-    #names {
-        width: 95%;
-    }
-    
-    .clearfix:after {
-        visibility: hidden;
-        clear: both;
-        display: block;
-        content: ".";
-        height: 0;
-    }
-
-    #msg {
-    	width: 95%;
-    	height: 250px;
-    }
-
 
     button {
         width: 32%;
     }
+    #msg {
+        width: 95%;
+        height: 250px;
+    }   
+
+    .chests__epic {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_d38c568ec92cddccef801119c0e6f97a.png);background-size: cover;}
+.chests__giant {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_c5b0458fc8f449216ad2e82272024931.png);background-size: cover;}
+.chests__gold {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_9a60e724a317a0e01edda70f16ad2602.png);background-size: cover;}
+.chests__legendary {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_cc3613d2f4ac8052fb3e2e55aee98b6e.png);background-size: cover;}
+.chests__magic {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_2a1c9fb0ec422887124fcd9644148ee2.png);background-size: cover;}
+.chests__silver {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_9e776b2deb5340dee516c8cfed1c1cb7.png);background-size: cover;}
+.chests__super {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_cd4a03c05487e8623442e45a3b72cf88.png);background-size: cover;}
+
+
     </style>
 </head>
 
@@ -72,12 +67,12 @@
     <div id="playinfo_UQ280VL0"></div>
     <div>
         <h2 class="header">近期宝箱</h2>
-        <ul id='chests_UQ280VL0' class="clearfix"></ul>
+        <div id='chests_UQ280VL0' class="clearfix"></div>
     </div>
     <div id="playinfo_UQJGLQQ2"></div>
     <div>
         <h2 class="header">近期宝箱</h2>
-        <ul id='chests_UQJGLQQ2' class="clearfix"></ul>
+        <div id='chests_UQJGLQQ2' class="clearfix"></div>
     </div>    
     <textarea id="msg"></textarea>
     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
@@ -107,8 +102,7 @@
             $("#playinfo_"+name).html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg} 获取时间：<b>${moment(data.getTime).fromNow()}</b>`);
             var chestInfo = data.data.chests;
             var htmls = chestInfo.map(function(item) {
-                return `<li class="box__item"><div class="img-wrap ${item.disabled?'disabled-box':''}"><img src="${item.img}" class="box-icon"><p>${item.chestnumber}</p>
-        </div></li>`;
+                return `<div class="box__item ${item.type}">${item.chestnumber} </div>`;
             });
             $("#chests_"+name).html(htmls.join(''));    	
     }
@@ -122,7 +116,7 @@
         var data = localStorage.getItem("cr_"+name);
         if(data) {
         	data = JSON.parse(data);
-        	showPlayInfo(data,1);
+        	showPlayInfo(data,name);
         }
         $.getJSON('http://dwadd.duowan.com/?r=card/Profile&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
             console.info(data);
