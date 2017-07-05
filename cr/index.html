@@ -65,33 +65,38 @@
 </head>
 
 <body>
-    <h1></h1>
-    <select id="names" onchange="doSearch();">
-        <option label="pharaoh" value="UQ280VL0"></option>
-        <option label="God" value="UQJGLQQ2"></option>
-        <option label="2017" value="2PGL8C290"></option>
-    </select>
     <button onclick="doSearch();">获取信息</button>
     <button onclick="doRefesh();">刷新信息</button>
     <button onclick="document.getElementById('msg').value = '';">清空消息</button>
     
-    <div id="playinfo"></div>
+    <div id="playinfo_UQ280VL0"></div>
     <div>
         <h2 class="header">近期宝箱</h2>
-        <ul id='chests' class="clearfix"></ul>
+        <ul id='chests_UQ280VL0' class="clearfix"></ul>
     </div>
+    <div id="playinfo_UQJGLQQ2"></div>
+    <div>
+        <h2 class="header">近期宝箱</h2>
+        <ul id='chests_UQJGLQQ2' class="clearfix"></ul>
+    </div>    
     <textarea id="msg"></textarea>
     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
     <script type="text/javascript">
     moment.locale("zh-cn");
+
+    var names = {
+        "UQ280VL0":"pharaoh",
+        "UQJGLQQ2":"God"
+    };
+
     function showMsg(msg) {
     	document.getElementById('msg').value += msg+"\n";
         $("#msg").scrollTop($("#msg")[0].scrollHeight);  
     }
 
-    function showPlayInfo(data,isCache) {
+    function showPlayInfo(data,name) {
             var playInfo = data.data.player_info;
             if(data.time) {
             	playInfo.profile_refresh_msg = "用户信息更新于<b>" + moment(data.time).fromNow()+"</b> ";
@@ -99,19 +104,21 @@
             if(data.battles_time) {
                 playInfo.profile_refresh_msg += "战争信息更新于<b>"+moment(data.battles_time).fromNow()+"</b> ";
             }
-            $("#playinfo").html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg} 获取时间：<b>${moment(data.getTime).fromNow()}</b>`);
+            $("#playinfo_"+name).html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg} 获取时间：<b>${moment(data.getTime).fromNow()}</b>`);
             var chestInfo = data.data.chests;
             var htmls = chestInfo.map(function(item) {
                 return `<li class="box__item"><div class="img-wrap ${item.disabled?'disabled-box':''}"><img src="${item.img}" class="box-icon"><p>${item.chestnumber}</p>
         </div></li>`;
             });
-            $("#chests").html(htmls.join(''));    	
+            $("#chests_"+name).html(htmls.join(''));    	
     }
 
-    function doSearch() {
-        var name = document.getElementById('names').value;
-        if (!name) return;
-        showMsg('正在查询:'+name);
+    function doSearch(name) {
+        if (!name) {
+            for(var name in names) doSearch(name);
+            return;
+        }
+        showMsg('正在查询:'+names[name]);
         var data = localStorage.getItem("cr_"+name);
         if(data) {
         	data = JSON.parse(data);
@@ -122,7 +129,7 @@
             if ((data.code != 1) || (data.msg != 'success')) {
                 showMsg("加载错误！5s重试！");
                 setTimeout(function() {
-                    doSearch();
+                    doSearch(name);
                 }, 5000);
                 return;
             }
@@ -139,29 +146,31 @@
             }
 
             data.getTime = new Date();
-            showMsg("查询成功："+name);
+            showMsg("查询成功："+names[name]);
             localStorage.setItem("cr_"+name,JSON.stringify(data));
 
-            showPlayInfo(data,0);
+            showPlayInfo(data,name);
         });
     }
     doSearch();
 
-    function doRefesh() {
-        var name = document.getElementById('names').value;
-        if (!name) return;        
-        showMsg('正在刷新信息:'+name);
+    function doRefesh(name) {
+        if (!name) {
+            for(var name in names) doRefesh(name);
+            return;        
+        }
+        showMsg('正在刷新信息:'+names[name]);
         $.getJSON('http://dwadd.duowan.com/?r=card/ProfileRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
             console.info(data);
 
 
-            showMsg(JSON.stringify(data,null,2));
+            showMsg(names[name] +" 个人信息： " + JSON.stringify(data,null,2));
         });
         $.getJSON('http://dwadd.duowan.com/?r=card/BattlesRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
             console.info(data);
 
 
-            showMsg(JSON.stringify(data,null,2));
+            showMsg(names[name] +" 战斗信息： " + JSON.stringify(data,null,2));
         });        
     }
 
