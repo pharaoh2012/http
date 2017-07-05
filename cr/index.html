@@ -29,7 +29,7 @@
     .box__item {
         width:50px;
         height: 50px;
-        margin: 5px;
+        margin: 7px;
         display:inline-block;
         font-size: 14px;
         font-weight: 800;
@@ -37,6 +37,7 @@
         color: #fff;
         text-align: right;
         vertical-align: top;
+        line-height: 80px;
     }
 
     button {
@@ -102,7 +103,7 @@
             $("#playinfo_"+name).html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg} 获取时间：<b>${moment(data.getTime).fromNow()}</b>`);
             var chestInfo = data.data.chests;
             var htmls = chestInfo.map(function(item) {
-                return `<div class="box__item ${item.type} ${item.disabled?"disabled-box":""}">${item.chestnumber} </div>`;
+                return `<div class="box__item ${item.type} ${item.disabled?"disabled-box":""}">${item.chestnumber}&nbsp;</div>`;
             });
             $("#chests_"+name).html(htmls.join(''));    	
     }
