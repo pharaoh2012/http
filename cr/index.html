@@ -61,8 +61,8 @@
 </head>
 
 <body>
-    <button onclick="doSearch();">获取信息</button>
-    <button onclick="doRefesh();">刷新信息</button>
+    <button id="btnSearch" onclick="doSearch();">获取信息</button>
+    <button id="btnRefesh" onclick="doRefesh();">刷新信息</button>
     <button onclick="document.getElementById('msg').value = '';">清空消息</button>
     
     <div id="playinfo_UQ280VL0"></div>
@@ -110,9 +110,14 @@
 
     function doSearch(name) {
         if (!name) {
+            document.getElementById('btnSearch').disabled = true;
             for(var name in names) doSearch(name);
+            setTimeout(function() {
+                document.getElementById('btnSearch').disabled = false;
+            }, 10000);                
             return;
         }
+            
         showMsg('正在查询:'+names[name]);
         var data = localStorage.getItem("cr_"+name);
         if(data) {
@@ -147,11 +152,17 @@
             showPlayInfo(data,name,0);
         });
     }
+
+    doRefesh();
     doSearch();
 
     function doRefesh(name) {
         if (!name) {
+            document.getElementById('btnRefesh').disabled = true;
             for(var name in names) doRefesh(name);
+            setTimeout(function() {
+                document.getElementById('btnRefesh').disabled = false;
+            }, 10000);
             return;        
         }
         showMsg('正在刷新信息:'+names[name]);
