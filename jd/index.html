@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<style type="text/css">
+	li {margin:5px;}
+		.answer {
+			background-color:rgb(58, 135, 173);
+box-sizing:border-box;
+color:rgb(255, 255, 255);
+display:inline-block;
+font-family:"Open Sans";
+font-weight:normal;
+padding-bottom:3.6px;
+padding-left:7.2px;
+padding-right:7.2px;
+padding-top:2.4px;
+text-align:center;
+text-shadow:none;
+white-space:nowrap;
+		}
+	</style>
+
+</head>
+
+<body>
+	<input type="text" id="qtxt" onkeyup="doQuery();">
+    <ol id="result" name="result"></ol>
+
+<details>
+	<summary>插入数据</summary>
+	<div>
+		<textarea id='inserttxt' style="width: 100%;height: 300px"></textarea>
+		<button onclick="insertDatas()">插入数据</button>
+	</div>
+</details>
+
+
+<script type="text/javascript">
+    var db;
+
+    function opendb() {
+        db = openDatabase('jdquestions', '1.0', '京东答题', 5 * 1024 * 1024);
+        db.transaction(function(tx) {
+            tx.executeSql('CREATE TABLE IF NOT EXISTS questions (answer unique, fulltext)');
+        });
+    }
+    opendb();
+
+
+    function insert(txt) {
+    	if(!txt) return;
+    	txt = txt.trim();
+    	if(!txt) return;
+    	var answers = txt.split(' ')[0];
+        db.transaction(function(tx) {
+            tx.executeSql('INSERT INTO questions (answer, fulltext) VALUES ("'+answers+'", "'+txt+'")');
+        });
+        console.info("insert ok:",txt);
+    }
+
+    function query(txt) {
+    	if(!txt) return;
+    	txt = txt.trim();
+    	if(!txt) return;
+    	var txts = txt.split(' ');
+    	var where = [];
+    	for (var i = txts.length - 1; i >= 0; i--) {
+    	    		if(txts[i]) {
+    	    			where.push('fulltext like "%'+txts[i]+'%"');
+    	    		}
+    	    	}  
+    	if(where.length === 0) return;
+
+	    db.transaction(function(tx) {
+	    	var sql = 'SELECT * FROM questions where '+ where.join(' and ') +' order by answer limit 5';
+	    	console.info(sql);
+	        tx.executeSql(sql, [], function(tx, results) {
+	            var len = results.rows.length,
+	                i;
+	            var res = [];
+	            for (i = 0; i < len; i++) {
+	            	var item = results.rows.item(i);
+	            	console.info(item);
+	            	res.push(`<li><span class='answer'>${item.answer}</span> ${item.fulltext}</li>`);
+	            }
+	            document.getElementById('result').innerHTML = res.join('');
+	        }, null);
+	    });
+    }
+
+    function doQuery() {
+    	var t = document.getElementById('qtxt').value.trim();
+    	if(!t) return;
+    	query(t);
+    	return false;
+    }
+    function insertDatas() {
+    	var datas = document.getElementById('inserttxt').value.trim().split('\n');
+    	for (var i = datas.length - 1; i >= 0; i--) {
+    		insert(datas[i]);
+    	}
+    	alert('insert end!');
+    }
+    document.onclick = function(e){
+    	var target = e.target;
+    	if(target.className != "answer") return;
+    	var txt = target.innerText;
+    	console.info(txt);
+    	var input = document.getElementById('qtxt');
+    	input.value = txt;
+    	input.select();
+    	input.focus();
+    	document.execCommand("Copy");
+    }
+    document.oncontextmenu = function (e) {
+    	var target = e.target;
+    	if(target.className != "answer") return;
+    	var txt = target.innerText;
+        db.transaction(function(tx) {
+            tx.executeSql('delete from questions where answer="'+txt+'"');
+        });  
+        console.info('delete:',txt)
+        doQuery();
+
+        return false; 	    	
+    }
+    </script>
+
+</body>
+
+</html>
