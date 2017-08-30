@@ -36,6 +36,8 @@
             <textarea id='inserttxt' style="width: 100%;height: 300px"></textarea>
             <button onclick="insertDatas()">插入数据</button>
             <button onclick="exportDatas()">导出数据</button>
+            <button onclick="load()">导入数据</button>
+            
         </div>
     </details>
     <script type="text/javascript">
@@ -121,6 +123,10 @@
                 document.getElementById('inserttxt').value = res.join('\n');
             }, null);
         });
+    }
+
+    function load() {
+    	fetch("answer.txt").then(function(ret){return ret.text()}).then(txt=>document.getElementById('inserttxt').value=txt)
     }
 
     document.onclick = function(e) {
