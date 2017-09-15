@@ -172,12 +172,12 @@
 
             showMsg(names[name] +" 个人信息： " + JSON.stringify(data,null,2));
         });
-        $.getJSON('http://dwadd.duowan.com/?r=card/BattlesRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
-            console.info(data);
+        // $.getJSON('http://dwadd.duowan.com/?r=card/BattlesRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
+        //     console.info(data);
 
 
-            showMsg(names[name] +" 战斗信息： " + JSON.stringify(data,null,2));
-        });        
+        //     showMsg(names[name] +" 战斗信息： " + JSON.stringify(data,null,2));
+        // });        
     }
 
     </script>
