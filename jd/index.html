@@ -40,9 +40,10 @@
             
         </div>
     </details>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript">
     var db;
-
+    var dbip = "7777.dcqtech.freewww.info:10086";
     function opendb() {
         db = openDatabase('jdquestions', '1.0', '京东答题', 5 * 1024 * 1024);
         db.transaction(function(tx) {
@@ -60,6 +61,7 @@
         db.transaction(function(tx) {
             tx.executeSql('INSERT INTO questions (answer, fulltext) VALUES ("' + answers + '", "' + txt + '")');
         });
+        $.get("http://"+dbip+"/db/京东答题/insert?item="+encodeURIComponent(JSON.stringify({"_id":answers,"fulltext":txt})));
         console.info("insert ok:", txt);
     }
 
@@ -126,7 +128,14 @@
     }
 
     function load() {
-    	fetch("answer.txt").then(function(ret){return ret.text()}).then(txt=>document.getElementById('inserttxt').value=txt)
+        $.getJSON("http://"+dbip+"/db/京东答题/lists?limit=10000",function (ret) {
+            var txts = ret.rows.map(function (item) {
+                return item.fulltext;
+            });
+            document.getElementById('inserttxt').value=txts.join("\n")
+            //console.info(txts.join("\n"));
+        })
+    	// fetch("answer.txt").then(function(ret){return ret.text()}).then(txt=>document.getElementById('inserttxt').value=txt)
     }
 
     document.onclick = function(e) {
@@ -146,9 +155,12 @@
         var txt = target.innerText;
         db.transaction(function(tx) {
             tx.executeSql('delete from questions where answer="' + txt + '"');
+            $.get()
         });
         console.info('delete:', txt)
-        doQuery();
+        $.getJSON("http://"+dbip+"/db/京东答题/delete/"+encodeURIComponent(txt),function (ret) {
+            console.info(ret);
+        });
 
         return false;
     }
