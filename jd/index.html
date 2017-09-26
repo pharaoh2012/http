@@ -3,6 +3,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>京东答题</title>
     <style type="text/css">
     li {
@@ -24,11 +25,15 @@
         text-shadow: none;
         white-space: nowrap;
     }
+    #qtxt {
+        font-size: 40px;
+        width: 95%;
+    }
     </style>
 </head>
 
 <body>
-    <input type="text" id="qtxt" onkeyup="doQuery();">
+    <input type="search" id="qtxt" onkeyup="doQuery();">
     <ol id="result" name="result"></ol>
     <details>
         <summary>插入数据</summary>
@@ -79,7 +84,7 @@
         if (where.length === 0) return;
 
         db.transaction(function(tx) {
-            var sql = 'SELECT * FROM questions where ' + where.join(' and ') + ' order by answer limit 5';
+            var sql = 'SELECT * FROM questions where ' + where.join(' and ') + ' order by answer limit 10';
             console.info(sql);
             tx.executeSql(sql, [], function(tx, results) {
                 var len = results.rows.length,
