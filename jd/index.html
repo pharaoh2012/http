@@ -25,7 +25,7 @@
         text-shadow: none;
         white-space: nowrap;
     }
-    #qtxt {
+    input {
         font-size: 40px;
         width: 95%;
     }
@@ -38,9 +38,9 @@
     <details>
         <summary>插入数据</summary>
         <div>
-            <textarea id='inserttxt' style="width: 100%;height: 300px"></textarea>
+            <input id='inserttxt' onfocus="this.select();" style="width: 100%;" />
             <button onclick="insertDatas()">插入数据</button>
-            <button onclick="exportDatas()">导出数据</button>
+            <!-- <button onclick="exportDatas()">导出数据</button> -->
             <button onclick="load()">导入数据</button>
             
         </div>
@@ -58,7 +58,7 @@
     opendb();
 
 
-    function insert(txt) {
+    function insert(txt,remoteSave) {
         if (!txt) return;
         txt = txt.trim();
         if (!txt) return;
@@ -66,7 +66,10 @@
         db.transaction(function(tx) {
             tx.executeSql('INSERT INTO questions (answer, fulltext) VALUES ("' + answers + '", "' + txt + '")');
         });
-        $.get("http://"+dbip+"/db/京东答题/insert?item="+encodeURIComponent(JSON.stringify({"_id":answers,"fulltext":txt})));
+        if(remoteSave) {
+            $.get("http://"+dbip+"/db/京东答题/insert?item="+encodeURIComponent(JSON.stringify({"_id":answers,"fulltext":txt})));
+        }
+
         console.info("insert ok:", txt);
     }
 
@@ -108,10 +111,11 @@
     }
 
     function insertDatas() {
-        var datas = document.getElementById('inserttxt').value.trim().split('\n');
-        for (var i = datas.length - 1; i >= 0; i--) {
-            insert(datas[i]);
-        }
+        var dt = document.getElementById('inserttxt').value.trim();
+        if(!dt) return;
+        dt = dt.replace(/[()（）]/g,' ');
+        //dt = dt.replace('(',)
+        insert(dt,true);
         alert('insert end!');
     }
 
@@ -134,10 +138,11 @@
 
     function load() {
         $.getJSON("http://"+dbip+"/db/京东答题/lists?limit=10000",function (ret) {
-            var txts = ret.rows.map(function (item) {
-                return item.fulltext;
+            var txts = ret.rows.forEach(function (item) {
+                insert(item.fulltext,false);
             });
-            document.getElementById('inserttxt').value=txts.join("\n")
+            alert("加载"+ret.rows.length+"条数据！");
+            //document.getElementById('inserttxt').value=txts.join("\n")
             //console.info(txts.join("\n"));
         })
     	// fetch("answer.txt").then(function(ret){return ret.text()}).then(txt=>document.getElementById('inserttxt').value=txt)
