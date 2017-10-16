@@ -45,6 +45,7 @@
             
         </div>
     </details>
+    <div id='resulttxt'></div>
     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript">
     var db;
@@ -63,11 +64,17 @@
         txt = txt.trim();
         if (!txt) return;
         var answers = txt.split(' ')[0];
+        
         db.transaction(function(tx) {
             tx.executeSql('INSERT INTO questions (answer, fulltext) VALUES ("' + answers + '", "' + txt + '")');
         });
         if(remoteSave) {
-            $.get("http://"+dbip+"/db/京东答题/insert?item="+encodeURIComponent(JSON.stringify({"_id":answers,"fulltext":txt})));
+            $.get("http://"+dbip+"/db/京东答题/insert?item="+encodeURIComponent(JSON.stringify({"_id":answers,"fulltext":txt})),function (ret) {
+                $("#resulttxt").text("insert ok:" + txt);
+            }).fail(function (ret) {
+                console.info(ret.responseText);
+                $("#resulttxt").text(ret.responseText);
+            });
         }
 
         console.info("insert ok:", txt);
@@ -111,12 +118,15 @@
     }
 
     function insertDatas() {
+
         var dt = document.getElementById('inserttxt').value.trim();
         if(!dt) return;
+
         dt = dt.replace(/[()（）]/g,' ');
+        $("#resulttxt").text("开始插入数据:" + dt);
         //dt = dt.replace('(',)
         insert(dt,true);
-        alert('insert end!');
+        //alert('insert end!');
     }
 
     function exportDatas() {
@@ -137,11 +147,12 @@
     }
 
     function load() {
+        $("#resulttxt").text("开始更新数据。。。");
         $.getJSON("http://"+dbip+"/db/京东答题/lists?limit=10000",function (ret) {
             var txts = ret.rows.forEach(function (item) {
                 insert(item.fulltext,false);
             });
-            alert("加载"+ret.rows.length+"条数据！");
+            $("#resulttxt").text("加载了"+ret.rows.length+"条数据！");
             //document.getElementById('inserttxt').value=txts.join("\n")
             //console.info(txts.join("\n"));
         })
