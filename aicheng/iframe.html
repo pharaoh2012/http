@@ -67,11 +67,21 @@
     <script>
     (function() {
         var html = [];
+        var dv = parent.$(".detail-view");
+        dv.each(function (index) {
+            var $this = $(this);
+            var h1 = $this.find("h1").text();
+            html.push("<h1>"+(index+1)+". "+h1+"</h1><hr />");
+            $this.find("img").each(function () {
+                html.push('<div class="imgBox"><img src="', this.src, '" /></div>');
+            })
+        })
+
         var imgs = parent.document.images;
         var length = imgs.length;
-        for (var i = 0; i < length; i++) {
-            html.push('<div class="imgBox"><img src="', imgs[i].src, '" /></div>')
-        }
+        // for (var i = 0; i < length; i++) {
+        //     html.push('<div class="imgBox"><img src="', imgs[i].src, '" /></div>')
+        // }
         document.getElementById('header').innerText = "共" + length + "个图片";
         document.getElementById('imgList').innerHTML = html.join('');
         $("#imgList img").each(function(index, img) {
