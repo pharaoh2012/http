@@ -42,7 +42,7 @@
             <button onclick="insertDatas()">插入数据</button>
             <!-- <button onclick="exportDatas()">导出数据</button> -->
             <button onclick="load()">导入数据</button>
-            
+            <button onclick="removeAllLocal()">清空本地数据</button>
         </div>
     </details>
     <div id='resulttxt'></div>
@@ -66,7 +66,7 @@
         var answers = txt.split(' ')[0];
         
         db.transaction(function(tx) {
-            tx.executeSql('INSERT INTO questions (answer, fulltext) VALUES ("' + answers + '", "' + txt + '")');
+            tx.executeSql('INSERT INTO questions (answer, fulltext) VALUES ("' + answers + '", "' + txt + " "+answers.length + '")');
         });
         if(remoteSave) {
             $.get("http://"+dbip+"/db/京东答题/insert?item="+encodeURIComponent(JSON.stringify({"_id":answers,"fulltext":txt})),function (ret) {
@@ -176,7 +176,6 @@
         var txt = target.innerText;
         db.transaction(function(tx) {
             tx.executeSql('delete from questions where answer="' + txt + '"');
-            $.get()
         });
         console.info('delete:', txt)
         $.getJSON("http://"+dbip+"/db/京东答题/delete/"+encodeURIComponent(txt),function (ret) {
@@ -184,6 +183,13 @@
         });
 
         return false;
+    }
+    function removeAllLocal() {
+    	if(confirm("确定要清空本地数据吗？")) {
+	    	db.transaction(function(tx) {
+	            tx.executeSql('delete from questions');
+	        });
+    	}
     }
     </script>
 </body>
