@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>黑亮综艺</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>黑亮综艺</h1>
+    <div id="toolbar"> <a href="https://bthliang.now.sh/download" target="_blank" class="btn btn-default">更新数据</a> </div>
+    <table id="table" 
+    data-toggle="table" 
+    data-cache="false" 
+    data-url="http://192.168.1.63:7777/db/links/lists" 
+    data-pagination="true" 
+    data-side-pagination="server" 
+    data-striped="true"
+    data-sort-name="time"
+    data-sort-order="desc"
+    data-search="true"
+    data-search-on-enter-key="true"
+    data-show-columns="true"
+    data-show-refresh="true"
+    data-show-toggle="true"
+    data-unique-id="_id"
+    data-click-to-select="true"
+    data-silent-sort="false"
+    data-query-params="createQueryParams"
+    data-toolbar="#toolbar"
+    data-row-style="rowStyle"
+    data-ajax="db.bootstrapTable"
+    >
+        <thead>
+            <tr>
+                <th data-field="isSelect" data-checkbox="true"></th>
+                <th data-field="title" data-sortable="true" data-click-to-select="false" data-formatter="titleFormatter">标题</th>
+                <th data-field="time" data-sortable="true" data-formatter="timeFormatter">获取日期</th>
+                <th data-field="downloadurl"  data-formatter="downloadurlFormatter">下载</th>
+            </tr>
+        </thead>
+    </table>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.17.0/locale/zh-cn.js"></script>
+
+    <script src="https://unpkg.com/flyio@0.3.1/dist/fly.min.js"></script>
+    <script src="js/mlab.js"></script>
+
+    <script type="text/javascript">
+        var db = new mlab("tanktotal","links");
+
+    function nameSorter(a, b) {
+        var a1 = parseInt(a.substr(5), 10);
+        var b1 = parseInt(b.substr(5), 10);
+        return a1 - b1;
+    }
+
+    function titleFormatter(value,row,index) {
+        return `<a href="${row['href']}" target="_blank">${value}</a>`;
+    }
+    function timeFormatter(value,row,index) {
+        var dt = new moment(value);
+        return `<span title="${dt.format('lll')}">${dt.fromNow()}</span>`;
+    }
+
+
+    function downloadurlFormatter(value) {
+        return `<a href="${value}" onclick="DownloadRemote('${value}');return false;" target="_blank">下载</a>`;
+    }
+
+    // your custom ajax request here
+    function ajaxRequest(params) {
+        db.bootstrapTable(params);
+        return;
+        // data you need
+        console.log(params.data);
+        // just use setTimeout
+        setTimeout(function() {
+            params.success({"total":761,"rows":[{"_id":"3de2a8d1e0df22012cf87c2f1c1c03e4","href":"http://bt.hliang.com/show-c64e30f470df5db59b5793a21d4ad5fb32d9be90.html","title":"天才冲冲冲-20171209","time":1512885583244,"downloadurl":"http://bt.hliang.com/down.php?date=1512877037&hash=c64e30f470df5db59b5793a21d4ad5fb32d9be90"},{"_id":"e6b6f5f6aa7689ecd3d4493c0e8357a6","href":"http://bt.hliang.com/show-14d5dc23ae5a58d5c2822a402e36464451781412.html","title":"綜藝玩很大-20171209","time":1512885574019,"downloadurl":"http://bt.hliang.com/down.php?date=1512877148&hash=14d5dc23ae5a58d5c2822a402e36464451781412"},{"_id":"fc77a872f71e1c9ddd7fdeb2a8d52bb3","href":"http://bt.hliang.com/show-747ac24a6825ac56d48aaef08a99f2fffe9a2311.html","title":"綜藝玩很大-20171202","time":1512319221933,"downloadurl":"http://bt.hliang.com/down.php?date=1512275065&hash=747ac24a6825ac56d48aaef08a99f2fffe9a2311"},{"_id":"e62dfcbbb619d330bcaf05590f03b044","href":"http://bt.hliang.com/show-8c5d879a62a6c1b344c7fe495921bc870e51cd1a.html","title":"天才冲冲冲-20171202","time":1512319214199,"downloadurl":"http://bt.hliang.com/down.php?date=1512274979&hash=8c5d879a62a6c1b344c7fe495921bc870e51cd1a"},{"_id":"bbcb77ca61a1f9e684000f3ae61eabe9","href":"http://bt.hliang.com/show-2712f411402e0352e74a8a78908adbda650b52a4.html","title":"天才冲冲冲-20171125","time":1511688595685,"downloadurl":"http://bt.hliang.com/down.php?date=1511674935&hash=2712f411402e0352e74a8a78908adbda650b52a4"},{"_id":"0cb7ddf9b6c7b26555010fc2182f4496","href":"http://bt.hliang.com/show-3ef2b1cc2e5a6990aff77a1422906e0b4b277e6e.html","title":"綜藝玩很大-20171125","time":1511688588305,"downloadurl":"http://bt.hliang.com/down.php?date=1511674816&hash=3ef2b1cc2e5a6990aff77a1422906e0b4b277e6e"},{"_id":"db5e9078cc6ac886e759161e5e49f5d6","href":"http://bt.hliang.com/show-c7b378c92b602ec118bece3692cf84e0884ddbac.html","title":"綜藝玩很大-20171118","time":1511080298025,"downloadurl":"http://bt.hliang.com/down.php?date=1511075910&hash=c7b378c92b602ec118bece3692cf84e0884ddbac"},{"_id":"db96186c5f9a41c8a0a80409ba639673","href":"http://bt.hliang.com/show-761817d66204149c328da9b438f3f50fa4241daa.html","title":"天才冲冲冲-20171118","time":1511073880765,"downloadurl":"http://bt.hliang.com/down.php?date=1511072856&hash=761817d66204149c328da9b438f3f50fa4241daa"},{"_id":"232801ebec561688b76ae06cba005959","href":"http://bt.hliang.com/show-5cf1a2c43bb8c49d34ea9c007c1c0ba8c9e8ae11.html","title":"天才冲冲冲-20171111","time":1510470975357,"downloadurl":"http://bt.hliang.com/down.php?date=1510458328&hash=5cf1a2c43bb8c49d34ea9c007c1c0ba8c9e8ae11"},{"_id":"97d88f036221d8a2d1f03e129abe13bd","href":"http://bt.hliang.com/show-68df8e98c051be877abfc767ce6e17abe45051f7.html","title":"綜藝玩很大-20171111","time":1510470956376,"downloadurl":"http://bt.hliang.com/down.php?date=1510458562&hash=68df8e98c051be877abfc767ce6e17abe45051f7"}]});
+        }, 500);
+    }
+
+    function createQueryParams(params) {
+        console.info(params);
+        if(params.search) {
+            var f={};
+            f.title = {
+                "$regex":params.search
+            }
+            params.filter = JSON.stringify(f);
+        }
+        
+        return params;
+    }
+
+
+function DownloadRemote(url) {
+
+    var datas = `[{
+        "jsonrpc": "2.0",
+        "method": "aria2.addUri",
+        "id": 1,
+        "params": ["token:abcd1234", ["${url}"], {}]
+    }]`;
+    var urlServer = "https://pharaoh2012-na.daoapp.io/jsonrpc?tm=1476340583479";
+    postUrl(urlServer, datas, function(ret) {
+        console.info(ret);
+        alert("添加下载成功！");
+
+    });
+}
+
+function getUrl(url, callback) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+            if (callback) {
+                callback(xmlhttp.responseText);
+            } else {
+                console.info(xmlhttp.responseText);
+            }
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send(null);
+}
+
+function postUrl(url, data, callback) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+            if (callback) {
+                callback(xmlhttp.responseText);
+            } else {
+                console.info(xmlhttp.responseText);
+            }
+        }
+    };
+    xmlhttp.open("POST", url, true);
+    xmlhttp.send(data);
+}
+
+var oneday = moment().add(-1,"days");
+
+    function rowStyle(row,index) {
+        console.info(row,index);
+        if(row["downloadOK"]) {
+            return {
+                classes:"success"
+            };
+        }
+        if(moment(row["time"])>oneday) {
+            return {
+                classes:"info"
+            }
+        }
+        console.info(row["time"]);
+        return {};
+    }
+
+    </script>
+</body>
+
+</html>
