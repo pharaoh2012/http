@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>测试</title>
+	<style type="text/css">
+		#userinput {
+			font-size: 20px;
+		}
+		#userinput b {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<div id="userinput">
+<b>赵</b><b>钱</b><b>孙</b><b>李</b><b>，</b><b>周</b><b>吴</b><b>郑</b><b>王</b><b>，</b><b>冯</b><b>陈</b><b>诸</b><b>卫</b><b>，</b><b>蒋</b><b>沈</b><b>韩</b><b>杨</b><b>，</b><b>朱</b><b>秦</b><b>尤</b><b>许</b><b>，</b><b>何</b><b>吕</b><b>施</b><b>张</b><b>，</b><b>孔</b><b>曹</b><b>严</b><b>华</b><b>，</b><b>金</b><b>魏</b><b>陶</b><b>姜</b><b>，</b><b>戚</b><b>谢</b><b>邹</b><b>喻</b><b>，</b><b>柏</b><b>水</b><b>窦</b><b>章</b><b>，</b><b>云</b><b>苏</b><b>潘</b><b>葛</b><b>，</b><b>奚</b><b>范</b><b>彭</b><b>郎</b><b>，</b><b>鲁</b><b>韦</b><b>昌</b><b>马</b><b>，</b><b>苗</b><b>凤</b><b>花</b><b>方</b><b>，</b><b>俞</b><b>任</b><b>袁</b><b>柳</b><b>，</b><b>酆</b><b>鲍</b><b>史</b><b>唐</b><b>，</b><b>费</b><b>廉</b><b>岑</b><b>薛</b><b>，</b><b>雷</b><b>贺</b><b>倪</b><b>汤</b><b>，</b><b>滕</b><b>殷</b><b>罗</b><b>毕</b><b>，</b><b>郝</b><b>邬</b><b>安</b><b>常</b><b>，</b><b>乐</b><b>于</b><b>时</b><b>傅</b><b>，</b><b>皮</b><b>卡</b><b>齐</b><b>康</b><b>，</b><b>伍</b><b>余</b><b>元</b><b>卜</b><b>，</b><b>顾</b><b>孟</b><b>平</b><b>黄</b><b>，</b><b>和</b><b>穆</b><b>萧</b><b>尹</b><b>，</b><b>姚</b><b>邵</b><b>堪</b><b>汪</b><b>，</b><b>祁</b><b>毛</b><b>禹</b><b>狄</b><b>，</b><b>米</b><b>贝</b><b>明</b><b>臧</b><b>，</b><b>计</b><b>伏</b><b>成</b><b>戴</b><b>，</b><b>谈</b><b>宋</b><b>茅</b><b>庞</b><b>，</b><b>熊</b><b>纪</b><b>舒</b><b>屈</b><b>，</b><b>项</b><b>祝</b><b>董</b><b>粱</b><b>，</b><b>杜</b><b>阮</b><b>蓝</b><b>闵</b><b>，</b><b>席</b><b>季</b><b>麻</b><b>强</b><b>，</b><b>贾</b><b>路</b><b>娄</b><b>危</b><b>，</b><b>江</b><b>童</b><b>颜</b><b>郭</b><b>，</b><b>梅</b><b>盛</b><b>林</b><b>刁</b><b>，</b><b>钟</b><b>徐</b><b>邱</b><b>骆</b><b>，</b><b>高</b><b>夏</b><b>蔡</b><b>田</b><b>，</b><b>樊</b><b>胡</b><b>凌</b><b>霍</b><b>，</b><b>虞</b><b>万</b><b>支</b><b>柯</b><b>，</b><b>咎</b><b>管</b><b>卢</b><b>莫</b><b>，</b><b>经</b><b>房</b><b>裘</b><b>缪</b>	
+</div>
+<div id="result"></div>
+
+<script src="pinyin.js"></script>
+<script type="text/javascript">
+	document.getElementById('userinput').addEventListener("click",function(e){
+		var target = e.target;
+		if(target.tagName != 'B') return;
+		var txt = target.innerText;
+		var py = pinyinUtil.getPinyin(txt,'',1,true).join(" ");
+		if(txt == py) showResult('');
+		else showResult(txt +'='+py);
+	},true);
+	function showResult(txt) {
+		document.getElementById('result').innerText = txt;
+	}
+</script>
+</body>
+</html>
