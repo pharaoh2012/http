@@ -1,57 +1,73 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="utf-8" />
+    <title>绕口令练习</title>
+    <style type="text/css">
+    div {
+        font-size: 26px;
+    }
 
-	<title>拼音</title>
-	<style type="text/css">
-		div {
-			font-size: 26px;
-		}
-		#userinput b {
-			cursor: pointer;
-		}
-		#result {
-			margin:20px;
-			color:blue;
-		}
-	</style>
+    #userinput b {
+        cursor: pointer;
+    }
+
+    #result {
+        margin: 20px;
+        color: blue;
+    }
+    </style>
 </head>
+
 <body>
-<div id="userinput">
-<b>赵</b><b>钱</b><b>孙</b><b>李</b>
-</div>
-<div id="result"></div>
+    <div id="userinput">
+        加载中。。。
+    </div>
+    <div id="result"></div>
+    <script src="pinyin.js"></script>
+    <script type="text/javascript">
+    window.addEventListener("hashchange", function(e) { load(); });
 
-<script src="pinyin.js"></script>
-<script type="text/javascript">
+    function load() {
+    	var day;
+        if (location.hash) {
+            day = location.hash.substr(1);
+        } else {
+        	var today = new Date();
+        	day = today.getFullYear()*10000+(today.getMonth()+1)*100+today.getDate();
+        }
+        fetch('https://wd2129253136sntaei.wilddogio.com/raokouling/' + day + '.json').then(function(r) {
+            r.text().then(function(hash) {
+            	if(hash == "null") {
+            		document.getElementById('userinput').innerText = "没有数据！";
+            		return;
+            	}
+                hash = hash.split('').map(function(t) {
+                    if (t.charCodeAt(0) <= 255) return t;
+                    if ('，。！'.indexOf(t) >= 0) return t;
+                    return '<b>' + t + "</b>";
+                });
+                document.getElementById('userinput').innerHTML = hash.join('');
+            });
+        });        
+    }
+    load();
 
-window.addEventListener("hashchange",function(e){ load(); });
-function load() {
-	if(location.hash) {
-		var hash = decodeURIComponent(location.hash.substr(1));
-		hash = hash.split('').map(function(t){
-			if(t.charCodeAt(0)<=255) return t;
-			if('，。！'.indexOf(t)>=0) return t;
-			return '<b>'+t+"</b>";
-		});
-		document.getElementById('userinput').innerHTML = hash.join('');
-	}
-}
-load();
+    document.getElementById('userinput').addEventListener("click", function(e) {
+        var target = e.target;
+        if (target.tagName != 'B') return;
+        var txt = target.innerText;
+        var py = pinyinUtil.getPinyin(txt, '', 1, true).join(" ");
+        if (txt == py) showResult('');
+        else showResult(txt + '=' + py);
+    }, true);
 
-	document.getElementById('userinput').addEventListener("click",function(e){
-		var target = e.target;
-		if(target.tagName != 'B') return;
-		var txt = target.innerText;
-		var py = pinyinUtil.getPinyin(txt,'',1,true).join(" ");
-		if(txt == py) showResult('');
-		else showResult(txt +'='+py);
-	},true);
-	function showResult(txt) {
-		document.getElementById('result').innerText = txt;
-	}
-</script>
+    function showResult(txt) {
+        document.getElementById('result').innerText = txt;
+    }
+    </script>
 </body>
+
 </html>
