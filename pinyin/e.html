@@ -34,10 +34,12 @@
         var t = document.getElementById('text').value.trim();
         if(!t) {
             alert('内容不能为空！');
+            return;
         }
         var d = document.getElementById('day').value.trim();
         if(!d) {
             alert('日期不能为空！');
+            return;
         }        
         $.ajax({
             url: 'https://wd2129253136sntaei.wilddogio.com/raokouling/' + d + '.json',
