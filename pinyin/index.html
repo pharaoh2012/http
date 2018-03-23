@@ -13,11 +13,16 @@
     #userinput b {
         cursor: pointer;
     }
+    #userinput b:after {
+    	content: attr(title);
+    	color:blue;
+    }
 
     #result {
         margin: 20px;
         color: blue;
     }
+
     </style>
 </head>
 
@@ -31,37 +36,51 @@
     window.addEventListener("hashchange", function(e) { load(); });
 
     function load() {
-    	var day;
+        var day;
         if (location.hash) {
             day = location.hash.substr(1);
         } else {
-        	var today = new Date();
-        	day = today.getFullYear()*10000+(today.getMonth()+1)*100+today.getDate();
-        }
-        fetch('https://wd2129253136sntaei.wilddogio.com/raokouling/' + day + '.json').then(function(r) {
-            r.text().then(function(hash) {
-            	if(hash == "null") {
-            		document.getElementById('userinput').innerText = "没有数据！";
-            		return;
-            	}
-                hash = hash.split('').map(function(t) {
-                    if (t.charCodeAt(0) <= 255) return t;
-                    if ('，。！'.indexOf(t) >= 0) return t;
-                    return '<b>' + t + "</b>";
-                });
-                document.getElementById('userinput').innerHTML = hash.join('');
-            });
-        });        
+            var today = new Date();
+            day = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+        }! function() {
+            function a(a) { var b = document.getElementsByTagName("HEAD").item(0),
+                    c = document.createElement("script");
+                c.type = "text/javascript", c.src = a, b.appendChild(c) } a('https://wd2129253136sntaei.wilddogio.com/raokouling/' + day + '.json?callback=getData') }();
+        // fetch('https://wd2129253136sntaei.wilddogio.com/raokouling/' + day + '.json').then(function(r) { // r.text().then(function(hash) { // data(hash); // }); // });
     }
     load();
+
+    function getData(d) {
+        if (d && d.data) {
+            data(d.data);
+            return;
+        }
+        data(null);
+    }
+
+    function data(hash) {
+        if (hash == "null") {
+            document.getElementById('userinput').innerText = "没有数据！";
+            return;
+        }
+        hash = hash.split('').map(function(t) {
+            if (t.charCodeAt(0) <= 255) return t;
+            if ('，。！'.indexOf(t) >= 0) return t;
+            return '<b>' + t + "</b>";
+        });
+        document.getElementById('userinput').innerHTML = hash.join('');
+    }
 
     document.getElementById('userinput').addEventListener("click", function(e) {
         var target = e.target;
         if (target.tagName != 'B') return;
+        var py = target.title;
+        if(target.title) {target.title = ""; return;}
         var txt = target.innerText;
         var py = pinyinUtil.getPinyin(txt, '', 1, true).join(" ");
-        if (txt == py) showResult('');
-        else showResult(txt + '=' + py);
+        if (txt == py) return;
+        target.title = "("+py+")";
+        //else showResult(txt + '=' + py);
     }, true);
 
     function showResult(txt) {
