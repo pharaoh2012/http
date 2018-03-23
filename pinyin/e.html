@@ -32,13 +32,19 @@
 
     function save() {
         var t = document.getElementById('text').value.trim();
-        var d = document.getElementById('day').value;
+        if(!t) {
+            alert('内容不能为空！');
+        }
+        var d = document.getElementById('day').value.trim();
+        if(!d) {
+            alert('日期不能为空！');
+        }        
         $.ajax({
             url: 'https://wd2129253136sntaei.wilddogio.com/raokouling/' + d + '.json',
             type: 'PUT',
             data: JSON.stringify({ data: t })
         }).then(function(ret) {
-            alert("保存成功！")
+            alert("保存成功！");
         });
     }
     function openUrl() {
