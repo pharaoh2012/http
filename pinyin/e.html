@@ -8,6 +8,7 @@
     <style type="text/css">
     input,
     textarea {
+        font-size: 26px;
         width: 100%;
     }
 
@@ -19,8 +20,10 @@
 
 <body>
     <input type="number" id="day" required>
-    <textarea id="text"></textarea>
+    <textarea id="text" required></textarea>
     <input type="button" onclick="save();" value="保存" required>
+    <br /><br />
+    <input type="button" onclick="openUrl();" value="打开页面" required>
     <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
     var today = new Date();
@@ -37,6 +40,10 @@
         }).then(function(ret) {
             alert("保存成功！")
         });
+    }
+    function openUrl() {
+        var d = document.getElementById('day').value;
+        open("index.html#"+d);
     }
     </script>
 </body>
