@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="utf-8" />
+    <title>绕口令编辑</title>
+    <style type="text/css">
+    input,
+    textarea {
+        width: 100%;
+    }
+
+    #text {
+        height: 200px;
+    }
+    </style>
+</head>
+
+<body>
+    <input type="number" id="day" required>
+    <textarea id="text"></textarea>
+    <input type="button" onclick="save();" value="保存" required>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    var today = new Date();
+    var day = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+    document.getElementById('day').value = day;
+
+    function save() {
+        var t = document.getElementById('text').value.trim();
+        var d = document.getElementById('day').value;
+        $.ajax({
+            url: 'https://wd2129253136sntaei.wilddogio.com/raokouling/' + d + '.json',
+            type: 'PUT',
+            data: JSON.stringify({ data: t })
+        }).then(function(ret) {
+            alert("保存成功！")
+        });
+    }
+    </script>
+</body>
+
+</html>
