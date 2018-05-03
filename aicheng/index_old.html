@@ -42,7 +42,7 @@
             <button onclick="nextPage();" class="btn btn-default">›</button>
         </div>
     </div>
-    <table id="table" data-toggle="table" data-cache="false" data-url="http://7777.dcqtech.freewww.info:10086/db/aichengurl/lists" data-pagination="true" data-side-pagination="server" data-striped="true" data-sort-name="time" data-sort-order="desc" data-search="true" data-search-on-enter-key="true" data-show-columns="true" data-show-refresh="true" data-show-toggle="true" data-unique-id="_id" data-click-to-select="true" data-silent-sort="false" data-query-params="createQueryParams" data-toolbar="#toolbar" data-row-style="rowStyle" data-detail-view="true" data-detail-formatter="detailFormatter" data-ajax="db.bootstrapTable">
+    <table id="table" data-toggle="table" data-cache="false" data-url="http://7777.dcqtech.freewww.info:10086/db/aichengurl/lists" data-pagination="true" data-side-pagination="server" data-striped="true" data-sort-name="time" data-sort-order="desc" data-search="true" data-search-on-enter-key="true" data-show-columns="true" data-show-refresh="true" data-show-toggle="true" data-unique-id="_id" data-click-to-select="true" data-silent-sort="false" data-query-params="createQueryParams" data-toolbar="#toolbar" data-row-style="rowStyle" data-detail-view="true" data-detail-formatter="detailFormatter">
         <thead>
             <tr>
                 <th data-field="title" data-sortable="true">标题</th>
@@ -59,13 +59,7 @@
     <script src="https://cdn.bootcss.com/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.17.0/locale/zh-cn.js"></script>
-
-    <script src="https://unpkg.com/flyio@0.3.1/dist/fly.min.js"></script>
-    <script src="../js/mlab.js"></script>
     <script type="text/javascript">
-        var db = new mlab("tanktotal","aichengurl");
-        
-
     function titleFormatter(value, row, index) {
         return `<a href="${value}" target="_blank">查看</a>`;
     }
@@ -200,7 +194,6 @@
     function prePage() {
         $("#table").bootstrapTable('prevPage');
     }
-
     function nextPage() {
         $("#table").bootstrapTable('nextPage');
     }
