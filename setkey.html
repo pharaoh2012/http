@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<input type="" placeholder="输入验证码" id="code">
+<input type="button" value="设置" onclick="setting();">
+<div id="msg"></div>
+
+<script type="text/javascript">
+	if(location.hash) {
+		var h = location.hash.substr(1);
+		document.getElementById('code').value = h;
+		setting();
+	}
+	function setting() {
+		var c = document.getElementById('code').value;
+		if(!c) {
+			return showMsg("验证码不能为空！");
+		}
+		localStorage.setItem("mlab_apiKey", c);
+		showMsg("设置成功！");
+	}
+	function showMsg(m) {
+		document.getElementById('msg').innerText = m;
+	}
+
+</script>
+</body>
+</html>

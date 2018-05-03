@@ -17,7 +17,7 @@
     <table id="table" 
     data-toggle="table" 
     data-cache="false" 
-    data-url="http://7777.dcqtech.freewww.info:10086/db/links/lists" 
+    data-url="http://192.168.1.63:7777/db/links/lists" 
     data-pagination="true" 
     data-side-pagination="server" 
     data-striped="true"
@@ -34,6 +34,7 @@
     data-query-params="createQueryParams"
     data-toolbar="#toolbar"
     data-row-style="rowStyle"
+    data-ajax="db.bootstrapTable"
     >
         <thead>
             <tr>
@@ -52,7 +53,12 @@
     <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.17.0/locale/zh-cn.js"></script>
 
+    <script src="https://unpkg.com/flyio@0.3.1/dist/fly.min.js"></script>
+    <script src="../js/mlab.js"></script>
+
     <script type="text/javascript">
+        var db = new mlab("tanktotal","links");
+
     function nameSorter(a, b) {
         var a1 = parseInt(a.substr(5), 10);
         var b1 = parseInt(b.substr(5), 10);
@@ -74,19 +80,7 @@
 
     // your custom ajax request here
     function ajaxRequest(params) {
-        // data you need
-        console.log(params.data);
-        // just use setTimeout
-        setTimeout(function() {
-            params.success({
-                total: 100,
-                rows: [{
-                    "id": 0,
-                    "name": "Item 0",
-                    "price": "$0"
-                }]
-            });
-        }, 1000);
+        db.bootstrapTable(params);
     }
 
     function createQueryParams(params) {

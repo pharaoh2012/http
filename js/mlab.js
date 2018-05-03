@@ -26,6 +26,7 @@ var mlab = function(dbname, collectionName) {
 		}
 	})();
 	var dbUrl = 'https://api.mlab.com/api/1/databases/' + _dbname + '/collections/' + encodeURIComponent(_collectionName) + "?";
+	var count_cache = {search:-1};
 
 	function toUrl(q) {
 		var ret = [];
@@ -77,9 +78,18 @@ var mlab = function(dbname, collectionName) {
 			q.q = d.filter;
 		}
 		var u = toUrl(q);	
+		if(count_cache.search == d.filter) {
+			var count = count_cache.count;
+			_fly.get(u).then(function (items) {
+				params.success({total:count,rows:items.data});
+			});
+			return;
+		}
 		q.c = "true";
 		_fly.all([_fly.get(u), _fly.get(toUrl(q))]).then(fly.spread(function(items, count) {
 			console.info(items, count);
+			count_cache.search = d.filter;
+			count_cache.count = count.data;
 			params.success({total:count.data,rows:items.data});
 		}));
 	};
