@@ -41,7 +41,14 @@ var mlab = function(dbname, collectionName) {
 		var u = dbUrl + ret.join("&");
 		console.info(u);
 		return u;
-	}
+	};
+
+	this.insert = function(items,cb) {
+		var u = toUrl({});
+		_fly.post(u,items,{"headers":{contentType: "application/json"}}).then(function(req){
+			cb(req.data);
+		});
+	};
 
 	this.find = function(q, cb) {
 		_fly.get(toUrl(q)).then((function(req) {
