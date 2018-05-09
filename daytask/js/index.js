@@ -2,16 +2,19 @@
     var user = location.hash.substr(1);
     if (!user) user = "rm";
     window.userid = user;
-    var today = getToday() + "_";
-    var cache = localStorage.getItem("daytask_cache");
+    document.title = user + "_每日任务";
+    var cache = localStorage.getItem("daytask_cache_"+user);
     if (cache) {
         cache = JSON.parse(cache);
-        if (cache.day == today) {
-            window.tasks = cache.tasks;
-            init();
-
-        }
+        window.tasks = cache.tasks;
+        init();
     }
+    else {
+        initNoCache();
+    }
+})();
+
+function initNoCache() {
     var db = new mlab("tasks", "setting");
     db.find({
         s: {
@@ -22,12 +25,11 @@
         }
     }, function(ret) {
         window.tasks = ret;
-        localStorage.setItem("daytask_cache",JSON.stringify({day:today,tasks:ret}));
+        localStorage.setItem("daytask_cache_"+userid,JSON.stringify({tasks:ret}));
         console.info(ret);
         init();
     });
-
-})();
+}
 
 function init() {
     getDaily();
@@ -90,3 +92,4 @@ function updateTask(li) {
         console.info(ret);
     });
 }
+
