@@ -1,0 +1,519 @@
+<!-- <html manifest="checkcode.manifest"> -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="RaoMing" />
+    <title>Remote Control - by pharaoh.cnblogs.com</title>
+    <style type="text/css">
+    .zoom {
+        zoom: 1;
+    }
+    
+    #leftDiv {
+        position: fixed;
+        left: 0;
+        top: 10%;
+        z-index: 1000;
+        border: solid 1px rgba(255, 0, 0, 0.18);
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input id="baseUrl" list="url_list" value="192.168.22.18" style="width:95%" />
+        <datalist id="url_list">
+            <option label="小米" value="192.168.22.18"></option>
+            <option label="电视" value="192.168.31.17" />
+            <option label="平板" value="192.168.1.140" />
+            <option label="127.0.0.1" value="127.0.0.1" />
+        </datalist>
+    </div>
+    <div class="zoom">
+        <input id='txtKey' />
+        <button onclick="sendKey();">send key</button>
+        <button onclick="sendsyskey(3)">Home</button>
+        <button onclick="sendsyskey(4)">Back</button>
+        <button onclick="sendsyskey(82)">运行列表</button>
+        <button onclick="swipe(400,5,400,300)">通知</button>
+        <button onclick="swipe(400,500,400,200)">↑</button>
+        <button onclick="swipe(400,200,400,500)">↓</button>
+        <button onclick="swipe(400,500,100,500)">←</button>
+        <button onclick="swipe(100,500,400,500)">→</button>
+        <br />
+        <button onclick="getImg()">刷新图像</button>
+        <button onclick="getCurrentWinClass();">当前窗口Class</button>
+        <br />
+        <div>
+            <span id='mousepoint'></span>
+            <span id='title' onclick='getGameTitle();'>title</span>
+            <span id='result'></span>
+        </div>
+    </div>
+    <div id="leftDiv" style="display:none;" class="zoom">
+        <button onclick='leftdivclick();'>展开</button>
+        <div id="leftbuttondiv" style="display:none;">
+            <button onclick="getImg()">刷新图像</button>
+            
+            <br />
+            <select id="zoomSelect" onchange='zoomChanged();'>
+                <option value="1" q="zoom=1&q=50">1 good</option>
+                <option value="1" q="zoom=1&q=25" selected="selected">1</option>
+                <option value="1.25" q="zoom=1.25&q=25">1.25</option>
+                <option value="1.5" q="zoom=1.5&q=25">1.5</option>
+                <option value="2" q="zoom=2&q=50">2</option>
+            </select>
+            <br />
+            <select id="cmdSelect">
+                <option value="/cmd?cmd=click" loadimg="1">click</option>
+                <option value="/cmd?cmd=dclick" next="0" loadimg="1">dclcik</option>
+                <option value="/cmd?cmd=mousedown" next="1">mousedown</option>
+                <option value="/cmd?cmd=mouseup" loadimg="1">mouseup</option>
+                <optgroup label='热键'>
+                    <option value="/cmd?cmd=tools&id=0">hotkey0</option>
+                    <option value="/cmd?cmd=tools&id=1">hotkey1</option>
+                    <option value="/cmd?cmd=tools&id=2">hotkey2</option>
+                    <option value="/cmd?cmd=tools&id=3">hotkey3</option>
+                    <option value="/cmd?cmd=tools&id=4">hotkey4</option>
+                    <option value="/cmd?cmd=tools&id=shift_rclick">shift_rclick</option>
+                </optgroup>
+                <optgroup label='退出时间'>
+                    <option value="/cmd?cmd=addtime&time=300">5分钟</option>
+                    <option value="/cmd?cmd=addtime&time=600">10分钟</option>
+                    <option value="/cmd?cmd=addtime&time=1200">20分钟</option>
+                    <option value="/cmd?cmd=addtime&time=1800">30分钟</option>
+                    <option value="/cmd?cmd=addtime&time=2400">40分钟</option>
+                    <option value="/cmd?cmd=addtime&time=3600">1小时</option>
+                </optgroup>
+                <optgroup label='键盘'>
+                    <option value="/cmd?cmd=selectall">全选</option>
+                    <option value="/cmd?cmd=paste&time=600">粘贴</option>
+                </optgroup>
+                <optgroup label='开发'>
+                    <option value="/cmd?cmd=mousecontrol">控件信息</option>
+                    <option value="/cmd?cmd=paste&time=600">粘贴</option>
+                </optgroup>
+            </select>
+        </div>
+    </div>
+    <div style="position: relative;">
+        <!-- onerror="alert('加载图像错误');" -->
+        <img id='screenimg' alt="img" onload='imgloadok();' onmousemove='imgmousemove();return false;' oncontextmenu='imgRClick();return false;' onclick='imgClick();' src='' style="border:solid 1px red;" />
+        <div onclick="iconImgDivClick();" id='imgClickIcon' style='position: absolute;z-index: 100;left:100px;top:60px;margin-left:-15px;margin-top: -13px;display:none;'>
+            <img src='http://rmjs.qiniudn.com/game/mouseclick.gif' class="zoom" height="48" width="48" />
+            <span id='clickMsgText' class="zoom" style="position: absolute;z-index: 101;left:0;bottom: 0"></span>
+        </div>
+    </div>
+    <!--     <canvas id="myCanvas" width="800" height="1000"  style="width:800px;height:1000px;"></canvas> -->
+    <div id="colorResult" style="border:1px red solid; width:50px;height:50px;position:fixed;top:0;right:0;"></div>
+    <div id="msgdiv" style="position:fixed;right:2px;top:3px;background-color:rgba(31,255,0,0.44);z-index:100"></div>
+    <div id="msgImg" style="position:fixed;left:2px;bottom:3px;background-color:rgba(31,255,0,0.44);z-index:100">imgload...</div>
+    <script src="servertools.js"></script>
+    <script type="text/javascript">
+    var imgcontext;
+
+    document.getElementById('screenimg').crossOrigin = "anonymous";
+
+    function loadImg(src) {
+        var imageObj = new Image();
+        imageObj.crossOrigin = "Anonymous";
+        imageObj.onload = function() {
+            context.drawImage(imageObj, 0, 0);
+        };
+        imageObj.src = src;
+    }
+
+
+    function getBaseUrl() {
+        return "http://" + document.getElementById('baseUrl').value + ":17701/";
+    }
+
+    function getUrl(url, fn) {
+        var req = new XMLHttpRequest();
+        req.open("GET", url, true);
+        console.debug("getUrl:", url);
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    if (req.responseText.indexOf("error:") == 0) {
+                        alert(req.responseText);
+                    }
+                    if (fn) fn(req.responseText);
+                } else {
+                    console.error("getUrl Error:" + req.status + "\n" + url);
+                }
+            }
+        };
+        req.send(null);
+    }
+
+    //var isMobile='ontouchstart' in window;
+    //if('ontouchstart' in window) { //mobile
+    //     if('ontouchstart' in window) { //mobile
+    //     document.styleSheets[0].rules[0].style.zoom=2;
+    //     //alert('mb');
+    //     window.onresize=function(){
+    //         var deviceWidth = (Math.abs(window.orientation) == 90) ? screen.height : screen.width;
+    //         var zoom = deviceWidth / window.innerWidth;
+    //         document.styleSheets[0].rules[0].style.zoom=2/zoom;
+    //         //alert(2/zoom);
+    //     }
+    // }
+
+    var divmsg = document.getElementById('msgdiv');
+    var divImgMsg = document.getElementById('msgImg');
+    var imgClickIcon = document.getElementById('imgClickIcon');
+    var clickMsgText = document.getElementById('clickMsgText');
+    var imgTimeId = 0;
+    var imgTimeCount = 0;
+    var msgtimeid = 0;
+    var imgGetId = 0;
+
+    var zoomValue = 1;
+
+    function zoomChanged() {
+        zoomValue = parseFloat(document.getElementById('zoomSelect').value);
+        getImg();
+    }
+
+    function imgloadok() {
+
+        divImgMsg.style.display = 'none';
+        var img = document.getElementById("screenimg");
+        if (!imgcontext) {
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            imgcontext = canvas.getContext("2d");
+        }
+        imgcontext.drawImage(img, 0, 0);
+
+        if (imgTimeId) {
+            clearInterval(imgTimeId);
+            imgTimeCount = 0;
+        }
+    }
+
+    function setmsg(msg) {
+        divmsg.innerText = msg;
+        divmsg.style.display = 'block';
+        if (msgtimeid > 0) {
+            clearTimeout(msgtimeid);
+            msgtimeid = 0;
+        }
+        msgtimeid = setTimeout(function() {
+            divmsg.style.display = 'none';
+            msgtimeid = 0;
+        }, 2000);
+
+    }
+
+    function loadUrl(url, fn) {
+        //document.getElementById('result').innerText = url;
+        url = getBaseUrl() + url;
+        getUrl(url, function(d) {
+            document.getElementById('result').innerText = d;
+            if (fn) fn(d);
+        });
+    }
+
+    function reload() {
+        if (confirm("刷新网页?")) {
+            loadUrl("/cmd?cmd=reload");
+        }
+    }
+
+    function CloseWin() {
+        if (confirm("确定要关闭远程窗口?")) {
+            loadUrl("/cmd?cmd=exit&success=0&msg=exitByUser&time=0&r=" + new Date(), function() {
+                setTimeout(function() {
+                    goback();
+                }, 1000);
+            });
+        }
+    }
+
+    function goback() {
+        window.location.href = "/";
+    }
+    getImg();
+
+    function getImg() {
+        divImgMsg.style.display = 'block';
+        if (imgTimeId) {
+            clearInterval(imgTimeId);
+        }
+        imgTimeCount = 0;
+        divImgMsg.innerText = imgTimeCount;
+        imgTimeId = setInterval(function() {
+            imgTimeCount++;
+            divImgMsg.innerText = imgTimeCount;
+        }, 1000);
+
+        //document.getElementById('screenimg').src = "?cmd=getimg&zoom="+zoomValue+"&r=" + (+new Date());
+        var dSelect = document.getElementById('zoomSelect');
+        // getUrl("/cmd/getimg64",function(res){
+        //    document.getElementById('screenimg').src = res; 
+        // });
+        document.getElementById('screenimg').src = getBaseUrl() + "/cmd?cmd=getimg&" + dSelect.options[dSelect.selectedIndex].getAttribute('q') + "&r=" + (+new Date());
+    }
+
+    function hotkey(id) {
+        setmsg('hotkey');
+        //loadUrl("/cmd?cmd=tools&x=0&y=0&id=" + id);
+        sendCmd({
+            cmd: "tools",
+            x: 0,
+            y: 0,
+            id: id
+        });
+    }
+
+    function sendhotkey() {
+        hotkey(document.getElementById('hotkeySelect').value);
+    }
+
+    var colorInfos = {};
+
+    function initColorInfo() {
+        colorInfos.xys = [];
+        colorInfos.color = [];
+    }
+    initColorInfo();
+    function imgClick(e) {
+        var s = document.getElementById('cmdSelect');
+        setmsg(s.options[s.selectedIndex].innerText);
+        var dx = parseInt(window.event.offsetX * zoomValue, 10);
+        var dy = parseInt(window.event.offsetY * zoomValue, 10);
+        //var url = s.value + "&x=" + dx + "&y=" + dy + "&ttemp=" + (+new Date());
+        if (window.event.ctrlKey) {
+            var msg = `click(${dx},${dy},"",5000);`;
+            var txtKey = document.getElementById("txtKey");
+            txtKey.value = msg;
+            txtKey.focus();
+            txtKey.select();
+            document.execCommand("Copy", false, null);
+            console.info("   " + msg + "    ");
+            return;
+        } else if (window.event.altKey || window.event.shiftKey) {
+            var color = getImageColor(dx, dy);
+            console.info(color);
+            color = (color[0] << 16) + (color[1] << 8) + color[2];
+            console.info(dx + "," + dy, color - 16777216);
+            colorInfos.xys.push(dx,dy);
+            colorInfos.color.push(color - 16777216);
+            console.info(`ServerTools.checkColors("${colorInfos.xys.join(',')}", "${colorInfos.color.join(',')}")`)
+            return;
+        }
+
+        var url = s.value + "&x=" + dx + "&y=" + dy;
+
+        loadUrl(url);
+        setImgClickIcon(window.event.offsetX, window.event.offsetY, s.options[s.selectedIndex].innerText);
+
+        var loadimg = s.options[s.selectedIndex].getAttribute('loadimg');
+        if (loadimg) {
+            if (imgGetId) {
+                clearTimeout(imgGetId);
+            }
+            imgGetId = window.setTimeout(getImg, 2000);
+        }
+
+        var next = s.options[s.selectedIndex].getAttribute('next');
+        if (next) {
+            next = parseInt(next, 10);
+            if (next) {
+                s.selectedIndex = s.selectedIndex + next;
+            }
+        } else {
+            if (s.selectedIndex > 0) {
+                s.selectedIndex = 0;
+            }
+        }
+    }
+
+    var tmImgClickIcon = 0;
+    var lastImgClcikX = 0;
+    var lastImgClcikY = 0;
+
+    function iconImgDivClick() {
+        imgClickIcon.style.display = 'none';
+        var s = document.getElementById('cmdSelect');
+        setmsg(s.options[s.selectedIndex].innerText);
+        var dx = parseInt(lastImgClcikX * zoomValue, 10);
+        var dy = parseInt(lastImgClcikY * zoomValue, 10);
+        var url = s.value + "&x=" + dx + "&y=" + dy + "&ttemp=" + (+new Date());
+        loadUrl(url);
+    }
+
+    function setImgClickIcon(x, y, text) {
+        lastImgClcikX = parseInt(x, 10);
+        lastImgClcikY = parseInt(y, 10);
+        imgClickIcon.style.left = parseInt(x, 10) + "px";
+        imgClickIcon.style.top = parseInt(y, 10) + "px";
+        //console.info(text);
+        clickMsgText.innerText = text;
+
+        if (tmImgClickIcon) {
+            clearTimeout(tmImgClickIcon);
+        }
+        tmImgClickIcon = setTimeout(function() {
+            imgClickIcon.style.display = 'none';
+            tmImgClickIcon = 0;
+        }, 1000);
+        imgClickIcon.style.display = 'block';
+    }
+
+
+    function doleftclick(x, y) {
+        x = parseInt(x, 10);
+        y = parseInt(y, 10);
+        //loadUrl("?cmd=click&x=" + x + "&y=" + y + "&r=" + (+new Date()));
+        //loadUrl("/cmd?cmd=click&x=" + x + "&y=" + y);
+        sendCmd({
+            cmd: "click",
+            x: x,
+            y: y
+        });
+    }
+
+
+
+    function imgRClick(e) {
+        setmsg('mousecontrol');
+        if (window.event.ctrlKey) {
+            // loadUrl("/cmd?cmd=mousecontrol&x=" + parseInt(window.event.offsetX * zoomValue, 10) + "&y=" + parseInt(window.event.offsetY * zoomValue, 10));
+            var x = parseInt(window.event.offsetX * zoomValue, 10);
+            var y = parseInt(window.event.offsetY * zoomValue, 10);
+            setmsg(x + "," + y);
+            var msg = `ServerTools.click(${x},${y},"");`;
+            var txtKey = document.getElementById("txtKey");
+            txtKey.value = msg;
+            txtKey.focus();
+            txtKey.select();
+            document.execCommand("Copy", false, null);
+            console.info(`  ServerTools.click(${x},${y},"");  `);
+        } else {
+            setmsg('getimg');
+            getImg();
+        }
+    }
+
+    function sendsyskey(key) {
+        //"input swipe 100 300 100 600"
+        shellcmd("input keyevent " + key);
+        // 3 home
+        // 4 back
+    }
+
+    function shellcmd(cmdtxt) {
+        sendCmd({
+            cmd: "shellcmd",
+            shellcmd: cmdtxt
+        });
+    }
+
+    function swipe(x, y, x1, y1) {
+        shellcmd("input swipe " + x + " " + y + " " + x1 + " " + y1);
+    }
+
+    function sendKey() {
+        sendCmd({
+            cmd: "text",
+            text: document.getElementById('txtKey').value
+        });
+        window.setTimeout(getImg, 1000);
+    }
+    var mousepoint = document.getElementById('mousepoint');
+
+    function imgmousemove(e) {
+        if (window.event.ctrlKey) {
+            mousepoint.innerText = parseInt(window.event.offsetX * zoomValue, 10) + "," + parseInt(window.event.offsetY * zoomValue, 10);
+            return;
+        }
+        var x = parseInt(window.event.offsetX * zoomValue, 10);
+        var y = parseInt(window.event.offsetY * zoomValue, 10);
+        getImageColor(x, y);
+    }
+
+    function getImageColor(x, y) {
+        if (imgcontext) {
+            var canvasColor = imgcontext.getImageData(x, y, 1, 1).data;
+            var r = canvasColor[0];
+            var g = canvasColor[1];
+            var b = canvasColor[2];
+            //console.info(canvasColor);
+            document.getElementById('colorResult').style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+            return [r, g, b];
+        }
+    }
+
+    var txtKey = document.getElementById('txtKey')
+    var lastDownkey = -1;
+    // txtKey.onkeydown = function(e) {
+    //     if (lastDownkey == e.keyCode) return;
+    //     lastDownkey = e.keyCode;
+    //     loadUrl("/cmd?cmd=key&key=" + e.keyCode + "&down=1");
+    //     console.info("down:" + e.keyCode);
+    //     //console.info("down", e.keyCode)
+    // }
+    // txtKey.onkeyup = function(e) {
+    //     lastDownkey = -1;
+    //     lastkeypress = -1;
+    //     loadUrl("?cmd=key&key=" + e.keyCode + "&down=0");
+    //     console.info("up:" + e.keyCode);
+    // }
+    // var lastkeypress = -1;
+    // txtKey.onkeypress = function(e) {
+    //     if (lastkeypress == e.keyCode) return;
+    //     lastkeypress = e.keyCode;
+    //     loadUrl("?cmd=keypress&key=" + e.keyCode);
+    //     console.info("keypress:" + e.keyCode);
+    // }
+
+    function getGameTitle() {
+        getUrl("/cmd?cmd=gettitle&tt=" + (+new Date()), function(ret) {
+            var cmd = JSON.parse(ret);
+            document.getElementById('title').innerText = cmd.ret;
+            document.title = cmd.ret;
+        });
+    }
+
+    // setTimeout(function() {
+    //     getGameTitle();
+    // }, 2000);
+
+    function sendCmd(cmd, fn) {
+        console.warn(cmd);
+        var url = "/cmd?";
+        var q = [];
+        for (var key in cmd) {
+            q.push(key + "=" + encodeURIComponent(cmd[key]));
+        }
+        loadUrl(url + q.join("&"), fn);
+    }
+
+    function leftdivclick() {
+        var d = document.getElementById('leftbuttondiv');
+        if (d.style.display == 'none') {
+            d.style.display = 'block';
+        } else {
+            d.style.display = 'none';
+        }
+    }
+
+    function getCurrentWinClass() {
+        loadUrl("/cmd?cmd=getClassName",function(ret){
+            console.info(ret);
+            ret = JSON.parse(ret);
+            var msg = "$"+ret.PackageName+"$"+ret.ClassName+".js";
+            console.info(msg);
+            document.getElementById('txtKey').value = msg;
+        });
+    }
+
+    </script>
+</body>
+
+</html>
