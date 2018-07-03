@@ -1,0 +1,36 @@
+<!-- <html manifest="checkcode.manifest"> -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="RaoMing" />
+    <title>Remote Control - by pharaoh.cnblogs.com</title>
+    <!-- <meta name="viewport" content="width=device-width" /> -->
+    <meta name="viewport" content="width=1920, initial-scale=1.0, maximum-scale=1.0,target-densitydpi=device-dpi, minimum-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        #imgCountDiv {
+            position: fixed;
+            left: 5px;
+            top: 5px;
+            color: green;
+            z-index: 1000;
+            background-color: white;
+        }
+        body,html {
+            margin:0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+
+<body>
+    <canvas id="imgCanvas" ></canvas>
+    <div id="imgCountDiv"></div>
+
+    <div id="toolbar"></div>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
