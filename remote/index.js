@@ -1,5 +1,5 @@
 var serverip=null;
-var zoom=3;
+var zoom=1;
 var q=20;
 (function(){
     var s = localStorage.getItem("setting");
