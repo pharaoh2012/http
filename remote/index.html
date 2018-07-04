@@ -45,14 +45,13 @@
             margin:0;
             padding: 0;
             width:100%;
-            /* touch-action: none; */
             overflow-y: hidden;
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none; /* Chrome/Safari/Opera */
-            -khtml-user-select: none; /* Konqueror */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currentlynot supported by any browser */            
+            -webkit-touch-callout: none; 
+            -webkit-user-select: none; 
+            -khtml-user-select: none;
+            -moz-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none;   
         }
     </style>
 </head>
@@ -76,11 +75,12 @@
         <button onclick="serverCmd('getip');">获取ip</button>
         <menu>
                 <button onclick="hidetoolbar();">隐藏工具栏</button>
-                <button onclick="location.reload();">刷新</button>            
+                <button onclick="location.reload();">刷新</button>       
+                <button onclick="setting();">配置</button>       
             <button onclick="closeDialog();">关闭</button></menu>
     </dialog>
-    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://alloyteam.github.io/AlloyFinger/alloy_finger.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script src="./js/alloy_finger.js"></script>
     <script src="index.js"></script>
 </body>
 

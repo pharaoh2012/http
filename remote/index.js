@@ -1,6 +1,14 @@
 var serverip=null;
 var zoom=3;
 var q=20;
+(function(){
+    var s = localStorage.getItem("setting");
+    if(s) {
+        s = JSON.parse(s);
+        zoom = s.zoom;
+        q = s.q;
+    }
+})()
 var c=document.getElementById("imgCanvas");
 var ctx=c.getContext("2d");
 var $imgCountDiv = $("#imgCountDiv");
@@ -233,4 +241,19 @@ function showtoolbar() {
 
 function hidetoolbar() {
     $('#toolbar').hide();
+}
+
+function setting() {
+    var zm = prompt("请输入图像比例(1~5):",zoom);
+    if(zm) {
+        zoom = parseInt(zm);
+    }
+    var qq = prompt("请输入图像压缩率(10~100):",q);
+    if(qq) {
+        q = parseInt(qq);
+    }
+    localStorage.setItem("setting",JSON.stringify({
+        zoom:zoom,
+        q:q
+    }));
 }
