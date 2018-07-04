@@ -3,10 +3,12 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="author" content="RaoMing" />
     <title>Remote Control - by pharaoh.cnblogs.com</title>
     <!-- <meta name="viewport" content="width=device-width" /> -->
-    <meta name="viewport" content="width=1920, initial-scale=1.0, maximum-scale=1.0,target-densitydpi=device-dpi, minimum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <style type="text/css">
         #imgCountDiv {
             position: fixed;
@@ -16,9 +18,41 @@
             z-index: 1000;
             background-color: white;
         }
+        #toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            
+            z-index: 1000;
+        }
+        #toolbar1 {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }        
+        #toolbar button {
+            width:20%;
+            font-size: 30px;
+        }
+        #statusDiv {
+            background-color: white;
+            position: fixed;
+            right: 0;
+            top: 0;
+        }
         body,html {
             margin:0;
             padding: 0;
+            width:100%;
+            /* touch-action: none; */
+            overflow-y: hidden;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Chrome/Safari/Opera */
+            -khtml-user-select: none; /* Konqueror */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currentlynot supported by any browser */            
         }
     </style>
 </head>
@@ -27,9 +61,26 @@
 <body>
     <canvas id="imgCanvas" ></canvas>
     <div id="imgCountDiv"></div>
+    <div id="statusDiv"></div>
 
-    <div id="toolbar"></div>
+    <div id="toolbar">
+        <button onclick="loadImage();">刷新</button><button onclick="keyback();">返回</button><button onclick="keyhome();">桌面</button><button onclick="keytask();">任务</button><button onclick="more();">更多</button>
+    </div>
+    <div id="toolbar1">
+        <button onclick="showtoolbar();">显示工具栏</button>
+    </div>    
+    <dialog id="moreButton">
+        <button onclick="serverCmd('screenon');">屏幕开</button>
+        <button onclick="serverCmd('screenoff');">屏幕关</button>
+        <button onclick="serverCmd('autorun');">自动运行</button>
+        <button onclick="serverCmd('getip');">获取ip</button>
+        <menu>
+                <button onclick="hidetoolbar();">隐藏工具栏</button>
+                <button onclick="location.reload();">刷新</button>            
+            <button onclick="closeDialog();">关闭</button></menu>
+    </dialog>
     <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://alloyteam.github.io/AlloyFinger/alloy_finger.js"></script>
     <script src="index.js"></script>
 </body>
 
