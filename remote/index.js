@@ -1,12 +1,17 @@
 var serverip=null;
 var zoom=1;
 var q=20;
+var rightPix = screen.width*window.devicePixelRatio-50;
+var leftPix = 50;
+var bottomPix = screen.height*window.devicePixelRatio-50;
+var topPix = 50;
 (function(){
     var s = localStorage.getItem("setting");
     if(s) {
         s = JSON.parse(s);
         zoom = s.zoom;
         q = s.q;
+        serverip = s.serverip;
     }
 })();
 var c=document.getElementById("imgCanvas");
@@ -17,11 +22,27 @@ var moreButton= document.getElementById('moreButton');
 var imgTimeCount=0;
 var imgTimeId = 0;
 
-$.get("https://wd4728059645djfskw.wilddogio.com/app/ip.json",function(ip){
-    serverip = ip;
-    loadImage();
-    console.info(ip);
-});
+
+function loadserverip() {
+    $.get("https://wd4728059645djfskw.wilddogio.com/app/ip.json",function(ip){
+        serverip = ip;
+        saveSetting();
+        initLoad();
+        console.info(ip);
+    });    
+}
+
+if(!serverip) {
+    loadserverip();
+} else {
+    initLoad();
+}
+
+function initLoad() {
+    sendcmd({cmd:"screenon"},1);
+    //loadImage();
+}
+
 
 function getServerUrl() {
     return "http://"+serverip+":17701/";
@@ -132,8 +153,20 @@ if('ontouchstart' in document.documentElement) {
         //     console.log(evt.deltaX);
         //     console.log(evt.deltaY);
         // },
-        swipe: function (evt) {
-            console.log("swipe" , evt);
+        swipe: function (e) {
+            console.log("swipe" , e);
+            if(e.direction == "Left" && mouseStatus.x>rightPix) {
+                keyback();
+                return;
+            }
+            if(e.direction == "Up" && mouseStatus.y>bottomPix) {
+                keytask();
+                return;
+            }
+            if(e.direction == "Right" && mouseStatus.x>leftPix) {
+                loadImage();
+                return;
+            }            
             swipe(mouseStatus.x,mouseStatus.y,mouseStatus.ex,mouseStatus.ey);
         }
     });
@@ -261,9 +294,14 @@ function setting() {
     if(qq) {
         q = parseInt(qq);
     }
+    saveSetting();
+}
+
+function saveSetting() {
     localStorage.setItem("setting",JSON.stringify({
         zoom:zoom,
-        q:q
+        q:q,
+        serverip:serverip
     }));
 }
 
