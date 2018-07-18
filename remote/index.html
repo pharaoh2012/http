@@ -81,6 +81,10 @@
                 <button onclick="setting();">配置</button>       
             <button onclick="closeDialog();">关闭</button></menu>
     </dialog>
+    <dialog id="confirmDialog">
+        <div id="msgDiv">确定要关机吗？</div>
+        <div><button id="ok" onclick="ok();">确定</button><button id="ok" onclick="document.getElementById('confirmDialog').close();">取消</button></div>
+    </dialog>
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script src="./js/alloy_finger.js"></script>
     <script src="index.js"></script>

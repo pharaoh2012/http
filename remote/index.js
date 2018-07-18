@@ -314,7 +314,13 @@ if(window.AndroidMain) {
 }
 
 function shutdown() {
-    if(confirm("确定要关机吗？")) {
-        xmcmd({cmd:"shellcmd",shellcmd:"reboot -p"});
-    }
+    document.getElementById('confirmDialog').showModal();
+    // if(confirm("确定要关机吗？")) {
+    //     xmcmd({cmd:"shellcmd",shellcmd:"reboot -p"});
+    // }
+}
+
+function ok() {
+    document.getElementById('confirmDialog').close();
+    xmcmd({cmd:"shellcmd",shellcmd:"reboot -p"});
 }
