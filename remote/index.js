@@ -163,7 +163,7 @@ if('ontouchstart' in document.documentElement) {
                 keytask();
                 return;
             }
-            if(e.direction == "Right" && mouseStatus.x>leftPix) {
+            if(e.direction == "Right" && mouseStatus.x<leftPix) {
                 loadImage();
                 return;
             }            
@@ -311,4 +311,10 @@ if(window.AndroidMain) {
     window.AndroidMain = {
         toast:function(msg){ console.info(msg); },
     };
+}
+
+function shutdown() {
+    if(confirm("确定要关机吗？")) {
+        xmcmd({cmd:"shellcmd",shellcmd:"reboot -p"});
+    }
 }
