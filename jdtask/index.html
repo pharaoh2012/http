@@ -36,19 +36,7 @@
     }
     console.info(e);
   },false);
-  var taskInfo = null;
-  (function(){
-    var today = getToday();
-    var jdtask = localStorage.getItem("jdtask");
-    if(jdtask) {
-      jdtask = JSON.parse(jdtask);
-      if(jdtask.date == today) {
-        taskInfo = jdtask;
-      }
-    }
-    if(!taskInfo) taskInfo = initTaskInfo(today);
-    showTaskInfo();
-  })();
+
 
   function showTaskInfo() {
     taskInfo.ids.forEach(function(id){
@@ -102,7 +90,19 @@
   document.getElementById('items').innerHTML = html.join('');
   })();
 
-
+  var taskInfo = null;
+  (function(){
+    var today = getToday();
+    var jdtask = localStorage.getItem("jdtask");
+    if(jdtask) {
+      jdtask = JSON.parse(jdtask);
+      if(jdtask.date == today) {
+        taskInfo = jdtask;
+      }
+    }
+    if(!taskInfo) taskInfo = initTaskInfo(today);
+    showTaskInfo();
+  })();
 
 </script>
 
