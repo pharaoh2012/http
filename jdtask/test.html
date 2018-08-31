@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>京东签到</title>
     <style type="text/css">
-    	body {
-    		font-size: 30px;
+    	body,input {
+    		font-size: 50px;
     	}
     	li {
     		padding: 5px;
@@ -21,60 +21,18 @@
     </style>
   </head>
   <body>
-  	<ul id="items">
-
-</ul>
+  	
+    <input type="number" placeholder="" value="1" id="number" onchange="numberchange();" />
+    <br />
+    <a id="a" href="https://m.jr.jd.com/spe/downloadApp/index.html?id=190&activityid=1" target="_blank">打开__1</a>
 
 <script>
-  document.getElementById("items").addEventListener("click",function(e){
-    if(e.target.tagName==="A") {
-      var a=e.target;
-      a.className = "visited";
-      console.info(a.id);
-      taskInfo.ids.push(a.id);
-      localStorage.setItem("jdtask",JSON.stringify(taskInfo));
-    }
-    console.info(e);
-  },false);
-  var taskInfo = null;
-  (function(){
-    var today = getToday();
-    var jdtask = localStorage.getItem("jdtask");
-    if(jdtask) {
-      jdtask = JSON.parse(jdtask);
-      if(jdtask.date == today) {
-        taskInfo = jdtask;
-      }
-    }
-    if(!taskInfo) taskInfo = initTaskInfo(today);
-    showTaskInfo();
-  })();
-
-  function showTaskInfo() {
-    taskInfo.ids.forEach(function(id){
-      var li = document.getElementById(id);
-      if(li) li.className = "visited";
-    });
-    //localStorage.setItem("jdtask",JSON.stringify(taskInfo));
+  function numberchange() {
+    var a = document.getElementById('a');
+    var n = document.getElementById("number").value;
+    a.href = "https://m.jr.jd.com/spe/downloadApp/index.html?id=190&activityid=" + n;
+    a.innerText = "打开__" + n;
   }
-
-  function getToday() {
-      var now = new Date();
-      var today = now.getFullYear()*10000+ (now.getMonth()+1)*100+now.getDate();
-      return today;
-  }
-
-  function initTaskInfo(today) {
-    return {
-      date:today,
-      ids:[]
-    };
-  }
-  var html = [];
-  for(var i=1;i<500;i++) {
-    html.push('<li><a id="l_',i,'" target="_blank" href="https://m.jr.jd.com/spe/downloadApp/index.html?id=190&activityid=',i,'">京东金融打开_',i,'</a></li>');
-  }
-  document.getElementById('items').innerHTML = html.join('');
 
 
 </script>
