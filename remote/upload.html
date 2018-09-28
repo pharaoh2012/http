@@ -1,0 +1,182 @@
+<!-- <html manifest="checkcode.manifest"> -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="RaoMing" />
+    <title>android运行</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <style type="text/css">
+    body,
+    input,
+    button,
+    select {
+        font-size: 40px;
+    }
+    
+    input,
+    select {
+        width: 98%;
+    }
+    
+    ol {
+        margin-left: 50px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input id="baseUrl" list="url_list" value="127.0.0.1" />
+        <datalist id="url_list">
+            <option label="平板" value="192.168.1.140" />
+            <option label="电视" value="192.168.31.18" />
+            <option label="127.0.0.1" value="127.0.0.1" />
+        </datalist>
+    </div>
+    <div id="drag" style="font-size:20px;padding:100px 0;border:1px dashed #666;text-align:center;color:#bbb;margin-bottom:10px">将文件拖到此处</div>
+    <div id="list2"></div>
+    <script type="text/javascript">
+    function getBaseUrl() {
+        return "http://" + document.getElementById('baseUrl').value + ":17701/";
+    }
+
+    function getUrl(url, fn) {
+        var req = new XMLHttpRequest();
+        req.open("GET", url, true);
+        console.debug("getUrl:", url);
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    if (req.responseText.indexOf("error:") == 0) {
+                        alert(req.responseText);
+                    }
+                    if (fn) fn(req.responseText);
+                } else {
+                    console.error("getUrl Error:" + req.status + "\n" + url);
+                }
+            }
+        };
+        req.send(null);
+    }
+
+    function postUrl(url, data,fn) {
+        var req = new XMLHttpRequest();
+        req.open("POST", url, true);
+        console.debug("getUrl:", url);
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                if (req.status == 200) {
+                    if (req.responseText.indexOf("error:") == 0) {
+                        alert(req.responseText);
+                    }
+                    if (fn) fn(req.responseText);
+                } else {
+                    console.error("getUrl Error:" + req.status + "\n" + url);
+                }
+            }
+        };
+        req.send(data);
+    }
+
+
+
+
+    var divmsg = document.getElementById('msgdiv');
+    var divImgMsg = document.getElementById('msgImg');
+    var imgClickIcon = document.getElementById('imgClickIcon');
+    var clickMsgText = document.getElementById('clickMsgText');
+    var imgTimeId = 0;
+    var imgTimeCount = 0;
+    var msgtimeid = 0;
+    var imgGetId = 0;
+
+    var zoomValue = 1;
+
+
+
+    function setmsg(msg) {
+        divmsg.innerText = msg;
+        divmsg.style.display = 'block';
+        if (msgtimeid > 0) {
+            clearTimeout(msgtimeid);
+            msgtimeid = 0;
+        }
+        msgtimeid = setTimeout(function() {
+            divmsg.style.display = 'none';
+            msgtimeid = 0;
+        }, 2000);
+
+    }
+
+    function loadUrl(url, fn) {
+        //document.getElementById('result').innerText = url;
+        url = getBaseUrl() + url;
+        getUrl(url, function(d) {
+            //document.getElementById('result').innerText = d;
+            if (fn) fn(d);
+        });
+    }
+
+    function sendCmd(cmd, fn) {
+        console.warn(cmd);
+        var url = "/cmd?";
+        var q = [];
+        for (var key in cmd) {
+            q.push(key + "=" + encodeURIComponent(cmd[key]));
+        }
+        loadUrl(url + q.join("&"), fn);
+    }
+
+    function dropHandler(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        var files = e.dataTransfer.files;
+        var html = [];
+        for (var i = 0, len = files.length; i < len; i++) {
+
+            var f = files[i];
+            if (f.name.endsWith(".js")) {
+                console.info(f);
+                var reader = new FileReader();
+                reader.onload = (function(file) {
+                    return function(e) {
+                        console.info(this);
+                        var json = {
+                            "name":file.name,
+                            "content":this.result
+                        };
+                        console.info(json);
+                        var url = getBaseUrl()+"?cmd=uploadjs";
+
+                        postUrl(url,JSON.stringify(json),function(ret){
+                            console.info(ret);
+                        });
+                    };
+                })(f);
+                //读取文件内容
+                reader.readAsText(f);
+
+                html.push(
+                    '<p>',
+                    f.name + ' - ' + f.size + ' bytes',
+                    '</p>'
+                );
+            }
+        }
+        document.getElementById('list2').innerHTML = html.join('');
+    }
+
+    function dragOverHandler(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dragEffect = 'copy';
+    }
+    var drag = document.getElementById('drag');
+    drag.addEventListener('drop', dropHandler, false);
+    drag.addEventListener('dragover', dragOverHandler, false);
+    </script>
+</body>
+
+</html>
