@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html manifest="aqy.manifest">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+var msg;
+db.transaction(function (tx) {
+
+  createdanxuan(tx);
+});
+
+db.transaction(function (tx) {
+  tx.executeSql("select c from danxuan where  c like '%消防安全必须贯彻的方针%'  limit 10", [], dataSelectHandler,errorHandle);
+});
+
+function countresult_danxuan(tx, results)
+{
+	var ct = results.rows.item(0).ct;
+
+	console.info(ct);
+	if(ct==0)
+	{
+console.info('do insert')
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 1 ," 1、《建筑法》规定的安全生产管理方针是（A 安全生产、预防为主）。 "," 1、《jianzhufa》guidingdeanquanshengchanguanlifangzhenshi（A anquanshengchan、yufangweizhu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 2 ," 2、下列对《安全生产法》的适用范围及安全生产的方针与原则说法不正确的是（C 安全生产管理、坚持安全第一、预防为辅的方针）。 "," 2、xialiedui《anquanshengchanfa》deshiyongfanweijianquanshengchandefangzhenyuyuanzeshuofabuzhengquedeshi（C anquanshengchanguanli、jianchianquandiyi、yufangweifudefangzhen）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 3 ," 3、根据我国《安全生产法》的规定，安全设施投入（D 应当纳入建设项目概算）。 "," 3、genjuwoguo《anquanshengchanfa》deguiding，anquansheshitouru（D yingdangnarujianshexiangmugaisuan）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 4 ," 4、《安全生产法》第45条规定，生产经营单位从业人员有权了解其作业场所和工作岗位存在的危险因数、防范措施和事故应急措施。这句话表达了安全生产中从业人员享有（D 知情权）。 "," 4、《anquanshengchanfa》di45tiaoguiding，shengchanjingyingdanweicongyerenyuanyouquanlejieqizuoyechangsuohegongzuogangweicunzaideweixianyinshu、fangfancuoshiheshiguyingjicuoshi。zhejuhuabiaodaleanquanshengchanzhongcongyerenyuanxiangyou（D zhiqingquan）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 5 ," 5、《安全生产法》第46条规定，从业人员有权拒绝违章指挥和强令冒险作业。这句话表达了安全生产中从业人员享有（C 拒绝权 ）。 "," 5、《anquanshengchanfa》di46tiaoguiding，congyerenyuanyouquanjujueweizhangzhihuiheqianglingmaoxianzuoye。zhejuhuabiaodaleanquanshengchanzhongcongyerenyuanxiangyou（C jujuequan ）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 6 ," 6、《安全生产法》规定，生产经营单位应在有较大危险因数的生产经营场所和有关设施、设备上，设置明显的（C 安全警示标志）。 "," 6、《anquanshengchanfa》guiding，shengchanjingyingdanweiyingzaiyoujiaodaweixianyinshudeshengchanjingyingchangsuoheyouguansheshi、shebeishang，shezhimingxiande（C anquanjingshibiaozhi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 7 ," 7、《安全生产法》规定从业人员在安全生产方面的义务包括：从业人员在作业过程中，应当严格遵守本单位的安全生产规章制度和操作规程，服从管理，正确配戴和使用（B 劳动防护用品）。 "," 7、《anquanshengchanfa》guidingcongyerenyuanzaianquanshengchanfangmiandeyiwubaokuo：congyerenyuanzaizuoyeguochengzhong，yingdangyangezunshoubendanweideanquanshengchanguizhangzhiduhecaozuoguicheng，fucongguanli，zhengquepeidaiheshiyong（B laodongfanghuyongpin）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 8 ," 8、建筑企业安全生产管理不善，发生多起违反《安全生产法》的规定，造成安全事故，受到查处，企业负责人没有依照《安全生产法》规定保证安全资金投入，但尚不够刑事处罚，对其给予的处分是（B  撤职）；构成犯罪的，被追究刑事责任，刑法执行完毕之日期，不得担任单位主要负责人的时限是（D  5年内）；对从业人员进行安全教育培训而被责令限期整改，责令其停产停业整顿并罚款，其限额是（C  2万元以下）。 "," 8、jianzhuqiyeanquanshengchanguanlibushan，fashengduoqiweifan《anquanshengchanfa》deguiding，zaochenganquanshigu，shoudaochachu，qiyefuzerenmeiyouyizhao《anquanshengchanfa》guidingbaozhenganquanzijintouru，danshangbugouxingshichufa，duiqigeiyudechufenshi（B  chezhi）；gouchengfanzuide，beizhuijiuxingshizeren，xingfazhixingwanbizhiriqi，budedanrendanweizhuyaofuzerendeshixianshi（D  5niannei）；duicongyerenyuanjinxinganquanjiaoyupeixunerbeizelingxianqizhenggai，zelingqitingchantingyezhengdunbingfakuan，qixianeshi（C  2wanyuanyixia）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 9 ," 9、我国对《安全生产法》规定，未为从业人员提供符合国标行标劳动防护用品的，责令停止建设或停产停业整顿，并处罚款限额是（B  5万元以下）。 "," 9、woguodui《anquanshengchanfa》guiding，weiweicongyerenyuantigongfuheguobiaoxingbiaolaodongfanghuyongpinde，zelingtingzhijianshehuotingchantingyezhengdun，bingchufakuanxianeshi（B  5wanyuanyixia）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 10 ," 10、《建设工程安全生产管理条例》规定，施工现场暂时停工的，（C 施工单位）应当作好现场防护，所需费用由（C 责任方）承担。 "," 10、《jianshegongchenganquanshengchanguanlitiaoli》guiding，shigongxianchangzanshitinggongde，（C shigongdanwei）yingdangzuohaoxianchangfanghu，suoxufeiyongyou（C zerenfang）chengdan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 11 ," 11、《建设工程安全生产管理条例》规定，施工单位对因建设工程施工可能造成的损害毗临建筑物、构筑物和地下管道应当采取（A 专项防护）。 "," 11、《jianshegongchenganquanshengchanguanlitiaoli》guiding，shigongdanweiduiyinjianshegongchengshigongkenengzaochengdesunhaipilinjianzhuwu、gouzhuwuhedixiaguandaoyingdangcaiqu（A zhuanxiangfanghu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 12 ," 12、《建设工程安全生产管理条例》规定，施工单位采购的施工机具及配件，应当具有（D 生产许可证和产品合格证）。 "," 12、《jianshegongchenganquanshengchanguanlitiaoli》guiding，shigongdanweicaigoudeshigongjijujipeijian，yingdangjuyou（D shengchanxukezhenghechanpinhegezheng）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 13 ," 13、根据我国《建设工程安全生产管理条例》规定，（A 安全生产责任制）是建筑生产中最基本的安全管理制度，是所有安全规章制度的核心。 "," 13、genjuwoguo《jianshegongchenganquanshengchanguanlitiaoli》guiding，（A anquanshengchanzerenzhi）shijianzhushengchanzhongzuijibendeanquanguanlizhidu，shisuoyouanquanguizhangzhidudehexin。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 14 ," 14、《建设工程安全生产管理条例》规定，依法批准开工报告的建设工程，建设单位应当自开工报告批准之日起（C 15）日内，将其保证安全施工的措施报送工程所在地县级以上政府行政主管部门或有关部门备案。 "," 14、《jianshegongchenganquanshengchanguanlitiaoli》guiding，yifapizhunkaigongbaogaodejianshegongcheng，jianshedanweiyingdangzikaigongbaogaopizhunzhiriqi（C 15）rinei，jiangqibaozhenganquanshigongdecuoshibaosonggongchengsuozaidixianjiyishangzhengfuxingzhengzhuguanbumenhuoyouguanbumenbeian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 15 ," 15、《建设工程安全生产管理条例》规定，建设单位应在拆除工程施工（C  15）日前，将资料报送备案。 "," 15、《jianshegongchenganquanshengchanguanlitiaoli》guiding，jianshedanweiyingzaichaichugongchengshigong（C  15）riqian，jiangziliaobaosongbeian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 16 ," 16、根据《建设工程安全生产管理条例》规定，属于施工单位安全责任的是（B 编制安全技术措施及专项施工方案）。 "," 16、genju《jianshegongchenganquanshengchanguanlitiaoli》guiding，shuyushigongdanweianquanzerendeshi（B bianzhianquanjizhucuoshijizhuanxiangshigongfangan）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 17 ," 17、《建设工程安全生产管理条例》规定，对于达到一定规模的危险性较大的分部分项工程，施工单位应编制（C 专项施工方案）；并附具（B  安全验算结果）。 "," 17、《jianshegongchenganquanshengchanguanlitiaoli》guiding，duiyudadaoyidingguimodeweixianxingjiaodadefenbufenxianggongcheng，shigongdanweiyingbianzhi（C zhuanxiangshigongfangan）；bingfuju（B  anquanyansuanjieguo）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 18 ," 18、根据《建设工程安全生产管理条例》规定，由施工单位对达到一定规模的危险较大的分部分项工程编制的专项施工方案，实施前应当由（D 施工单位技术负责人、总监理工程师签字）。 "," 18、genju《jianshegongchenganquanshengchanguanlitiaoli》guiding，youshigongdanweiduidadaoyidingguimodeweixianjiaodadefenbufenxianggongchengbianzhidezhuanxiangshigongfangan，shishiqianyingdangyou（D shigongdanweijizhufuzeren、zongjianligongchengshiqianzi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 19 ," 19、（C 《建设工程安全生产管理条例》）的颁布实施，标志着安全生产成为我国现阶段建筑业工作的重点，安全生产制度被确立为促进我国建筑业发展的一项根本制度。 "," 19、（C 《jianshegongchenganquanshengchanguanlitiaoli》）debanbushishi，biaozhizhaoanquanshengchanchengweiwoguoxianjieduanjianzhuyegongzuodezhongdian，anquanshengchanzhidubeiqueliweicujinwoguojianzhuyefazhandeyixianggenbenzhidu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 20 ," 20、根据《建设工程安全生产管理条例》规定，建设单位在编制（A 工程预算）时，应当确定建设工程安全作业环境及安全施工措施所需费用。 "," 20、genju《jianshegongchenganquanshengchanguanlitiaoli》guiding，jianshedanweizaibianzhi（A gongchengyusuan）shi，yingdangquedingjianshegongchenganquanzuoyehuanjingjianquanshigongcuoshisuoxufeiyong。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 21 ," 21、根据《建设工程安全生产管理条例》，意外伤害险期限自（D 建设工程开工之日起至竣工验收合格）止。 "," 21、genju《jianshegongchenganquanshengchanguanlitiaoli》，yiwaishanghaixianqixianzi（D jianshegongchengkaigongzhiriqizhijungongyanshouhege）zhi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 22 ," 22、根据《安全生产管理条例》，发生安全事故后，施工单位应采取措施（B 防止事故扩大、保护事故现场）。 "," 22、genju《anquanshengchanguanlitiaoli》，fashenganquanshiguhou，shigongdanweiyingcaiqucuoshi（B fangzhishigukuoda、baohushiguxianchang）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 23 ," 23、根据《安管条例》安全警示标志必须符合（A 国家标准）。 "," 23、genju《anguantiaoli》anquanjingshibiaozhibixufuhe（A guojiabiaozhun）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 24 ," 24、根据《安管条例》，施工现场临时搭建的建筑物应符合（D  安全使用要求）。 "," 24、genju《anguantiaoli》，shigongxianchanglinshidajiandejianzhuwuyingfuhe（D  anquanshiyongyaoqiu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 25 ," 25、未取得安全生产许可证进行施工，责令停产、没收违法所得，罚款限额（C 10万元以上50万元以下）。 "," 25、weiqudeanquanshengchanxukezhengjinxingshigong，zelingtingchan、meishouweifasuode，fakuanxiane（C 10wanyuanyishang50wanyuanyixia）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 26 ," 26、施工单位的项目负责人应当取得相应（C 执业资格）的人员担任。 "," 26、shigongdanweidexiangmufuzerenyingdangqudexiangying（C zhiyezige）derenyuandanren。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 27 ," 27、根据《安全生产许规定可证条例》，国家对建筑施工企业实施（A 安全生产许可）制度。 "," 27、genju《anquanshengchanxuguidingkezhengtiaoli》，guojiaduijianzhushigongqiyeshishi（A anquanshengchanxuke）zhidu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 28 ," 28、生产经营单位应当对（C 重大危险源）应当登记建档，定期检测、评估、监控。 "," 28、shengchanjingyingdanweiyingdangdui（C zhongdaweixianyuan）yingdangdengjijiandang，dingqijiance、pinggu、jiankong。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 29 ," 29、建筑施工企业安全生产许可证被吊销后，自吊销决定之日起（A 一年）内不得重新申请安全生产许可证。 "," 29、jianzhushigongqiyeanquanshengchanxukezhengbeidiaoxiaohou，zidiaoxiaojuedingzhiriqi（A yinian）neibudezhongxinshenqinganquanshengchanxukezheng。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 30 ," 20、安全生产许可证的有效期为（B  3）年。需要延期的应当于期满前（A  3）个月办理延期手续。 "," 20、anquanshengchanxukezhengdeyouxiaoqiwei（B  3）nian。xuyaoyanqideyingdangyuqimanqian（A  3）geyuebanliyanqishouxu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 31 ," 21、企业在安全生产许可证有效期内，严格遵守有关安全生产的法律法规，未发生死亡事故的，安全生产许可证有效期届满时，经原安全生产许可证颁发管理机关同意，不再审查，产许可证有效期延期（C 3）年。 "," 21、qiyezaianquanshengchanxukezhengyouxiaoqinei，yangezunshouyouguananquanshengchandefalvfagui，weifashengsiwangshigude，anquanshengchanxukezhengyouxiaoqijiemanshi，jingyuananquanshengchanxukezhengbanfaguanlijiguantongyi，buzaishencha，chanxukezhengyouxiaoqiyanqi（C 3）nian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 32 ," 22、建筑施工企业取得安全生产许可证后，不再具备安全生产条件，建设行政主管部门将给予（D 暂扣或吊销安全生产许可证）。 "," 22、jianzhushigongqiyequdeanquanshengchanxukezhenghou，buzaijubeianquanshengchantiaojian，jianshexingzhengzhuguanbumenjianggeiyu（D zankouhuodiaoxiaoanquanshengchanxukezheng）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 33 ," 23、安全生产许可证有效期满未办理延期继续生产的，责令停产、限期补办、没收违法所得，并处（B 5万以上10万以下）罚款。 "," 23、anquanshengchanxukezhengyouxiaoqimanweibanliyanqijixushengchande，zelingtingchan、xianqibuban、meishouweifasuode，bingchu（B 5wanyishang10wanyixia）fakuan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 34 ," 24、企业发生一般生产安全事故的暂扣安全生产许可证并（A 限期整改）。 "," 24、qiyefashengyibanshengchananquanshigudezankouanquanshengchanxukezhengbing（A xianqizhenggai）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 35 ," 25、《环境噪声污染防治法》所指“夜间”指（A 晚上12点至次日晨6点）。 "," 25、《huanjingzaoshengwuranfangzhifa》suozhi“yejian”zhi（A wanshang12dianzhicirichen6dian）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 36 ," 26、以下不属于安全检查的形式的是（C 常规安全检查）。不是常规检查的方法的是（C 敲）。 "," 26、yixiabushuyuanquanjianchadexingshideshi（C changguianquanjiancha）。bushichangguijianchadefangfadeshi（C qiao）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 37 ," 27、工地标准化评价检查程序中，施工单位在房屋建筑工程主体施工阶段应进行自检的是（B 高大摸板工程混泥土浇注后拆摸前）。施工单位在市政基础设施工程中应进行自检的阶段是（D 工程即将全部投入使用时）。 "," 27、gongdibiaozhunhuapingjiajianchachengxuzhong，shigongdanweizaifangwujianzhugongchengzhutishigongjieduanyingjinxingzijiandeshi（B gaodamobangongchenghunnitujiaozhuhouchaimoqian）。shigongdanweizaishizhengjichusheshigongchengzhongyingjinxingzijiandejieduanshi（D gongchengjijiangquanbutourushiyongshi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 38 ," 28、建设行政主管部门及安监机构对工地标准化的落实情况抽查次数规定错误的是（C 高层每个月至少1次）。 "," 28、jianshexingzhengzhuguanbumenjianjianjigouduigongdibiaozhunhuadeluoshiqingkuangchouchacishuguidingcuowudeshi（C gaocengmeigeyuezhishao1ci）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 39 ," 29、工地标准化综合评价为不合格的情况是（B 凡发生了一般及一般以上建筑生产安全事故的）。 "," 29、gongdibiaozhunhuazonghepingjiaweibuhegedeqingkuangshi（B fanfashengleyibanjiyibanyishangjianzhushengchananquanshigude）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 40 ," 30、国务院493号令《生产安全事故报告和调查处理条例》规定，10人以上30人以下死亡，50人以上100人以下重伤，5000万元以上1亿元以下直接经济损失事故属于（B 重大事故）。 "," 30、guowuyuan493haoling《shengchananquanshigubaogaohediaochachulitiaoli》guiding，10renyishang30renyixiasiwang，50renyishang100renyixiazhongshang，5000wanyuanyishang1yiyuanyixiazhijiejingjisunshishigushuyu（B zhongdashigu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 41 ," 31、对事故发生单位主要负责人、直接负责的主管人员和其他直接责任人处上一年年收入的60%至100%的罚款的是（C  转移、隐藏资金、财产、或者销毁有关证据、资料的）。 "," 31、duishigufashengdanweizhuyaofuzeren、zhijiefuzedezhuguanrenyuanheqitazhijiezerenrenchushangyiniannianshourude60%zhi100%defakuandeshi（C  zhuanyi、yincangzijin、caichan、huozhexiaohuiyouguanzhengju、ziliaode）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 42 ," 32、发生重伤或死亡事故，在调查组未到前，现场派专人看护现场，（D 任何人）不得擅自移动和取走物件。 "," 32、fashengzhongshanghuosiwangshigu，zaidiaochazuweidaoqian，xianchangpaizhuanrenkanhuxianchang，（D renheren）budeshanziyidonghequzouwujian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 43 ," 33、可能导致重大事故发生的（B 危险源）就是重大危险源。 "," 33、kenengdaozhizhongdashigufashengde（B weixianyuan）jiushizhongdaweixianyuan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 44 ," 34、建筑物高度超过（C 30）米时，施工现场必须配备足够的消防水源和自救所用的水量。 "," 34、jianzhuwugaoduchaoguo（C 30）mishi，shigongxianchangbixupeibeizugoudexiaofangshuiyuanhezijiusuoyongdeshuiliang。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 45 ," 35事故发生后，现场有关人员应当（A 立即）向本单位负责人报告。单位负责人接报后，应当于（B 1）小时内向事故发生地安监部门报告。 "," 35shigufashenghou，xianchangyouguanrenyuanyingdang（A liji）xiangbendanweifuzerenbaogao。danweifuzerenjiebaohou，yingdangyu（B 1）xiaoshineixiangshigufashengdianjianbumenbaogao。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 46 ," 36、自事故发生之日起（D 30日）内，事故造成的伤亡人数发生变化的，应补报。 "," 36、zishigufashengzhiriqi（D 30ri）nei，shiguzaochengdeshangwangrenshufashengbianhuade，yingbubao。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 47 ," 37、事故发生单位主要负责人在事故调查处理期间擅离职守的，处上一年年收入（C  40%）至80%的罚款。 "," 37、shigufashengdanweizhuyaofuzerenzaishigudiaochachuliqijianshanlizhishoude，chushangyiniannianshouru（C  40%）zhi80%defakuan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 48 ," 38、事故发生单位及其有关人员（D 伪造或者故意破坏事故现场的），对事故单位处100万以上500万元以下的罚款。伪造或者故意破坏事故现场对主要负责人、直接负责的主管和直接责任人处（D 60%-100%）罚款。 "," 38、shigufashengdanweijiqiyouguanrenyuan（D weizaohuozheguyipohuaishiguxianchangde），duishigudanweichu100wanyishang500wanyuanyixiadefakuan。weizaohuozheguyipohuaishiguxianchangduizhuyaofuzeren、zhijiefuzedezhuguanhezhijiezerenrenchu（D 60%-100%）fakuan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 49 ," 39、事故发生单位转移、隐藏资金、财产、或者销毁有关证据、资料的，对事故单位处（A 100万-500万元）的罚款。 事故的直接责任者是指（A 与事故有必然因果关系的人）。 "," 39、shigufashengdanweizhuanyi、yincangzijin、caichan、huozhexiaohuiyouguanzhengju、ziliaode，duishigudanweichu（A 100wan-500wanyuan）defakuan。 shigudezhijiezerenzheshizhi（A yushiguyoubiranyinguoguanxideren）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 50 ," 40、生产经营单位使用涉及生命安全、危险性较大的特种设备，必须按照国家规定，由专业生产单位生产，（A 专业检测机构检测合格，取得安全标志），方可投入使用。 "," 40、shengchanjingyingdanweishiyongshejishengminganquan、weixianxingjiaodadetezhongshebei，bixuanzhaoguojiaguiding，youzhuanyeshengchandanweishengchan，（A zhuanyejiancejigoujiancehege，qudeanquanbiaozhi），fangketourushiyong。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 51 ," 41、（B 群防群治制度）是职工群众进行预防和治理安全的一种制度。施工单位与建设单位签定合同后，将其中部分工程分包的，现场安全生产由（B 施工单位）负总责。 "," 41、（B qunfangqunzhizhidu）shizhigongqunzhongjinxingyufanghezhilianquandeyizhongzhidu。shigongdanweiyujianshedanweiqiandinghetonghou，jiangqizhongbufengongchengfenbaode，xianchanganquanshengchanyou（B shigongdanwei）fuzongze。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 52 ," 42、下列关于专职安全生产管理机构的职责说法错误的是（D 依法处理安全隐患报告）。 "," 42、xialieguanyuzhuanzhianquanshengchanguanlijigoudezhizeshuofacuowudeshi（D yifachulianquanyinhuanbaogao）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 53 ," 43、下列关于施工单位安全生产责任制度说法正确的是（A 施工单位主要负责人是指施工单位法定代表人）。 "," 43、xialieguanyushigongdanweianquanshengchanzerenzhidushuofazhengquedeshi（A shigongdanweizhuyaofuzerenshizhishigongdanweifadingdaibiaoren）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 54 ," 44、三级安全教育中，项目教育时间应不少于（B 15）小时。安全教育主要内容包括安全知识教育、安全技术教育和（C 安全思想教育）三个方面。 "," 44、sanjianquanjiaoyuzhong，xiangmujiaoyushijianyingbushaoyu（B 15）xiaoshi。anquanjiaoyuzhuyaoneirongbaokuoanquanzhishijiaoyu、anquanjizhujiaoyuhe（C anquansixiangjiaoyu）sangefangmian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 55 ," 45、以下选项中不属于施工现场安全管理工作的保证项目的是（C 特种作业持证上岗）。 "," 45、yixiaxuanxiangzhongbushuyushigongxianchanganquanguanligongzuodebaozhengxiangmudeshi（C tezhongzuoyechizhengshanggang）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 56 ," 46、以下选项中不属于伤亡事故控制目标的是（B 杜绝伤亡事故）。 "," 46、yixiaxuanxiangzhongbushuyushangwangshigukongzhimubiaodeshi（B dujueshangwangshigu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 57 ," 47、施工项目编制施工组织中的安全技术措施的根据不包括以下（D 施工部位）。 "," 47、shigongxiangmubianzhishigongzuzhizhongdeanquanjizhucuoshidegenjububaokuoyixia（D shigongbuwei）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 58 ," 48、工人要认真执行（D 安全技术交底），不违章作业，服从安全人员的指挥。 "," 48、gongrenyaorenzhenzhixing（D anquanjizhujiaodi），buweizhangzuoye，fuconganquanrenyuandezhihui。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 59 ," 49、施工现场每个房间住宿人员不得超过（B 10人）。 "," 49、shigongxianchangmeigefangjianzhusurenyuanbudechaoguo（B 10ren）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 60 ," 50、下列关于施工现场食堂的叙述，不正确的一项是（A 食堂应在通风、干燥、清洁的位置，离厕所、垃圾站有害场所等污染源25M以外）。 "," 50、xialieguanyushigongxianchangshitangdexushu，buzhengquedeyixiangshi（A shitangyingzaitongfeng、ganzao、qingjideweizhi，licesuo、lajizhanyouhaichangsuodengwuranyuan25Myiwai）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 61 ," 51、安全文明施工措施费不包含以下（D 规费）。施工单位挪用费用的，处挪用费用的（A 20%-60%）罚款。 "," 51、anquanwenmingshigongcuoshifeibubaohanyixia（D guifei）。shigongdanweinuoyongfeiyongde，chunuoyongfeiyongde（A 20%-60%）fakuan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 62 ," 生产单位的主要负责人和安全生产管理人员必须具备与本单位所从事的生产经营活动相适应的（B 安全知识）和管理能力。 "," shengchandanweidezhuyaofuzerenheanquanshengchanguanlirenyuanbixujubeiyubendanweisuocongshideshengchanjingyinghuodongxiangshiyingde（B anquanzhishi）heguanlinengli。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 63 ," 52、施工单位应在现场建立消防制度，确定（D 消防责任人）。 "," 52、shigongdanweiyingzaixianchangjianlixiaofangzhidu，queding（D xiaofangzerenren）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 64 ," 53、（A 班组长）每天对班组工人进行施工要求，作业环境的交底。 "," 53、（A banzuchang）meitianduibanzugongrenjinxingshigongyaoqiu，zuoyehuanjingdejiaodi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 65 ," 54、工作场所的设备、工具用具等设施应（B 符合保护劳动者生理、心理健康的要求）。 "," 54、gongzuochangsuodeshebei、gongjuyongjudengsheshiying（B fuhebaohulaodongzheshengli、xinlijiankangdeyaoqiu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 66 ," 55、生产经营单位应当向从业人员如实告知作业场所和工作岗位存在的（A 危险因数）。 "," 55、shengchanjingyingdanweiyingdangxiangcongyerenyuanrushigaozhizuoyechangsuohegongzuogangweicunzaide（A weixianyinshu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 67 ," 56、在建筑生产中最基本的安全管理制度是（A 安全生产责任制度）。 "," 56、zaijianzhushengchanzhongzuijibendeanquanguanlizhidushi（A anquanshengchanzerenzhidu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 68 ," 57、（B 事故隐患）泛指生产系统中可导致事故发生的人的不安全行为，物的不安全状态和管理上缺陷。 "," 57、（B shiguyinhuan）fanzhishengchanxitongzhongkedaozhishigufashengderendebuanquanxingwei，wudebuanquanzhuangtaiheguanlishangquexian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 69 ," 58、（D 安全责任心）是安全生产的灵魂。为了加强安全管理，防止事故，生产单位必须配备（B 安全理员）。 "," 58、（D anquanzerenxin）shianquanshengchandelinghun。weilejiaqianganquanguanli，fangzhishigu，shengchandanweibixupeibei（B anquanliyuan）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 70 ," 59、（D 安全第一）任何工作的首要位置。生产经营单位安全管理机构专门负责（D 安全生产监督与管理）。 "," 59、（D anquandiyi）renhegongzuodeshouyaoweizhi。shengchanjingyingdanweianquanguanlijigouzhuanmenfuze（D anquanshengchanjianduyuguanli）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 71 ," 60、建设工程安全生产的特点以下哪个选项描述最为准确（A 单一性、分散性、露天施工、参与方多）。 "," 60、jianshegongchenganquanshengchandetedianyixianagexuanxiangmiaoshuzuiweizhunque（A danyixing、fensanxing、lutianshigong、canyufangduo）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 72 ," 61、企业法人代表、项目经理教育培训时间每年不少于（B 30学时）。 "," 61、qiyefarendaibiao、xiangmujinglijiaoyupeixunshijianmeinianbushaoyu（B 30xueshi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 73 ," 62、安全生产管理的根本目的是（D 保证生产经营活动中的人身安全，财产安全，促进经济发展）。 "," 62、anquanshengchanguanlidegenbenmudeshi（D baozhengshengchanjingyinghuodongzhongderenshenanquan，caichananquan，cujinjingjifazhan）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 74 ," 63、关于施工技术交底，下面说法正确的是（A 施工单位负责项目管理的技术人员向施工作业人员的交底）。 "," 63、guanyushigongjizhujiaodi，xiamianshuofazhengquedeshi（A shigongdanweifuzexiangmuguanlidejizhurenyuanxiangshigongzuoyerenyuandejiaodi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 75 ," 64、涉及深基坑、地下暗挖、高大摸板工程的专项施工方案，施工单位还应当（B 组织专家进行论证、审查）。 "," 64、shejishenjikeng、dixiaanwa、gaodamobangongchengdezhuanxiangshigongfangan，shigongdanweihuanyingdang（B zuzhizhuanjiajinxinglunzheng、shencha）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 76 ," 65、安全生产管理人员负责对安全生产进行现场监督检查，发现事故隐患应及时向（D 项目负责人和安全生产管理机构）报告。 "," 65、anquanshengchanguanlirenyuanfuzeduianquanshengchanjinxingxianchangjiandujiancha，faxianshiguyinhuanyingjishixiang（D xiangmufuzerenheanquanshengchanguanlijigou）baogao。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 77 ," 66、特种操作证，每（C 2年）复审一次。离开岗位达（B 1年）以上的特种人员应从新进行实际操作考核。 "," 66、tezhongcaozuozheng，mei（C 2nian）fushenyici。likaigangweida（B 1nian）yishangdetezhongrenyuanyingcongxinjinxingshijicaozuokaohe。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 78 ," 67、作业人员在管道和污水井内作业所采取的措施的论述，哪项最准确？（D 作业前应对有害气体进行检测和排放，向管道和井道内输入新鲜空气，保持通风良好）。 "," 67、zuoyerenyuanzaiguandaohewushuijingneizuoyesuocaiqudecuoshidelunshu，naxiangzuizhunque？（D zuoyeqianyingduiyouhaiqitijinxingjiancehepaifang，xiangguandaohejingdaoneishuruxinxiankongqi，baochitongfenglianghao）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 79 ," 68、人工开挖土方，两人横向间距不得小于（B 2）m。槽、坑、沟边1.2m外堆土高度不得超过（C 1.5）m。 "," 68、rengongkaiwatufang，liangrenhengxiangjianjubudexiaoyu（B 2）m。cao、keng、goubian1.2mwaiduitugaodubudechaoguo（C 1.5）m。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 80 ," 69、凡在坠落基准面（A  2）m以上有可能坠落的高处进行的作业为高处作业。专家组成员不少于（5）名。 "," 69、fanzaizhuiluojizhunmian（A  2）myishangyoukenengzhuiluodegaochujinxingdezuoyeweigaochuzuoye。zhuanjiazuchengyuanbushaoyu（5）ming。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 81 ," 70、编制施工组织设计时，应当根据（A 建筑工程的特点）制定相应的安全技术措施。 "," 70、bianzhishigongzuzhishejishi，yingdanggenju（A jianzhugongchengdetedian）zhidingxiangyingdeanquanjizhucuoshi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 82 ," 71、（C 建设行政主管部门）负责建筑安全生产的监督管理。 "," 71、（C jianshexingzhengzhuguanbumen）fuzejianzhuanquanshengchandejianduguanli。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 83 ," 72、建筑施工企业在编制施工组织设计时，对专业性较强的工程项目，（D 应当编制专项安全施工组织设计，并采取安全技术措施）。 "," 72、jianzhushigongqiyezaibianzhishigongzuzhishejishi，duizhuanyexingjiaoqiangdegongchengxiangmu，（D yingdangbianzhizhuanxianganquanshigongzuzhisheji，bingcaiquanquanjizhucuoshi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 84 ," 73、生产经营单位进行爆破、吊装等危险作业，应当安排（A 专人）进行现场安全管理，确保安全措施落实 "," 73、shengchanjingyingdanweijinxingbaopo、diaozhuangdengweixianzuoye，yingdanganpai（A zhuanren）jinxingxianchanganquanguanli，quebaoanquancuoshiluoshi " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 85 ," 74、从业人员在作业过程中，应当严格遵守本单位的安全生产规章制度和操作规程，服从管理，正确佩戴和使用（B 劳动防护用品）。 "," 74、congyerenyuanzaizuoyeguochengzhong，yingdangyangezunshoubendanweideanquanshengchanguizhangzhiduhecaozuoguicheng，fucongguanli，zhengquepeidaiheshiyong（B laodongfanghuyongpin）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 86 ," 75、特种作业证需延期或复审的，应当于期满前（1 个月内）向发证机关申请办理。 "," 75、tezhongzuoyezhengxuyanqihuofushende，yingdangyuqimanqian（1 geyuenei）xiangfazhengjiguanshenqingbanli。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 87 ," 76、钢筋切断机切断料时，手和切刀之间的距离应保持在（A  150mm）以上。 "," 76、gangjinqieduanjiqieduanliaoshi，shouheqiedaozhijiandejuliyingbaochizai（A  150mm）yishang。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 88 ," 77、机械设备可能产生噪声环境污染的应当与于工程开工（C  15天）以前办理相关手续。 "," 77、jixieshebeikenengchanshengzaoshenghuanjingwurandeyingdangyuyugongchengkaigong（C  15tian）yiqianbanlixiangguanshouxu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 89 ," 78、（A 安全生产责任制）是生产经营单位各项安全生产规章制度的核心。 "," 78、（A anquanshengchanzerenzhi）shishengchanjingyingdanweigexianganquanshengchanguizhangzhidudehexin。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 90 ," 79、施工单位采购、租赁的安全防护用具、机械设备、施工机具及配件，应在进入施工现场前进行（C 查验） "," 79、shigongdanweicaigou、zurendeanquanfanghuyongju、jixieshebei、shigongjijujipeijian，yingzaijinrushigongxianchangqianjinxing（C chayan） " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 91 ," 80、施工企业发生轻、重伤事故由（D 企业）组织调查处理。专职安全员的配备要求为特级、一级、二级要求（C  6、4、3）人。 "," 80、shigongqiyefashengqing、zhongshangshiguyou（D qiye）zuzhidiaochachuli。zhuanzhianquanyuandepeibeiyaoqiuweiteji、yiji、erjiyaoqiu（C  6、4、3）ren。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 92 ," 81、现场出入口、起重机械、临电、脚手架、四口五临边、坑边、爆破物等危险部位设置（D 安全警示标志） "," 81、xianchangchurukou、qizhongjixie、lindian、jiaoshoujia、sikouwulinbian、kengbian、baopowudengweixianbuweishezhi（D anquanjingshibiaozhi） " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 93 ," 82、电器灭火时不能采用哪种灭火器（B 泡沫灭火器）。上下交叉作业应采取（A 隔离防护）。 "," 82、dianqimiehuoshibunengcaiyongnazhongmiehuoqi（B paomomiehuoqi）。shangxiajiaochazuoyeyingcaiqu（A gelifanghu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 94 ," 83、临边作业时操作人员的（C 重心）应位于室内，不得在窗台上站立，必要时要系好安全带。 "," 83、linbianzuoyeshicaozuorenyuande（C zhongxin）yingweiyushinei，budezaichuangtaishangzhanli，biyaoshiyaoxihaoanquandai。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 95 ," 84、生产单位的主要（C 负责人和安全生产管理人员）必须具备与本单位所从事的生产经营活动相应的安全生产知识和管理能力。 "," 84、shengchandanweidezhuyao（C fuzerenheanquanshengchanguanlirenyuan）bixujubeiyubendanweisuocongshideshengchanjingyinghuodongxiangyingdeanquanshengchanzhishiheguanlinengli。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 96 ," 85、生产经营单位必须为从业人员提供符合国家标准或者行业标准的（B 劳动防护用品），并监督按规定使用。 "," 85、shengchanjingyingdanweibixuweicongyerenyuantigongfuheguojiabiaozhunhuozhexingyebiaozhunde（B laodongfanghuyongpin），bingjianduanguidingshiyong。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 97 ," 86、（C 用人单位）必须依法参加工伤社会保险。施工建设主体结构工程由（B 总包）单位完成。 "," 86、（C yongrendanwei）bixuyifacanjiagongshangshehuibaoxian。shigongjianshezhutijiegougongchengyou（B zongbao）danweiwancheng。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 98 ," 87、施工现场临时建筑应当符合安全使用要求，使用装配式活动房屋应当具有（D 产品合格证）。 "," 87、shigongxianchanglinshijianzhuyingdangfuheanquanshiyongyaoqiu，shiyongzhuangpeishihuodongfangwuyingdangjuyou（D chanpinhegezheng）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 99 ," 88、未经消防机构审核的或审核不合格的消防设计建设工程，不得给予（C 施工许可证）。 "," 88、weijingxiaofangjigoushenhedehuoshenhebuhegedexiaofangshejijianshegongcheng，budegeiyu（C shigongxukezheng）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 100 ," 89、在脚手架主节点处必须设置一根横向水平杆（小横杆），用直角扣件扣紧，且严禁拆除，这是因为（D 横向水平杆是承受竖向荷载的重要受力杆件，又是保证脚手架整体刚度不可缺少的杆件）。 "," 89、zaijiaoshoujiazhujiedianchubixushezhiyigenhengxiangshuipinggan（xiaohenggan），yongzhijiaokoujiankoujin，qieyanjinchaichu，zheshiyinwei（D hengxiangshuipingganshichengshoushuxianghezaidezhongyaoshouliganjian，youshibaozhengjiaoshoujiazhengtigangdubukequeshaodeganjian）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 101 ," 90、当脚手板采用竹笆板时，纵向水平杆应满足以下要求（A 等间距设置，最大间距不大于400mm）。 "," 90、dangjiaoshoubancaiyongzhubabanshi，zongxiangshuipingganyingmanzuyixiayaoqiu（A dengjianjushezhi，zuidajianjubudayu400mm）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 102 ," 91、脚手板搭接铺设时，接头必须在横向水平杆上，搭接长度和伸出横向水平杆的长度应分别为（A 大于200mm和不小于100mm）。 "," 91、jiaoshoubandajiepusheshi，jietoubixuzaihengxiangshuipingganshang，dajiechangduheshenchuhengxiangshuipinggandechangduyingfenbiewei（A dayu200mmhebuxiaoyu100mm）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 103 ," 92、脚手架底层步距不应大于（A 2m）。 "," 92、jiaoshoujiadicengbujubuyingdayu（A 2m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 104 ," 93、双排脚手架搭设高度为48M，步距H=1.5M，跨距la=1.8m,其最大竖向间距和最大水平间距还应大于（C 竖向4.5M，水平5.4M）。 "," 93、shuangpaijiaoshoujiadashegaoduwei48M，bujuH=1.5M，kuajula=1.8m,qizuidashuxiangjianjuhezuidashuipingjianjuhuanyingdayu（C shuxiang4.5M，shuiping5.4M）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 105 ," 94、连墙件应靠近主节点设置,是为了(D 保证对脚手架发生横向整体失衡的约束作用)。 "," 94、lianqiangjianyingkaojinzhujiedianshezhi,shiweile(D baozhengduijiaoshoujiafashenghengxiangzhengtishihengdeyueshuzuoyong)。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 106 ," 95、对于悬挑式脚手架，说法不正确的是（D 多层悬挑脚手架作业层以下每隔10M应设一道水平安全网，或满铺一层脚手板）。 "," 95、duiyuxuantiaoshijiaoshoujia，shuofabuzhengquedeshi（D duocengxuantiaojiaoshoujiazuoyecengyixiameige10Myingsheyidaoshuipinganquanwang，huomanpuyicengjiaoshouban）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 107 ," 96、门式钢管脚手架剪刀撑设置的基本规定不正确的是（C 尖刀撑斜杆采用搭接时，搭接长度不少800mm）。 "," 96、menshigangguanjiaoshoujiajiandaochengshezhidejibenguidingbuzhengquedeshi（C jiandaochengxiegancaiyongdajieshi，dajiechangdubushao800mm）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 108 ," 97、附着式升降脚手架在施工现场反复使用，要求有足够的安全保障，所以必须对使用和生产单位实行（A 认证）制度。 "," 97、fuzhaoshishengjiangjiaoshoujiazaishigongxianchangfanfushiyong，yaoqiuyouzugoudeanquanbaozhang，suoyibixuduishiyongheshengchandanweishixing（A renzheng）zhidu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 109 ," 98、施工现场的脚手架、防护设施、安全警告标志牌需拆动的要经工地（B 施工负责人）同意。 "," 98、shigongxianchangdejiaoshoujia、fanghusheshi、anquanjinggaobiaozhipaixuchaidongdeyaojinggongdi（B shigongfuzeren）tongyi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 110 ," 99、按吊篮尺寸安装在架体基础面上，且当吊篮以额定荷载和规定的速度作用到其上时，应能承受相应的冲击力的装置是（C 缓冲装置）。 "," 99、andiaolanchicunanzhuangzaijiatijichumianshang，qiedangdiaolanyiedinghezaiheguidingdesuduzuoyongdaoqishangshi，yingnengchengshouxiangyingdechongjilidezhuangzhishi（C huanchongzhuangzhi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 111 ," 100、电动吊篮作业人员的安全带必须挂在（C 保险绳上）。 扣件拧紧力矩应为（A 40-65N.m）。 "," 100、diandongdiaolanzuoyerenyuandeanquandaibixuguazai（C baoxianshengshang）。 koujianningjinlijuyingwei（A 40-65N.m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 112 ," 101、单排脚手架的横向水平杆设置应满足（A 一端用直角扣件固定在纵向水平杆上，另一端插入墙内，插入深度不小于180mm）的要求。 "," 101、danpaijiaoshoujiadehengxiangshuipingganshezhiyingmanzu（A yiduanyongzhijiaokoujiangudingzaizongxiangshuipingganshang，lingyiduancharuqiangnei，charushendubuxiaoyu180mm）deyaoqiu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 113 ," 102、脚手架作业层的脚手架铺设规定为（C 应铺满、铺稳、离开墙面不超过120-150mm）。 "," 102、jiaoshoujiazuoyecengdejiaoshoujiapusheguidingwei（C yingpuman、puwen、likaiqiangmianbuchaoguo120-150mm）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 114 ," 103、连墙件设置要求是（B 应靠近主节点，偏离主节点的距离不应大于300mm）。 "," 103、lianqiangjianshezhiyaoqiushi（B yingkaojinzhujiedian，pianlizhujiediandejulibuyingdayu300mm）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 115 ," 104、高度24m以上的双排脚手架连墙件构造规定为（D 必须采用刚性连墙件与建筑物可靠连接）。 "," 104、gaodu24myishangdeshuangpaijiaoshoujialianqiangjiangouzaoguidingwei（D bixucaiyonggangxinglianqiangjianyujianzhuwukekaolianjie）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 116 ," 105、剪刀撑的设置宽度（A 不应小于4跨，且不应小于6m）。 "," 105、jiandaochengdeshezhikuandu（A buyingxiaoyu4kua，qiebuyingxiaoyu6m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 117 ," 106、剪刀撑斜杆用旋转扣件固定在与其相交的横向水平杆伸出端或立杆上，旋转扣件中心线至主节点的距离不应（A 大于150mm）。 "," 106、jiandaochengxieganyongxuanzhuankoujiangudingzaiyuqixiangjiaodehengxiangshuipingganshenchuduanhuoliganshang，xuanzhuankoujianzhongxinxianzhizhujiediandejulibuying（A dayu150mm）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 118 ," 107、施工现场搭设的运料斜道的宽度和坡度的规定是（B 不宜小于1.5m和宜采用1:6）。人行斜道（C 1m、1:3）. "," 107、shigongxianchangdashedeyunliaoxiedaodekuanduhepodudeguidingshi（B buyixiaoyu1.5mheyicaiyong1:6）。renxingxiedao（C 1m、1:3）. " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 119 ," 108、纵向水平杆（大横杆）的对接扣件应符合下列规定（A 应交错布置，两根相邻杆的接头，在不同步或不同跨的水平方向错开的距离应不小于500mm，各接头中心距最近的主节点的距离不大于纵向的1/3）。 "," 108、zongxiangshuipinggan（dahenggan）deduijiekoujianyingfuhexialieguiding（A yingjiaocuobuzhi，lianggenxianglingandejietou，zaibutongbuhuobutongkuadeshuipingfangxiangcuokaidejuliyingbuxiaoyu500mm，gejietouzhongxinjuzuijindezhujiediandejulibudayuzongxiangde1/3）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 120 ," 109、高度在24m以下的单、双排脚手架，均必须在外侧立面设剪刀撑，其规定为（A 两端各设一道，并从底到顶连续设置，中间每道剪刀撑净距不应大于15m）。 "," 109、gaoduzai24myixiadedan、shuangpaijiaoshoujia，junbixuzaiwaicelimianshejiandaocheng，qiguidingwei（A liangduangesheyidao，bingcongdidaodinglianxushezhi，zhongjianmeidaojiandaochengjingjubuyingdayu15m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 121 ," 110、移动式操作平台的面积不应超过（D 10㎡）。  移动操作平台的次梁间距不应大于（B 40cm）。 "," 110、yidongshicaozuopingtaidemianjibuyingchaoguo（D 10㎡）。  yidongcaozuopingtaideciliangjianjubuyingdayu（B 40cm）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 122 ," 111、钢平台安装时钢丝绳应采用挂钩挂牢，采取其他方式时绳卡不到得少于（C 3）个 。 "," 111、gangpingtaianzhuangshigangsishengyingcaiyongguagougualao，caiquqitafangshishishengqiabudaodeshaoyu（C 3）ge 。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 123 ," 112、建筑工程外脚手架外侧采用的全封闭立网，其网目密度不应低于（D 2000目/100c㎡）。 "," 112、jianzhugongchengwaijiaoshoujiawaicecaiyongdequanfengbiliwang，qiwangmumidubuyingdiyu（D 2000mu/100c㎡）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 124 ," 113、悬挑式钢平台的搁支点与上部拉结点，必须位于（B 建筑物）上。 "," 113、xuantiaoshigangpingtaidegezhidianyushangbulajiedian，bixuweiyu（B jianzhuwu）shang。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 125 ," 114、采用扣件式钢管脚手架作模板支架时，立柱底部必须设置纵横向扫地杆，纵向扫地杆距离底座的限制高度为（A 200mm）。剪刀撑斜杆与地面的倾角宜（B 在45°-60°之间）。 "," 114、caiyongkoujianshigangguanjiaoshoujiazuomobanzhijiashi，lizhudibubixushezhizonghengxiangsaodigan，zongxiangsaodiganjulidizuodexianzhigaoduwei（A 200mm）。jiandaochengxieganyudimiandeqingjiaoyi（B zai45°-60°zhijian）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 126 ," 115、脚手架立杆底座底面标高应高于自然地坪（C 50 mm）。拆除安全防护设施时,必须经（施工负责人）同意。 "," 115、jiaoshoujialigandizuodimianbiaogaoyinggaoyuzirandiping（C 50 mm）。chaichuanquanfanghusheshishi,bixujing（shigongfuzeren）tongyi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 127 ," 116、坡度大于1：2.2的屋面，防护栏杆应设置（D 1.5m）。 板式悬挑钢平台不得选用（A 钢管）。 "," 116、podudayu1：2.2dewumian，fanghulanganyingshezhi（D 1.5m）。 banshixuantiaogangpingtaibudexuanyong（A gangguan）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 128 ," 117、高度大于6米的脚手架必须使用（B 之字型）斜道作为人员上下通道。 "," 117、gaodudayu6midejiaoshoujiabixushiyong（B zhizixing）xiedaozuoweirenyuanshangxiatongdao。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 129 ," 118、单排脚手架不适用于以下范围（D 空斗墙、加气块墙等轻质墙体）。 "," 118、danpaijiaoshoujiabushiyongyuyixiafanwei（D kongdouqiang、jiaqikuaiqiangdengqingzhiqiangti）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 130 ," 119、钢管锈烛程度（C 超过0.5mm）时，达到报废标准。 "," 119、gangguanxiuzhuchengdu（C chaoguo0.5mm）shi，dadaobaofeibiaozhun。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 131 ," 120、一字型、开口型、双排脚手架的两端以及高度在24m以上的封闭式脚手架两端及中间，每隔（D 6）跨必须设置剪刀撑。 作业层脚手板与建筑物墙体缝隙超过（C 120mm）时，必须用安全网封严，防止人和物坠落。 "," 120、yizixing、kaikouxing、shuangpaijiaoshoujiadeliangduanyijigaoduzai24myishangdefengbishijiaoshoujialiangduanjizhongjian，meige（D 6）kuabixushezhijiandaocheng。 zuoyecengjiaoshoubanyujianzhuwuqiangtifengxichaoguo（C 120mm）shi，bixuyonganquanwangfengyan，fangzhirenhewuzhuiluo。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 132 ," 121、施工单位自施工起重机械和整体提升脚手架、模板自升式架设设施验收合格之日起30日内，应当（向建设行政主管部门或其他有关部门登记）。 "," 121、shigongdanweizishigongqizhongjixiehezhengtitishengjiaoshoujia、mobanzishengshijiashesheshiyanshouhegezhiriqi30rinei，yingdang（xiangjianshexingzhengzhuguanbumenhuoqitayouguanbumendengji）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 133 ," 122、模板安装完毕后，应当由（项目负责人）组织有关人员按专项方案验收合格才能投入施工作业。 "," 122、mobananzhuangwanbihou，yingdangyou（xiangmufuzeren）zuzhiyouguanrenyuananzhuanxiangfanganyanshouhegecainengtourushigongzuoye。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 134 ," 123、土石方开挖时，应根据土壤的土质等情况按规定（放坡）。 高空（2m以上）危险作业无防护必须系安全带。 "," 123、tushifangkaiwashi，yinggenjuturangdetuzhidengqingkuanganguiding（fangpo）。 gaokong（2myishang）weixianzuoyewufanghubixuxianquandai。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 135 ," 124、关于安全带的说法不正确的是（高处作业使用的安全带绳长限定在1.5-2.2m，如需接长，必须按规定加设缓冲器）。       安全带腰带和吊绳的破断力不低于（1500N） "," 124、guanyuanquandaideshuofabuzhengquedeshi（gaochuzuoyeshiyongdeanquandaishengchangxiandingzai1.5-2.2m，ruxujiechang，bixuanguidingjiashehuanchongqi）。       anquandaiyaodaihediaoshengdepoduanlibudiyu（1500N） " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 136 ," 125、通道口防护棚的材料一般采用5cm厚的木板或相当于5cm厚木板的其他材料，防护棚的宽度应大于通道口宽度（1m）以上。 "," 125、tongdaokoufanghupengdecailiaoyibancaiyong5cmhoudemubanhuoxiangdangyu5cmhoumubandeqitacailiao，fanghupengdekuanduyingdayutongdaokoukuandu（1m）yishang。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 137 ," 126、外用电梯楼层卸料平台防护门的高度应（不低于1.2米）。 "," 126、waiyongdiantiloucengxieliaopingtaifanghumendegaoduying（budiyu1.2mi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 138 ," 127、关于四口防护要求不正确的是（电梯井口必须设高度不低于1.2m的金属防护门，防护门下部应设置不低于0.18m的挡脚板）。 "," 127、guanyusikoufanghuyaoqiubuzhengquedeshi（diantijingkoubixushegaodubudiyu1.2mdejinshufanghumen，fanghumenxiabuyingshezhibudiyu0.18mdedangjiaoban）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 139 ," 128、关于预留洞口的防护，以下说法不正确的是（边长在120cm以上的洞口及临边，四周设防护栏杆，并设180cm的挡脚板）。 "," 128、guanyuyuliudongkoudefanghu，yixiashuofabuzhengquedeshi（bianchangzai120cmyishangdedongkoujilinbian，sizhoushefanghulangan，bingshe180cmdedangjiaoban）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 140 ," 129、模板及其支架在安装过程中，必须设置（能有效防倾覆的临时固定设施）。 "," 129、mobanjiqizhijiazaianzhuangguochengzhong，bixushezhi（nengyouxiaofangqingfudelinshigudingsheshi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 141 ," 130、钢模板部件拆除后，临时堆放处与楼层边沿的距离不应小于（1m）。 "," 130、gangmobanbujianchaichuhou，linshiduifangchuyuloucengbianyandejulibuyingxiaoyu（1m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 142 ," 131、安全帽应能承受5kg钢锤自（1m）高处自由坠落的冲击。塑料安全帽使用年限（2.5）年。 "," 131、anquanmaoyingnengchengshou5kggangchuizi（1m）gaochuziyouzhuiluodechongji。suliaoanquanmaoshiyongnianxian（2.5）nian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 143 ," 132、脚手架应高处作业面（1.5）米。 梯脚底部应坚实，不得垫高使用，立梯工作角以（70°±5°）为宜。 "," 132、jiaoshoujiayinggaochuzuoyemian（1.5）mi。 tijiaodibuyingjianshi，budediangaoshiyong，litigongzuojiaoyi（70°±5°）weiyi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 144 ," 133、安装管道时必须依附已完结构或操作平台为立足点，严禁安装在其他管道上（站立和行走）。 "," 133、anzhuangguandaoshibixuyifuyiwanjiegouhuocaozuopingtaiweilizudian，yanjinanzhuangzaiqitaguandaoshang（zhanlihexingzou）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 145 ," 134、拆除（承重）模板时，为避免突然整块塌落，必要时应先设置临时支撑，然后进行拆除。 "," 134、chaichu（chengzhong）mobanshi，weibimianturanzhengkuaitaluo，biyaoshiyingxianshezhilinshizhicheng，ranhoujinxingchaichu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 146 ," 135、高处作业的安全防护实施应做到（定型化）、工具化。  模板拆除前，应确认混泥土（拆除强度）已达要求。 "," 135、gaochuzuoyedeanquanfanghushishiyingzuodao（dingxinghua）、gongjuhua。  mobanchaichuqian，yingquerenhunnitu（chaichuqiangdu）yidayaoqiu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 147 ," 136、以下不属于施工用电组织设计内容的是（进行路线计算）。 "," 136、yixiabushuyushigongyongdianzuzhishejineirongdeshi（jinxingluxianjisuan）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 148 ," 137、根据《施工现场临时用电安全技术规范》JGJ46-2005，保护接零线的截面积要求不正确的是（相线截面积16m㎡＜S≤35 m㎡时，PE线截面积≥16 m㎡）。 "," 137、genju《shigongxianchanglinshiyongdiananquanjizhuguifan》JGJ46-2005，baohujielingxiandejiemianjiyaoqiubuzhengquedeshi（xiangxianjiemianji16m㎡＜S≤35 m㎡shi，PExianjiemianji≥16 m㎡）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 149 ," 138、人工挖孔桩空下照明必须使用（24伏以下）安全电压照明。 "," 138、rengongwakongzhuangkongxiazhaomingbixushiyong（24fuyixia）anquandianyazhaoming。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 150 ," 139、根据《施工现场临时用电安全技术规范》JGJ46-2005，关于PE线说法不正确的是（PE线与手持工具连接时，必须采用不小于1.8mm2的铜芯软线）。 "," 139、genju《shigongxianchanglinshiyongdiananquanjizhuguifan》JGJ46-2005，guanyuPExianshuofabuzhengquedeshi（PExianyushouchigongjulianjieshi，bixucaiyongbuxiaoyu1.8mm2detongxinruanxian）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 151 ," 140、关于分配电箱、开关箱设置不正确的是（移动式分配电箱、开关箱的中心点与地面的垂直距离宜为1.2-1.6m） "," 140、guanyufenpeidianxiang、kaiguanxiangshezhibuzhengquedeshi（yidongshifenpeidianxiang、kaiguanxiangdezhongxindianyudimiandechuizhijuliyiwei1.2-1.6m） " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 152 ," 141、以下不是常用安全电压的是（30伏）。  室内固定式灯具的安装高度应为（≥2.5m）。 "," 141、yixiabushichangyonganquandianyadeshi（30fu）。  shineigudingshidengjudeanzhuanggaoduyingwei（≥2.5m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 153 ," 142、保护零线除必须在配电室和总配电箱处作重复接地外，还应按规定作重复接地，重复接地电阻不得大于（10欧姆）。  施工现场开挖非热管道沟时，沟槽边缘与外电埋地缆沟槽边缘之间的距离不得小于（0.5）米。 "," 142、baohulingxianchubixuzaipeidianshihezongpeidianxiangchuzuozhongfujiediwai，huanyinganguidingzuozhongfujiedi，zhongfujiedidianzubudedayu（10oumu）。  shigongxianchangkaiwafeireguandaogoushi，goucaobianyuanyuwaidianmaidilangoucaobianyuanzhijiandejulibudexiaoyu（0.5）mi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 154 ," 143、施工现场临时用电规定：漏电保护器应在三级配电二级保护系统中怎样设置才符合要求（总配电箱和开关箱）。 "," 143、shigongxianchanglinshiyongdianguiding：loudianbaohuqiyingzaisanjipeidianerjibaohuxitongzhongzenyangshezhicaifuheyaoqiu（zongpeidianxianghekaiguanxiang）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 155 ," 144、施工现场用电设备在（5台以上或设备总量50KW）时，必须编制施工用电组织设计方案。 "," 144、shigongxianchangyongdianshebeizai（5taiyishanghuoshebeizongliang50KW）shi，bixubianzhishigongyongdianzuzhishejifangan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 156 ," 145、末级开关箱必须实行（一机一闸一漏一箱）规定。  基本供电系统应按（三级）设置。 "," 145、mojikaiguanxiangbixushixing（yijiyizhayilouyixiang）guiding。  jibengongdianxitongyingan（sanji）shezhi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 157 ," 146、施工现场专用的，电源中性点直接接地的220V/380V三相四线制用电工程中，必须采用的接地保护形式是（TN-S）。  连接用电设备外露可导电部分的PE线可采用（绝缘铜线）。 PE线重复接地点应不少于（三处）。 "," 146、shigongxianchangzhuanyongde，dianyuanzhongxingdianzhijiejiedide220V/380Vsanxiangsixianzhiyongdiangongchengzhong，bixucaiyongdejiedibaohuxingshishi（TN-S）。  lianjieyongdianshebeiwailukedaodianbufendePExiankecaiyong（jueyuantongxian）。 PExianzhongfujiedidianyingbushaoyu（sanchu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 158 ," 147、用电系统中，PE线的绝缘色应是（黄绿双色线）。   N线的绝缘色应是（淡蓝色）。 "," 147、yongdianxitongzhong，PExiandejueyuanseyingshi（huanglvshuangsexian）。   Nxiandejueyuanseyingshi（danlanse）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 159 ," 148、现场配电母线和架空配电线路中，标志L1(A)\ L2(B)\ L3(C)三相相序的绝缘色应是（黄、绿、红）。 "," 148、xianchangpeidianmuxianhejiakongpeidianxianluzhong，biaozhiL1(A)\ L2(B)\ L3(C)sanxiangxiangxudejueyuanseyingshi（huang、lv、hong）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 160 ," 149、在建工程周边与10KV外电架空线路边之间的最小安全操作距离应是（6m）。架空线交叉时最小垂直距离（6m） "," 149、zaijiangongchengzhoubianyu10KVwaidianjiakongxianlubianzhijiandezuixiaoanquancaozuojuliyingshi（6m）。jiakongxianjiaochashizuixiaochuizhijuli（6m） " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 161 ," 150、对搁置已久重新使用和连续使用（1个月）的漏电保护器，应认真检查及时修理更换。 "," 150、duigezhiyijiuzhongxinshiyonghelianxushiyong（1geyue）deloudianbaohuqi，yingrenzhenjianchajishixiuligenghuan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 162 ," 151、铁质配电箱体铁板厚度为不小于（1.5mm）。  配电室内的裸母线与地面的相对高度应不小于（0.9m）。 "," 151、tiezhipeidianxiangtitiebanhouduweibuxiaoyu（1.5mm）。  peidianshineideluomuxianyudimiandexiangduigaoduyingbuxiaoyu（0.9m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 163 ," 152、移动式配电箱、开关箱中心点与地面的相对高度可为（0.9m）。  分配电箱与开关箱的距离不得超过（30m）。 "," 152、yidongshipeidianxiang、kaiguanxiangzhongxindianyudimiandexiangduigaodukewei（0.9m）。  fenpeidianxiangyukaiguanxiangdejulibudechaoguo（30m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 164 ," 153、开关箱与用电设备的水平距离不宜超过（3m）。 "," 153、kaiguanxiangyuyongdianshebeideshuipingjulibuyichaoguo（3m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 165 ," 154、一般场所开关箱中漏电保护器，其额定漏电动作电流为（≤30mA）。  漏电动作时间（≤0.1s）。 "," 154、yibanchangsuokaiguanxiangzhongloudianbaohuqi，qiedingloudiandongzuodianliuwei（≤30mA）。  loudiandongzuoshijian（≤0.1s）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 166 ," 155、室内明匍主干线的距地高度不得小于（2.5m）。 "," 155、shineimingpuzhuganxiandejudigaodubudexiaoyu（2.5m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 167 ," 156、变电室要求做到五防：防火、防水、防漏、防雪（防小动物），一通是：保持通风良好。 "," 156、biandianshiyaoqiuzuodaowufang：fanghuo、fangshui、fanglou、fangxue（fangxiaodongwu），yitongshi：baochitongfenglianghao。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 168 ," 157、以下不属于物料提升机的安全装置的是（防滑装置）。 "," 157、yixiabushuyuwuliaotishengjideanquanzhuangzhideshi（fanghuazhuangzhi）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 169 ," 158、物料提升机的附墙架可采用（钢管）与架体及建筑物连接。 "," 158、wuliaotishengjidefuqiangjiakecaiyong（gangguan）yujiatijijianzhuwulianjie。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 170 ," 159、物料提升机附墙架的设置应符合设计要求，其间隔一般不宜大于（9m），且在建筑物的顶层必须设置1组。 "," 159、wuliaotishengjifuqiangjiadeshezhiyingfuheshejiyaoqiu，qijiangeyibanbuyidayu（9m），qiezaijianzhuwudedingcengbixushezhi1zu。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 171 ," 160、低架物料提升机缆风绳必须使用直径不小于（9.3mm）钢丝绳，其安全系数K=3.5。 "," 160、dijiawuliaotishengjilanfengshengbixushiyongzhijingbuxiaoyu（9.3mm）gangsisheng，qianquanxishuK=3.5。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 172 ," 161、物料提升机安装摇臂把杆时，把杆与水平面夹角应在（45°-70°）之间，转向时不得碰到缆风绳。 "," 161、wuliaotishengjianzhuangyaobibaganshi，baganyushuipingmianjiajiaoyingzai（45°-70°）zhijian，zhuanxiangshibudepengdaolanfengsheng。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 173 ," 162、以下不属于物料提升机须重新进行检验的情况的是（正常工作半年，继续使用前）。 "," 162、yixiabushuyuwuliaotishengjixuzhongxinjinxingjianyandeqingkuangdeshi（zhengchanggongzuobannian，jixushiyongqian）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 174 ," 163、施工升降机是一种使用工作笼沿（导轨架）作垂直（或倾斜）运动来运送人员和物料的机械。 "," 163、shigongshengjiangjishiyizhongshiyonggongzuolongyan（daoguijia）zuochuizhi（huoqingxie）yundonglaiyunsongrenyuanhewuliaodejixie。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 175 ," 164、施工升降机吊笼内空净高度不得小于（2m）。  低架物料提升机提升高度小于（30m）。 "," 164、shigongshengjiangjidiaolongneikongjinggaodubudexiaoyu（2m）。  dijiawuliaotishengjitishenggaoduxiaoyu（30m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 176 ," 165、以下不属于施工升降机的安全开关的是（防滑开关）。升降机安装完毕验收合格后，（30日）内办理使用证。 "," 165、yixiabushuyushigongshengjiangjideanquankaiguandeshi（fanghuakaiguan）。shengjiangjianzhuangwanbiyanshouhegehou，（30ri）neibanlishiyongzheng。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 177 ," 166、人货两用施工升降机提升吊笼钢丝绳的安全系数不得小于（12）。 "," 166、renhuoliangyongshigongshengjiangjitishengdiaolonggangsishengdeanquanxishubudexiaoyu（12）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 178 ," 167、高架物料提升机的提升高度一般为（31-150m）。    严禁使用（钢管扣件）搭设物料提升机。 "," 167、gaojiawuliaotishengjidetishenggaoduyibanwei（31-150m）。    yanjinshiyong（gangguankoujian）dashewuliaotishengji。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 179 ," 168、下列对重力力矩限制器主要作业的叙述正确的是（防止塔机超载）。 "," 168、xialieduizhonglilijuxianzhiqizhuyaozuoyedexushuzhengquedeshi（fangzhitajichaozai）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 180 ," 169、对小车变幅的塔式起重机，起重力矩限制器应分别由（起重量和幅度）进行控制。 "," 169、duixiaochebianfudetashiqizhongji，qizhonglijuxianzhiqiyingfenbieyou（qizhonglianghefudu）jinxingkongzhi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 181 ," 170、对动臂变幅的塔式起重机，当吊钩装置顶部升至起重臂下端的最小距离为800mm处时，（起升高度限位器）应动作，使起升运动立即停止。 "," 170、duidongbibianfudetashiqizhongji，dangdiaogouzhuangzhidingbushengzhiqizhongbixiaduandezuixiaojuliwei800mmchushi，（qishenggaoduxianweiqi）yingdongzuo，shiqishengyundonglijitingzhi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 182 ," 171、塔吊吊钩报废不包括以下（危险断面磨损达原尺寸的5%）情况。 "," 171、tadiaodiaogoubaofeibubaokuoyixia（weixianduanmianmosundayuanchicunde5%）qingkuang。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 183 ," 172、（小车行程限位器）设于起重臂两端，用来切断小车牵引机构的电路，防止小车越位。 "," 172、（xiaochexingchengxianweiqi）sheyuqizhongbiliangduan，yonglaiqieduanxiaocheqianyinjigoudedianlu，fangzhixiaocheyuewei。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 184 ," 173、（钢丝绳防脱槽装置）能够防止钢丝绳在传动过程中脱离滑轮槽而造成钢丝绳卡死和损伤。 "," 173、（gangsishengfangtuocaozhuangzhi）nenggoufangzhigangsishengzaichuandongguochengzhongtuolihualuncaoerzaochenggangsishengqiasihesunshang。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 185 ," 174、（吊钩保险）是防止起吊钢丝绳由于角度过大或挂钩不妥时，造成起吊钢丝绳脱钩的安全装置。 "," 174、（diaogoubaoxian）shifangzhiqidiaogangsishengyouyujiaoduguodahuoguagoubutuoshi，zaochengqidiaogangsishengtuogoudeanquanzhuangzhi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 186 ," 175、以下关于塔吊接地线的要求不正确的是（接地电阻不小于6欧姆）。 "," 175、yixiaguanyutadiaojiedixiandeyaoqiubuzhengquedeshi（jiedidianzubuxiaoyu6oumu）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 187 ," 176、多塔作业时，处于高位的塔机（吊钩升至最高点）与低位塔机的垂直距离在任何情况下不得小于（2 m）。 "," 176、duotazuoyeshi，chuyugaoweidetaji（diaogoushengzhizuigaodian）yudiweitajidechuizhijulizairenheqingkuangxiabudexiaoyu（2 m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 188 ," 177、塔式起重机拆装工艺由（企业技术负责人）审定。   拆装作业必须在（白天）进行。 "," 177、tashiqizhongjichaizhuanggongyiyou（qiyejizhufuzeren）shending。   chaizhuangzuoyebixuzai（baitian）jinxing。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 189 ," 178、使用滑轮的直径，通常不得小于钢丝绳直径的（16）倍。  塔吊接地线（体）的最小截面为（≥150mm2）。 "," 178、shiyonghualundezhijing，tongchangbudexiaoyugangsishengzhijingde（16）bei。  tadiaojiedixian（ti）dezuixiaojiemianwei（≥150mm2）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 190 ," 179、对小车变幅的塔机，起重力矩限制器应分别由（起重量和幅度）进行控制。 "," 179、duixiaochebianfudetaji，qizhonglijuxianzhiqiyingfenbieyou（qizhonglianghefudu）jinxingkongzhi。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 191 ," 180、当塔吊的起重力矩大于相应工况额定值的（110%）时，应切断上升和幅度增大方向的电源。 "," 180、dangtadiaodeqizhonglijudayuxiangyinggongkuangedingzhide（110%）shi，yingqieduanshangshenghefuduzengdafangxiangdedianyuan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 192 ," 181、塔机附着装置以上的塔身自由高度一般不得超过（40m）。 "," 181、tajifuzhaozhuangzhiyishangdetashenziyougaoduyibanbudechaoguo（40m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 193 ," 182、内爬式固定升塔机的固定间隔不得小于（3）个楼层。     塔机报废时间为（12）年。 "," 182、neipashigudingshengtajidegudingjiangebudexiaoyu（3）gelouceng。     tajibaofeishijianwei（12）nian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 194 ," 183、钢丝绳在卷扬机卷筒上应按顺序排列整齐，当吊钩处于工作位置最低点时，钢丝绳在卷扬机上的缠绕不少于（3圈）。    下列哪种机械设备不属于建筑机械设备（电动吊篮）。 "," 183、gangsishengzaijuanyangjijuantongshangyinganshunxupailiezhengqi，dangdiaogouchuyugongzuoweizhizuididianshi，gangsishengzaijuanyangjishangdechanraobushaoyu（3quan）。    xialienazhongjixieshebeibushuyujianzhujixieshebei（diandongdiaolan）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 195 ," 184、以下关于结构吊装表述不正确的是（起吊钢丝绳，应选取适当长度，绳索间的夹角应在45°左右，最大不应超过60°，并且钢丝绳直径的选用应随着夹角的增大而相应增大）。 "," 184、yixiaguanyujiegoudiaozhuangbiaoshubuzhengquedeshi（qidiaogangsisheng，yingxuanqushidangchangdu，shengsuojiandejiajiaoyingzai45°zuoyou，zuidabuyingchaoguo60°，bingqiegangsishengzhijingdexuanyongyingsuizhaojiajiaodezengdaerxiangyingzengda）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 196 ," 185、起吊设备时，电动卷扬机卷筒上钢丝绳余留圈数应不少于（3）圈。 "," 185、qidiaoshebeishi，diandongjuanyangjijuantongshanggangsishengyuliuquanshuyingbushaoyu（3）quan。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 197 ," 186、氧气、乙炔保管时瓶与瓶的间距不小于（5m）。 气瓶在使用中，距明火不应（小于10m）。存放间距（5）m。 "," 186、yangqi、yiguibaoguanshipingyupingdejianjubuxiaoyu（5m）。 qipingzaishiyongzhong，juminghuobuying（xiaoyu10m）。cunfangjianju（5）m。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 198 ," 187、电焊时严禁借用金属管道、金属脚手架、结构钢筋等金属物搭接代替（导线）使用。 "," 187、dianhanshiyanjinjieyongjinshuguandao、jinshujiaoshoujia、jiegougangjindengjinshuwudajiedaiti（daoxian）shiyong。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 199 ," 188、焊接用电缆线应采用（多股细铜线）。  氧气瓶与电焊在同一处使用时，瓶底应垫（绝缘物），防止气瓶带电。 "," 188、hanjieyongdianlanxianyingcaiyong（duoguxitongxian）。  yangqipingyudianhanzaitongyichushiyongshi，pingdiyingdian（jueyuanwu），fangzhiqipingdaidian。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 200 ," 189、电焊机一次侧电源线的长度不应大于（5m）。 "," 189、dianhanjiyicicedianyuanxiandechangdubuyingdayu（5m）。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 201 ," 190、易燃易爆物仓库的大门应当（向外）开启。  仓库内严禁使用（碘钨灯）照明灯具。 "," 190、yiranyibaowucangkudedamenyingdang（xiangwai）kaiqi。  cangkuneiyanjinshiyong（dianwudeng）zhaomingdengju。 " )');
+tx.executeSql('INSERT INTO danxuan (id , c,py) VALUES ( 202 ," 191、消防安全必须贯彻的方针（预防为主、防消结合）。 "," 191、xiaofanganquanbixuguanchedefangzhen（yufangweizhu、fangxiaojiehe）。 " )');
+
+	}	
+}
+
+
+function createdanxuan(tx)
+{
+tx.executeSql('CREATE TABLE IF NOT EXISTS danxuan (id unique, c,py)');
+tx.executeSql('select count(*) ct from danxuan',[],countresult_danxuan,null);
+
+}
+
+function dataSelectHandler(tx, results)
+{
+   var len = results.rows.length, i;
+   msg = [];
+   for (i = 0; i < len; i++){
+     msg.push( "<li>" + results.rows.item(i).c + "</li>");
+     
+   }
+   document.querySelector('#status').innerHTML =  msg.join('');
+}
+
+function errorHandle(e,e1)
+{
+  console.info('error',e,e1);
+}
+
+function doSearch()
+{
+   var sq = document.getElementById('s').value.split(' ');
+   var where=[];
+   var params =[];
+   
+   for (var i=0; i < sq.length; i++) {
+   	if(sq[i])
+   	{
+   	    var p = "%"+sq[i]+"%";
+   		where.push(' and (c like ? or py like ?) ');
+   		params.push(p);
+   		params.push(p);
+   	}
+   };
+db.transaction(function (tx) {
+	var sql="select c from danxuan where 1=1 "+ where.join('') +" limit 5";
+	console.info(sql);
+	console.info(params);
+  tx.executeSql(sql, params, dataSelectHandler,errorHandle);
+});
+
+
+}
+
+</script>
+</head>
+<body>
+<input id='s' onkeydown="doSearch();" /><button onclick='doSearch();'>search</button>
+<ol id="status" name="status">Status Message</ol>
+
+</body>
+</html>
