@@ -124,9 +124,22 @@
         imageObj.src = src;
     }
 
-
+    var _baseUrl = getConfig();
     function getBaseUrl() {
-        return "http://" + document.getElementById('baseUrl').value + ":17701/";
+        var url = document.getElementById('baseUrl').value;
+        if(_baseUrl != url) {
+            saveConfig(url);
+        }
+        return "http://" + url + ":17701/";
+    }
+
+    function saveConfig(url) {
+        localStorage.setItem("remote_serverip",url);
+    }
+    function getConfig() {
+        var u = localStorage.getItem("remote_serverip");
+        if(!u) u = "127.0.0.1";
+        document.getElementById('baseUrl').value = u;
     }
 
     function getUrl(url, fn) {

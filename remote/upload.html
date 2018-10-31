@@ -37,8 +37,22 @@
     <div id="drag" style="font-size:20px;padding:100px 0;border:1px dashed #666;text-align:center;color:#bbb;margin-bottom:10px">将文件拖到此处</div>
     <div id="list2"></div>
     <script type="text/javascript">
+    var _baseUrl = getConfig();
+    function saveConfig(url) {
+        localStorage.setItem("remote_serverip",url);
+    }
+    function getConfig() {
+        var u = localStorage.getItem("remote_serverip");
+        if(!u) u = "127.0.0.1";
+        document.getElementById('baseUrl').value = u;
+    }
+
     function getBaseUrl() {
-        return "http://" + document.getElementById('baseUrl').value + ":17701/";
+        var url = document.getElementById('baseUrl').value;
+        if(_baseUrl != url) {
+            saveConfig(url);
+        }
+        return "http://" + url + ":17701/";
     }
 
     function getUrl(url, fn) {
