@@ -3,6 +3,8 @@
 runPackage("com.baidu.iknow",15000);
 
 click(948,1846,"我",5000);
+back();
+sleep(2000)
 click(993,132,"签到日历按钮",15000);
 
 click(971,599,"签到按钮",5000);
