@@ -21,7 +21,7 @@
     </style>
   </head>
   <body>
-    <input type="number" id="number" value="833" /><button onclick="openNumber()">打开</button>
+    <input type="number" id="number" value="833" /><button onclick="openNumber()">打开</button> <button onclick="openNumberAdd1(1)">+1</button> <button onclick="openNumberAdd1(5)">+5</button>
   	<ol id="items">
 
 </ol>
@@ -64,15 +64,17 @@
     var urls = [
    ["https://s.pay.xiaomi.com/cash?channel=cashpayshopBanner#/daka","小米打卡"],   
 ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=215","早起打卡"],
+["https://bean.m.jd.com/?sid=","领金豆"],
 ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=473","APP钢镚"],    
 
-["https://bean.m.jd.com/?sid=","领金豆"],
+
 ["https://m.jr.jd.com/spe/qyy/hzq/index.html?usertype=1176&lanmu&sid=#/","领钢镚"],
 ["https://coin.jd.com/m/gb/index.html","领钢镚1"],
 ["https://vip.m.jd.com/?sid=","京东会员"],
 // ["https://h5.m.jd.com/babelDiy/Zeus/vyqJbvq6NGYwWK7QuQnsu1Hph3/index.html","看广告领钢镚"],
 //["https://pro.m.jd.com/mall/active/2VkvGdK78W7e9Heie7XtnME5wtLJ/index.html","抽奖"],
-
+["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=815","领红包815"],
+["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1210","领红包1210 0.05"],
 ["https://fbank.m.jd.com/index/index.action?sid=","流量签到"],
 ["https://m.jr.jd.com/spe/acs/hymSystem/index.html?contentParam=100001064&actCode=6C6C995B53&actType=1&source=2#/","天天领红包"],
 ["https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.1.1&sceneval=2&logintag=#/main","天天签到"],
@@ -109,7 +111,7 @@
 //["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=746","领红包746"],
 ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=775","领红包775"],
 ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=776","领红包776"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=815","领红包815"],
+
 ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=862","领红包862"],
 ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=867","领红包867"],
 //["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=616","抽奖"],
@@ -188,6 +190,12 @@
   })();
   function openNumber() {
     var v = document.getElementById("number").value;
+    window.open("jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl="+v);
+  }
+
+  function openNumberAdd1(n) {
+    var v = n+parseInt(document.getElementById("number").value,10);
+    document.getElementById("number").value = v;
     window.open("jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl="+v);
   }
 
