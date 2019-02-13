@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>京东签到</title>
+    <style type="text/css">
+    	body {
+    		font-size: 30px;
+    	}
+    	li {
+    		padding: 5px;
+    	}
+      a {
+        color:blue;
+      }
+      a.visited {
+        color:#551a8b;
+      }
+    </style>
+  </head>
+  <body>
+    <ol>
+      <li><a href="http://shike.com/orochi/FKTryPlay?show=false" target="_blank" rel="noopener noreferrer">试客</a></li>
+      <li><a href="https://appems.com/tasks" target="_blank" rel="noopener noreferrer">天天钱庄</a></li>
+    </ol>
+
+	<ol id="items">
+
+</ol>
+
+<script>
+  document.getElementById("items").addEventListener("click",function(e){
+    if(e.target.tagName==="A") {
+      var a=e.target;
+      a.className = "visited";
+      console.info(a.id);
+      taskInfo.ids.push(a.id);
+      localStorage.setItem("jdtask",JSON.stringify(taskInfo));
+    }
+    console.info(e);
+  },false);
+
+
+  function showTaskInfo() {
+    taskInfo.ids.forEach(function(id){
+      var li = document.getElementById(id);
+      if(li) li.className = "visited";
+    });
+    //localStorage.setItem("jdtask",JSON.stringify(taskInfo));
+  }
+
+  function getToday() {
+      var now = new Date();
+      var today = now.getFullYear()*10000+ (now.getMonth()+1)*100+now.getDate();
+      return today;
+  }
+
+  function initTaskInfo(today) {
+    return {
+      date:today,
+      ids:[]
+    };
+  }
+
+  (function() {
+    var urls = [
+   ["https://appems.com/my/getsign","打卡 10：00~16：00"],   
+  ["https://m.miaozhuandaqian.com/ios/checkin.html","秒赚签到"],
+  ["http://shike.com/orochi/FKSignIn","试客签到"]
+  
+
+];
+// 456  小金库交易单  66128.01
+  var html = [];
+  for(var i=0;i<urls.length;i++) {
+    html.push('<li><a id="i',i,'" target="_blank" href="',urls[i][0],'">',urls[i][1],'</a></li>');
+  }
+  document.getElementById('items').innerHTML = html.join('');
+  })();
+
+  var taskInfo = null;
+  (function(){
+    var today = getToday();
+    var jdtask = localStorage.getItem("jdtask");
+    if(jdtask) {
+      jdtask = JSON.parse(jdtask);
+      if(jdtask.date == today) {
+        taskInfo = jdtask;
+      }
+    }
+    if(!taskInfo) taskInfo = initTaskInfo(today);
+    showTaskInfo();
+  })();
+
+</script>
+
+  </body>
+</html>
