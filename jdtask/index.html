@@ -1,216 +1,41 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>京东签到</title>
-    <style type="text/css">
-    	body {
-    		font-size: 30px;
-    	}
-    	li {
-    		padding: 5px;
-    	}
-      a {
-        color:blue;
-      }
-      a.visited {
-        color:#551a8b;
-      }
-    </style>
-  </head>
-  <body>
-    <input type="number" id="number" value="833" /><button onclick="openNumber()">打开</button> <button onclick="openNumberAdd1(1)">+1</button> <button onclick="openNumberAdd1(5)">+5</button>
-  	<ol id="items">
 
-</ol>
-
-<script>
-  document.getElementById("items").addEventListener("click",function(e){
-    if(e.target.tagName==="A") {
-      var a=e.target;
-      a.className = "visited";
-      console.info(a.id);
-      taskInfo.ids.push(a.id);
-      localStorage.setItem("jdtask",JSON.stringify(taskInfo));
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>京东签到</title>
+  <style type="text/css">
+    body {
+      font-size: 30px;
     }
-    console.info(e);
-  },false);
 
-
-  function showTaskInfo() {
-    taskInfo.ids.forEach(function(id){
-      var li = document.getElementById(id);
-      if(li) li.className = "visited";
-    });
-    //localStorage.setItem("jdtask",JSON.stringify(taskInfo));
-  }
-
-  function getToday() {
-      var now = new Date();
-      var today = now.getFullYear()*10000+ (now.getMonth()+1)*100+now.getDate();
-      return today;
-  }
-
-  function initTaskInfo(today) {
-    return {
-      date:today,
-      ids:[]
-    };
-  }
-
-  (function() {
-    var urls = [
-   ["https://s.pay.xiaomi.com/cash?channel=cashpayshopBanner#/daka","小米打卡"],   
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=215","早起打卡"],
-["https://bean.m.jd.com/?sid=","领金豆"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=473","APP钢镚"],    
-
-
-["https://m.jr.jd.com/spe/qyy/hzq/index.html?usertype=1176&lanmu&sid=#/","领钢镚"],
-["https://coin.jd.com/m/gb/index.html","领钢镚1"],
-["https://vip.m.jd.com/?sid=","京东会员"],
-["https://wqs.jd.com/wxsq_project/xym/dailyJDBeans/xym_dailyJDBeans.html?_ts=1550133540006&utm_user=plusmember&ShareTm=mn0nIq8gfUY88fIr2tjSCFGQddo%2F1QAezu9ew0Zwhylne5VdRDAk6DvlBZiOllt4TycD8wGPF9uWJUVr9DDH8LE5%2FOP9uzZA89UI%2F0o3r5gyPXoG6%2FGjtmsmoSwHWpCgKfMN289PpJmIypRbrXCbS5HMQxUHEDCvBFAzgsZjFJs%3D&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=Wxfriends","签到"],
-
-["https://wqs.jd.com/wxsq_project/xym/ticketBonus/xym_ticketBonus.html?_ts=1550133983324&utm_user=plusmember&ShareTm=eEe2f2hbV49RE%2FcQpdiRs9lN13UuIxWRsvEG9vBuSeKfcugQq2HpKm5MuFhMU70YwKu3qWWM3%2FfmoBTR3xEuIC3P2bExv9xrxhR%2FoqqQVQSPOgyXoMHEVBRPQXz5B%2Fm8%2FC505It8DELYL4kOG%2BxCP6rgtc1g2tzNxzKaZh2nwK8%3D&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=QQfriends","抽奖"],
-
-
-// ["https://h5.m.jd.com/babelDiy/Zeus/vyqJbvq6NGYwWK7QuQnsu1Hph3/index.html","看广告领钢镚"],
-//["https://pro.m.jd.com/mall/active/2VkvGdK78W7e9Heie7XtnME5wtLJ/index.html","抽奖"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=815","领红包815"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1210","领红包1210 0.05"],
-["https://fbank.m.jd.com/index/index.action?sid=","流量签到"],
-["https://m.jr.jd.com/spe/acs/hymSystem/index.html?contentParam=100001064&actCode=6C6C995B53&actType=1&source=2#/","天天领红包"],
-["https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.1.1&sceneval=2&logintag=#/main","天天签到"],
-//["https://red-e.jd.com/resources/pineapple/index.html?merchantCode=4B2CE697A1AEE055","每日蹦一蹦"],
-["https://m.jr.jd.com/btyingxiao/marketing/html/index.html?sid=2255a6ce436beff493d12122b026a58w&t=1545123044789&utm_source=Android*url*1545123057924&utm_medium=jrappshare&utm_term=wxfriends","每日签到"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1361","领红包1361"],
-//["https://sale.jd.com/m/act/XrLU0eKY6T5.html","签到"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=937","领红包937 0.01"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1184","领红包1184 0.1"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1226","领红包1226 0.1"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1227","领红包1227 0.1"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1272","领红包1272 0.1"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1260","领红包1260 0.03"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=931","领红包931 0.01"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1243","领红包1243 0.01"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1253","领红包1253 ???"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1339","领红包1339 ???"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=412","APP钢镚1"],
-
-
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=473","签到"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=457","领钢镚"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=180","数钱"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=497","领优惠"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=740","领优惠"],
-
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=789","抽奖"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=802","领红包802"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=812","领红包1"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=599","领红包2"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=610","领红包3"],  //下线
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=613","领红包4"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=636","领红包5"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=637","领红包6"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=638","领红包7"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=639","领红包8"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=664","领红包9"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=790","领红包9"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=550","领红包550"], //下线
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=726","领红包726"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=746","领红包746"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=775","领红包775"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=776","领红包776 0.02"],
-
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=862","领红包862  2000-1"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=867","领红包867 0.01"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=616","抽奖"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=176","话费"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=715","分享715"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=716","分享716"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=769","分享769"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=771","分享771 50-1"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=778","分享778"],  //0
-
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=785","分享785"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=793","分享793"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=805","分享805"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=807","分享807"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=809","分享809"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=816","分享816"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=818","分享818"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=834","分享834"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=539","股票翻牌539"],
-
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=820","领券820 0.01"],
-
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=508","流量508"], //同727重复
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=727","流量727"],
-
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=534","领券534"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=537","领券537"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=568","领券568"],  //下线
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=773","领券773"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=777","领券777 50-1"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=823","领券823"],
-
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=836","分享836*"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=912","领红包912 0.01"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=919","领红包919 0.01"],
-
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=938","领流量938"],
-
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1011","领劵1011"],
-["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1086","领劵1086 每周任务"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1109","领劵1109"],
-// ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=840","分享840"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=837","分享837"],
-//["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=318","白条刮刮乐"],
-["https://gamecenter.m.jd.com/?sid=","领豆"],
-    ["http://url.cn/5yNPlX0","四月福利"],
-["https://m.jr.jd.com/spe/qyy/main/index.html?userType=77&utm_source=kong&utm_medium=zssc&utm_campaign=t_1000027277_102969&utm_term=0c6d072c-88f3-448c-9d92-62c0e53951d2-p_1999-pr_1107-at_102969&jd_pop=0c6d072c-88f3-448c-9d92-62c0e53951d2&abt=0","合集"],
-["https://home.jdpay.com/my/welfare/jxWelfarePage?type=jingdou&source=JDSC","合集1"],
-["https://ljd.m.jd.com/countersign/index.action","双签奖励"],
-["https://m.jr.jd.com/activity/shactivity/payrebate/html/indexhd.html?sid=&cu=true&utm_source=kong&utm_medium=tuiguang&utm_campaign=t_1000550368_&utm_term=9518a0b6fd484b69a9e2df6e6347f05b&abt=3&tab=2","购物领京豆"]
-//["https://m.jr.jd.com/spe/downloadApp/index.html?id=736&activityid=677","京豆寻宝"]
-//["jdmobile://share?jumpType=7&jumpUrl=802&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=","0000"]
-];
-
-// 1416 2019-02-14
-  var html = [];
-  for(var i=0;i<urls.length;i++) {
-    html.push('<li><a id="i',i,'" target="_blank" href="',urls[i][0],'">',urls[i][1],'</a></li>');
-  }
-  document.getElementById('items').innerHTML = html.join('');
-  })();
-
-  var taskInfo = null;
-  (function(){
-    var today = getToday();
-    var jdtask = localStorage.getItem("jdtask");
-    if(jdtask) {
-      jdtask = JSON.parse(jdtask);
-      if(jdtask.date == today) {
-        taskInfo = jdtask;
-      }
+    li {
+      padding: 5px;
     }
-    if(!taskInfo) taskInfo = initTaskInfo(today);
-    showTaskInfo();
-  })();
-  function openNumber() {
-    var v = document.getElementById("number").value;
-    window.open("jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl="+v);
-  }
 
-  function openNumberAdd1(n) {
-    var v = n+parseInt(document.getElementById("number").value,10);
-    document.getElementById("number").value = v;
-    window.open("jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl="+v);
-  }
+    a {
+      color: blue;
+    }
 
-</script>
+    a.visited {
+      color: #551a8b;
+    }
+  </style>
+</head>
 
-  </body>
+<body>
+  <input type="number" id="number" value="833" /><button onclick="openNumber()">打开</button> <button onclick="openNumberAdd1(1)">+1</button>
+  <button onclick="openNumberAdd1(5)">+5</button>
+  <ol id="items">
+
+  </ol>
+
+  <script src="./js/md5.min.js"></script>
+  <script src="./urls.js"></script>
+  <script src="./js/index.js"></script>
+
+</body>
+
 </html>
