@@ -1,6 +1,9 @@
 var urls = [
     ["https://s.pay.xiaomi.com/cash?channel=cashpayshopBanner#/daka", "小米打卡"],
     ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=215", "早起打卡"],
+    ["https://zhidao.baidu.com/mmisc/signinfo", "知道签到"],
+    ["https://zhidao.baidu.com/shop/lottery", "知道抽奖（10点后）"],
+    
     ["https://bean.m.jd.com/?sid=", "领金豆"],
     ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=473", "APP钢镚"],
 
