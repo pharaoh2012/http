@@ -3,3 +3,6 @@ CACHE MANIFEST
 
 CACHE:
 js/jquery.min.js
+
+NETWORK:
+*
