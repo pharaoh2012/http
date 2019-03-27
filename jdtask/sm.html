@@ -47,6 +47,8 @@
 
         function setClicked() {
             var $a = $("a.ql-link");
+            var l = 100;
+            if($a.length<100) l=$a.length;
             for (let index = 0; index < 100; index++) {
                 var a = $a[index];
                 if(clickedUrl.indexOf(a.href)>=0) {
