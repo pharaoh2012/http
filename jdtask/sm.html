@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <title>京东答题</title>
     <style type="text/css">
-
         .visited {
             color: gray;
         }
-
     </style>
 </head>
 
@@ -21,39 +19,53 @@
     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
     <script>
         var clickedUrl = localStorage.getItem("smJdClickUrl");
-        if(clickedUrl) {
-            clickedUrl = JSON.parse(clickedUrl);            
+        if (clickedUrl) {
+            clickedUrl = JSON.parse(clickedUrl);
         } else {
             clickedUrl = [];
-        }        
-        $("#main").html('loading...<br />' + localStorage.getItem("smJdHtml"));
-        setClicked();
-        $.get("https://getpage.now.sh/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", r => {
-            //console.info(r);
-            var txt = '<p>取消店铺关注<a href="https://u.jd.com/D4jTCn" target="_blank" rel="noopener noreferrer nofollow">https://u.jd.com/D4jTCn</a></p>'+ $(r).find(".ql-editor").html();
-            localStorage.setItem("smJdHtml", txt);
-            $("#main").html(txt);
-            setClicked();
-        });
+        }
+        (function () {
+            var loadTime = localStorage.getItem("smJdLoadTime");
+            if (!loadTime) loadTime = 0;
+            var now = +new Date();
+            var needLoad = (now - loadTime > 5 * 60000);
+            if (needLoad) {
+                $("#main").html('loading...<br />' + localStorage.getItem("smJdHtml"));
+                setClicked();
+                $.get("https://getpage.now.sh/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", r => {
+                    //console.info(r);
+                    var txt =
+                        '<p>取消店铺关注<a href="https://u.jd.com/D4jTCn" target="_blank" rel="noopener noreferrer nofollow">https://u.jd.com/D4jTCn</a></p>' +
+                        $(r).find(".ql-editor").html();
+                    localStorage.setItem("smJdHtml", txt);
+                    $("#main").html(txt);
+                    setClicked();
+                    localStorage.setItem("smJdLoadTime", now);
+                });
+            } else {
+                $("#main").html('缓存<br />' + localStorage.getItem("smJdHtml"));
+            }
+        })();
+
         $(document.body).on("click", "a.ql-link", e => {
             var href = e.target.href;
-            if(clickedUrl.indexOf(href)==-1) {
+            if (clickedUrl.indexOf(href) == -1) {
                 e.target.className = "ql-link visited";
                 clickedUrl.push(href);
-                if(clickedUrl.length>50) clickedUrl.pop();
-                localStorage.setItem("smJdClickUrl",JSON.stringify(clickedUrl));
+                if (clickedUrl.length > 50) clickedUrl.pop();
+                localStorage.setItem("smJdClickUrl", JSON.stringify(clickedUrl));
             }
         });
 
         function setClicked() {
             var $a = $("a.ql-link");
             var l = 100;
-            if($a.length<100) l=$a.length;
+            if ($a.length < 100) l = $a.length;
             for (let index = 0; index < l; index++) {
                 var a = $a[index];
-                if(clickedUrl.indexOf(a.href)>=0) {
+                if (clickedUrl.indexOf(a.href) >= 0) {
                     a.className = "ql-link visited";
-                }                
+                }
             }
         }
     </script>
