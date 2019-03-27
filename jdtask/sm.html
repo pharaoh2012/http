@@ -26,11 +26,11 @@
         } else {
             clickedUrl = [];
         }        
-        $("#main").html("loading...<br />" + localStorage.getItem("smJdHtml"));
+        $("#main").html('loading...<br />' + localStorage.getItem("smJdHtml"));
         setClicked();
         $.get("https://getpage.now.sh/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", r => {
             //console.info(r);
-            var txt = $(r).find(".ql-editor").html();
+            var txt = '<p>取消店铺关注<a href="https://u.jd.com/D4jTCn" target="_blank" rel="noopener noreferrer nofollow">https://u.jd.com/D4jTCn</a></p>'+ $(r).find(".ql-editor").html();
             localStorage.setItem("smJdHtml", txt);
             $("#main").html(txt);
             setClicked();
