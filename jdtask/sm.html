@@ -56,7 +56,7 @@
                 if (clickedUrl.length > 50) clickedUrl.pop();
                 localStorage.setItem("smJdClickUrl", JSON.stringify(clickedUrl));
             }
-            
+            open(href);
             return false;
         });
 
