@@ -60,7 +60,7 @@
             if (clickedUrl.indexOf(href) == -1) {
                 e.target.className = "ql-link visited";
                 clickedUrl.push(href);
-                if (clickedUrl.length > 50) clickedUrl.pop();
+                if (clickedUrl.length > 50) clickedUrl.shift();
                 localStorage.setItem("smJdClickUrl", JSON.stringify(clickedUrl));
             }
             open(href);
