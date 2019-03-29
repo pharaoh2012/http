@@ -38,6 +38,9 @@
                     var $o = $(r).find(".ql-editor");
                     $o.find("p:contains('收藏京豆集合')").remove();
                     $o.find("p:contains('取消店铺关注')").remove();
+                    var p = $o.find("p");
+                    var p1=p.splice(500,5000);
+                    $(p1).remove();
                     var txt =
                         '<p>取消店铺关注<a href="https://u.jd.com/D4jTCn" target="_blank" rel="noopener noreferrer nofollow">https://u.jd.com/D4jTCn</a></p>' +
                         $o.html();
