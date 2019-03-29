@@ -35,9 +35,12 @@
 //              $.get("https://getpage.now.sh/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", r => {
                 $.get("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", r => {
                     //console.info(r);
+                    var $o = $(r).find(".ql-editor");
+                    $o.find("p:contains('收藏京豆集合')").remove();
+                    $o.find("p:contains('取消店铺关注')").remove();
                     var txt =
                         '<p>取消店铺关注<a href="https://u.jd.com/D4jTCn" target="_blank" rel="noopener noreferrer nofollow">https://u.jd.com/D4jTCn</a></p>' +
-                        $(r).find(".ql-editor").html();
+                        $o.html();
                     localStorage.setItem("smJdHtml", txt);
                     $("#main").html(txt);
                     setClicked();
