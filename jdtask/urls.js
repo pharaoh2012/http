@@ -11,6 +11,12 @@ var urls = [
 
 
     ["https://m.jr.jd.com/spe/qyy/hzq/index.html?usertype=1176&lanmu&sid=#/", "领钢镚"],
+    ["https://u.jd.com/7OoKIP","个护馆"],
+["https://u.jd.com/j7OOfs","清洁馆"],
+["https://u.jd.com/EpDD28","京东超市"],
+["https://sohu.gg/8RfDr","看广告1"],
+["https://sohu.gg/RrlqY","看广告2"],
+["https://sohu.gg/xmkZP","看广告3"],
     ["https://coin.jd.com/m/gb/index.html", "领钢镚1"],
     ["https://vip.m.jd.com/?sid=", "京东会员"],
     // ["https://wqs.jd.com/wxsq_project/xym/dailyJDBeans/xym_dailyJDBeans.html?_ts=1550133540006&utm_user=plusmember&ShareTm=mn0nIq8gfUY88fIr2tjSCFGQddo%2F1QAezu9ew0Zwhylne5VdRDAk6DvlBZiOllt4TycD8wGPF9uWJUVr9DDH8LE5%2FOP9uzZA89UI%2F0o3r5gyPXoG6%2FGjtmsmoSwHWpCgKfMN289PpJmIypRbrXCbS5HMQxUHEDCvBFAzgsZjFJs%3D&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=Wxfriends", "签到"],
