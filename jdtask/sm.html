@@ -33,7 +33,7 @@
                 $("#main").html('loading... V2019.03.29<br />' + localStorage.getItem("smJdHtml"));
                 setClicked();
 //              $.get("https://getpage.now.sh/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", r => {
-                $.get("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", r => {
+                $.get("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", function(r) {
                     //console.info(r);
                     var $o = $(r).find(".ql-editor");
                     $o.find("p:contains('收藏京豆集合')").remove();
@@ -55,7 +55,7 @@
             }
         })();
 
-        $(document.body).on("click", "a.ql-link", e => {
+        $(document.body).on("click", "a.ql-link", function(e) {
             var href = e.target.href;
             if (clickedUrl.indexOf(href) == -1) {
                 e.target.className = "ql-link visited";
