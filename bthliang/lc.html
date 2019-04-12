@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>黑亮综艺</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>黑亮综艺</h1>
+    <div id="toolbar"> <a href="https://bthliang.now.sh/download" target="_blank" class="btn btn-default">更新数据</a> </div>
+    <table id="table" 
+    data-toggle="table" 
+    data-cache="false" 
+    data-url="http://192.168.1.63:7777/db/links/lists" 
+    data-pagination="true" 
+    data-side-pagination="server" 
+    data-striped="true"
+    data-sort-name="time"
+    data-sort-order="desc"
+    data-search="true"
+    data-search-on-enter-key="true"
+    data-show-columns="true"
+    data-show-refresh="true"
+    data-show-toggle="true"
+    data-unique-id="_id"
+    data-click-to-select="true"
+    data-silent-sort="false"
+    data-query-params="createQueryParams"
+    data-toolbar="#toolbar"
+    data-row-style="rowStyle"
+    data-ajax="db.bootstrapTable"
+    >
+        <thead>
+            <tr>
+                <th data-field="isSelect" data-checkbox="true"></th>
+                <th data-field="title" data-sortable="true" data-click-to-select="false" data-formatter="titleFormatter">标题</th>
+                <th data-field="time" data-sortable="true" data-formatter="timeFormatter">获取日期</th>
+                <th data-field="downloadurl"  data-formatter="downloadurlFormatter">下载</th>
+            </tr>
+        </thead>
+    </table>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/moment.js/2.17.0/moment.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.17.0/locale/zh-cn.js"></script>
+
+    <script src="https://unpkg.com/flyio@0.3.1/dist/fly.min.js"></script>
+    <script src="../js/lc.js"></script>
+
+    <script type="text/javascript">
+        var db = new leancloud("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/bthiang?sql=","bthling");
+
+    function nameSorter(a, b) {
+        var a1 = parseInt(a.substr(5), 10);
+        var b1 = parseInt(b.substr(5), 10);
+        return a1 - b1;
+    }
+
+    function titleFormatter(value,row,index) {
+        return `<a href="${row['href']}" target="_blank">${value}</a>`;
+    }
+    function timeFormatter(value,row,index) {
+        var dt = new moment(value);
+        return `<span title="${dt.format('lll')}">${dt.fromNow()}</span>`;
+    }
+
+
+    function downloadurlFormatter(value) {
+        //return `<a href="${value}" onclick="DownloadRemote('${value}');return false;" target="_blank">下载</a>`;
+        return `<a href="${value}">下载</a>`;
+    }
+
+    // your custom ajax request here
+    function ajaxRequest(params) {
+        db.bootstrapTable(params);
+    }
+
+    function createQueryParams(params) {
+        console.info(params);
+        if(params.search) {
+            params.filter = "where title like '%"+param.search+"%'";
+        }
+        
+        return params;
+    }
+
+
+function DownloadRemote(url) {
+
+    var datas = `[{
+        "jsonrpc": "2.0",
+        "method": "aria2.addUri",
+        "id": 1,
+        "params": ["token:abcd1234", ["${url}"], {}]
+    }]`;
+    var urlServer = "https://pharaoh2012-na.daoapp.io/jsonrpc?tm=1476340583479";
+    postUrl(urlServer, datas, function(ret) {
+        console.info(ret);
+        alert("添加下载成功！");
+
+    });
+}
+
+function getUrl(url, callback) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+            if (callback) {
+                callback(xmlhttp.responseText);
+            } else {
+                console.info(xmlhttp.responseText);
+            }
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send(null);
+}
+
+function postUrl(url, data, callback) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+            if (callback) {
+                callback(xmlhttp.responseText);
+            } else {
+                console.info(xmlhttp.responseText);
+            }
+        }
+    };
+    xmlhttp.open("POST", url, true);
+    xmlhttp.send(data);
+}
+
+var oneday = moment().add(-1,"days");
+
+    function rowStyle(row,index) {
+        //console.info(row,index);
+        if(row["downloadOK"]) {
+            return {
+                classes:"success"
+            };
+        }
+        if(moment(row["time"])>oneday) {
+            return {
+                classes:"info"
+            }
+        }
+        console.info(row["time"]);
+        return {};
+    }
+
+    </script>
+</body>
+
+</html>
