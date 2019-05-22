@@ -54,10 +54,10 @@
     <script src="https://cdn.bootcss.com/moment.js/2.17.0/locale/zh-cn.js"></script>
 
     <script src="https://unpkg.com/flyio@0.3.1/dist/fly.min.js"></script>
-    <script src="../js/lc.js"></script>
+    <script src="../js/mlab.js"></script>
 
     <script type="text/javascript">
-        var db = new leancloud("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/bthiang?sql=","links");
+        var db = new mlab("tanktotal","links");
 
     function nameSorter(a, b) {
         var a1 = parseInt(a.substr(5), 10);
@@ -87,7 +87,11 @@
     function createQueryParams(params) {
         console.info(params);
         if(params.search) {
-            params.filter = "where title like '%"+params.search+"%'";
+            var f={};
+            f.title = {
+                "$regex":params.search
+            }
+            params.filter = JSON.stringify(f);
         }
         
         return params;
@@ -143,7 +147,7 @@ function postUrl(url, data, callback) {
 var oneday = moment().add(-1,"days");
 
     function rowStyle(row,index) {
-        //console.info(row,index);
+        console.info(row,index);
         if(row["downloadOK"]) {
             return {
                 classes:"success"

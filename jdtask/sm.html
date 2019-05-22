@@ -9,12 +9,29 @@
         .visited {
             color: gray;
         }
+        #toolbar {
+            position: fixed;
+            bottom: 0;
+            width:100%;
+            margin-bottom: 10px;
+        }
+        #toolbar button {
+            width:49%;
+        }
+        a.red {
+            color:red;
+        }
     </style>
 </head>
 
 <body>
     <div id="main">
 
+    </div>
+    <div>&nbsp;</div>
+    <div id="toolbar">
+        <button id="btnLastClick" onclick="lastClick();">上次点击</button>
+        <button id="btnNext" onclick="nextClick();">下一个</button>
     </div>
     <script src="js/jquery.min.js"></script>
     <script>
@@ -28,7 +45,7 @@
             var loadTime = localStorage.getItem("smJdLoadTime");
             if (!loadTime) loadTime = 0;
             var now = +new Date();
-            var needLoad = (now - loadTime > 5 * 60000);
+            var needLoad = (now - loadTime > 1 * 60000);
             if (needLoad) {
                 $("#main").html('loading... V2019.03.29<br />' + localStorage.getItem("smJdHtml"));
                 setClicked();
@@ -38,6 +55,8 @@
                     var $o = $(r).find(".ql-editor");
                     $o.find("p:contains('收藏京豆集合')").remove();
                     $o.find("p:contains('取消店铺关注')").remove();
+                    $o.find("p:contains('收藏实时京豆')").remove();
+                    $o.find("p:contains('批量取关')").remove();
                     var p = $o.find("p");
                     var p1=p.splice(500,5000);
                     $(p1).remove();
@@ -55,29 +74,50 @@
             }
         })();
 
+
         $(document.body).on("click", "a.ql-link", function(e) {
             var href = e.target.href;
+            window.lastHref = href;
             if (clickedUrl.indexOf(href) == -1) {
                 e.target.className = "ql-link visited";
                 clickedUrl.push(href);
-                if (clickedUrl.length > 100) clickedUrl.shift();
+                if (clickedUrl.length > 200) clickedUrl.shift();
                 localStorage.setItem("smJdClickUrl", JSON.stringify(clickedUrl));
             }
+            $('a.red').removeClass("red");
+            $(e.target).addClass("red");
+            $("#btnNext").text("下一个["+$(".ql-link:not('.visited')").length+"]")
             open(href);
             return false;
         });
 
         function setClicked() {
             var $a = $("a.ql-link");
-            var l = 100;
-            if ($a.length < 100) l = $a.length;
+            var l = $a.length;
+            //if ($a.length < 100) l = $a.length;
             for (var index = 0; index < l; index++) {
                 var a = $a[index];
                 if (clickedUrl.indexOf(a.href) >= 0) {
                     a.className = "ql-link visited";
                 }
             }
+            $("#btnNext").text("下一个["+$(".ql-link:not('.visited')").length+"]")
         }
+
+        function nextClick() {
+            var a= $(".ql-link:not('.visited'):first");
+            if(a.length) {
+                a = a[0]
+                a.scrollIntoViewIfNeeded();
+                a.click();
+            }
+        }
+        function lastClick() {
+            if(window.lastHref) {
+                open(window.lastHref);
+            }
+        }       
+
     </script>
 </body>
 

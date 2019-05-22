@@ -61,10 +61,9 @@
     <script src="https://cdn.bootcss.com/moment.js/2.17.0/locale/zh-cn.js"></script>
 
     <script src="https://unpkg.com/flyio@0.3.1/dist/fly.min.js"></script>
-    <script src="../js/lc.js"></script>
+    <script src="../js/mlab.js"></script>
     <script type="text/javascript">
-    var db = new leancloud("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/bthiang?sql=","aichengurl");
-        //var db = new mlab("tanktotal","aichengurl");
+        var db = new mlab("tanktotal","aichengurl");
         
 
     function titleFormatter(value, row, index) {
@@ -96,29 +95,13 @@
 
     function createQueryParams(params) {
         console.info(params);
-        var filter = [];
-        if(params.search) {
-            filter.push("title like '%"+params.search+"%'");
-            //params.filter = "where title like '%"+params.search+"%'";
-        }
-        var types = document.getElementById('types').value;
-        if (types) {
-            filter.push("type='"+types+"'");
-        }
-        if(filter.length) {
-            params.search = true;
-            params.filter = "where "+filter.join(" and ");
-        }
-        
-        return params;        
-        // console.info(params);
-        // var f = {};
-        // if (params.search) {
-        //     f.title = {
-        //         "$regex": params.search
-        //     }
+        var f = {};
+        if (params.search) {
+            f.title = {
+                "$regex": params.search
+            }
 
-        // }
+        }
         var types = document.getElementById('types').value;
         if (types) {
             f.type = types;
