@@ -66,3 +66,7 @@ function openNumberAdd1(n) {
     document.getElementById("number").value = v;
     window.open("jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=" + v);
 }
+
+if(window.AndroidJs) {
+    window.AndroidJs.setBack(true);
+}

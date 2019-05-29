@@ -19,6 +19,7 @@ var urls = [
 ["https://sohu.gg/xmkZP","看广告3"],
     ["https://coin.jd.com/m/gb/index.html", "领钢镚1"],
     ["https://vip.m.jd.com/?sid=", "京东会员"],
+    ["https://u.jd.com/R6MoZj", "希捷七天店铺签到"],    
     // ["https://wqs.jd.com/wxsq_project/xym/dailyJDBeans/xym_dailyJDBeans.html?_ts=1550133540006&utm_user=plusmember&ShareTm=mn0nIq8gfUY88fIr2tjSCFGQddo%2F1QAezu9ew0Zwhylne5VdRDAk6DvlBZiOllt4TycD8wGPF9uWJUVr9DDH8LE5%2FOP9uzZA89UI%2F0o3r5gyPXoG6%2FGjtmsmoSwHWpCgKfMN289PpJmIypRbrXCbS5HMQxUHEDCvBFAzgsZjFJs%3D&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=Wxfriends", "签到"],
 
     // ["https://wqs.jd.com/wxsq_project/xym/ticketBonus/xym_ticketBonus.html?_ts=1550133983324&utm_user=plusmember&ShareTm=eEe2f2hbV49RE%2FcQpdiRs9lN13UuIxWRsvEG9vBuSeKfcugQq2HpKm5MuFhMU70YwKu3qWWM3%2FfmoBTR3xEuIC3P2bExv9xrxhR%2FoqqQVQSPOgyXoMHEVBRPQXz5B%2Fm8%2FC505It8DELYL4kOG%2BxCP6rgtc1g2tzNxzKaZh2nwK8%3D&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=QQfriends", "抽奖"],
