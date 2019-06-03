@@ -1,4 +1,6 @@
 
+
+var isHidden = true; //是否隐藏已访问链接。
 document.body.addEventListener("click", function (e) {
     if (e.target.tagName === "A") {
         var a = e.target;
@@ -22,6 +24,7 @@ function showTaskInfo() {
     showCount("t6");
     showCount("t0");
     showCount("t2");
+    hideLinks();
     //localStorage.setItem("jdtask",JSON.stringify(taskInfo));
 }
 
@@ -90,4 +93,12 @@ function openNumberAdd1(n) {
 
 if(window.AndroidJs) {
     window.AndroidJs.setBack(true);
+}
+
+function hideLinks() {
+    if(isHidden) {
+        document.querySelectorAll('a.visited:not(.red)').forEach(a=>a.parentElement.style.display='none')
+    } else {
+        document.querySelectorAll('a.visited').forEach(a=>a.parentElement.style.display='')
+    }
 }
