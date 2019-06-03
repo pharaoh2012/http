@@ -1,10 +1,14 @@
-document.getElementById("items").addEventListener("click", function (e) {
+
+document.body.addEventListener("click", function (e) {
     if (e.target.tagName === "A") {
         var a = e.target;
-        a.className = "visited";
+        if(a.classList.contains("visited")) return;
+        //if(a.className == "visited") return;
+        a.className = "visited red";
         console.info(a.id);
         taskInfo.ids.push(a.id);
         localStorage.setItem("jdtask", JSON.stringify(taskInfo));
+        showCount(a.getAttribute("group"));
     }
     console.info(e);
 }, false);
@@ -15,7 +19,20 @@ function showTaskInfo() {
         var li = document.getElementById(id);
         if (li) li.className = "visited";
     });
+    showCount("t6");
+    showCount("t0");
+    showCount("t2");
     //localStorage.setItem("jdtask",JSON.stringify(taskInfo));
+}
+
+function showCount(id) {
+    var count = document.querySelectorAll('#'+id+' a:not(.visited)').length;
+    if(count) {
+        document.getElementById(id+"_count").innerText="("+count+")";
+    } else {
+        document.getElementById(id+"_count").innerText="";
+        document.getElementById(id+"_details").open = false;
+    }
 }
 
 function getToday() {
@@ -32,14 +49,18 @@ function initTaskInfo(today) {
 }
 
 (function () {
-
-
     // 1416 2019-02-14
     var html = [];
+    var htmlids = {};
     for (var i = 0; i < urls.length; i++) {
-        html.push('<li><a id="', md5(urls[i][0]), '" target="_blank" href="', urls[i][0], '">', urls[i][1], '</a></li>');
+        var id = urls[i][2];
+        if(!htmlids[id]) htmlids[id] = [];
+        htmlids[id].push('<li><a group="',id,'" id="', md5(urls[i][0]), '" target="_blank" href="', urls[i][0], '">', urls[i][1], '</a></li>');
     }
-    document.getElementById('items').innerHTML = html.join('');
+    for(var key in htmlids) {
+        document.getElementById(key).innerHTML = htmlids[key].join('');
+    }
+    
 })();
 
 var taskInfo = null;

@@ -22,43 +22,16 @@
     a.visited {
       color: #551a8b;
     }
-
-    a.red {
-      color:red;
-    }
-
   </style>
 </head>
 
 <body>
   <input type="number" id="number" value="833" /><button onclick="openNumber()">打开</button> <button onclick="openNumberAdd1(1)">+1</button>
   <button onclick="openNumberAdd1(5)">+5</button>
-  <details open  id="t6_details">
-    <summary>早起任务<span id="t6_count"></span></summary>
-    <ol id="t6">
-    </ol>
-  </details>
+  <ol id="items">
 
-  <details open  id="t2_details">
-    <summary>必做任务<span id="t2_count"></span></summary>
-    <ol id="t2">
-    </ol>
-  </details>
+  </ol>
 
-  <details  id="t0_details">
-    <summary>可选任务<span id="t0_count"></span></summary>
-    <ol id="t0">
-    </ol>
-  </details>
-
-  <details  id="t9_details">
-    <summary>删除任务<span id="t9_count"></span></summary>
-    <ol id="t9">
-    </ol>
-  </details>
-
-
-  <script src="../js/dexie.js"></script>
   <script src="./js/md5.min.js"></script>
   <script src="./urls.js"></script>
   <script src="./js/index.js"></script>
