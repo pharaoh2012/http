@@ -102,3 +102,8 @@ function hideLinks() {
         document.querySelectorAll('a.visited').forEach(a=>a.parentElement.style.display='')
     }
 }
+
+function openUrl() {
+    var u = document.getElementById("iurl").value;
+    if(u) window.open(u);
+}
