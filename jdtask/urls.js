@@ -42,6 +42,7 @@ var urls = [["https://s.pay.xiaomi.com/cash?channel=cashpayshopBanner#/daka", "�
 ["open://com.cmbchina.ccd.pluto.cmbActivity", "APP:掌上生活", "t2"],
 ["open://com.greenpoint.android.mc10086.activity", "APP:中国移动", "t2"],
 ["open://com.netease.newsreader.activity", "APP:网易新闻", "t2"],
+["open://com.chinasofti.rcs", "APP:和飞信", "t2"],
 ["https://bean.m.jd.com/plantBean/index.action?resourceValue=bean","京豆培养（晚上）", "t2"],
 ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1210", "领红包1210 0.01", "t0"],
 ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1513", "领红包1513 0.1  ???", "t9"],
