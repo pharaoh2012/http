@@ -56,6 +56,7 @@ function initTaskInfo(today) {
     var html = [];
     var htmlids = {};
     for (var i = 0; i < urls.length; i++) {
+        console.info(urls[i]);
         var id = urls[i][2];
         if(!htmlids[id]) htmlids[id] = [];
         htmlids[id].push('<li><a group="',id,'" id="', md5(urls[i][0]), '" target="_blank" href="', urls[i][0], '">', urls[i][1], '</a></li>');

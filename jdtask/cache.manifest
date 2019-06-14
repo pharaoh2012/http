@@ -1,8 +1,11 @@
 CACHE MANIFEST
-#2019.06.14
+#2019.06.14.1
 
 CACHE:
 
 js/md5.min.js
 urls.js
 js/index.js
+
+NETWORK:
+*
