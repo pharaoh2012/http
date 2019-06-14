@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-cn"  manifest = "cache.manifest">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>京东签到</title>
+  <style type="text/css">
+    body {
+      font-size: 30px;
+    }
+
+    li {
+      padding: 5px;
+    }
+
+    a {
+      color: blue;
+    }
+
+    a.visited {
+      color: #551a8b;
+    }
+
+    a.red {
+      color:red;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <details open  id="t6_details">
+    <summary>早起任务<span id="t6_count"></span></summary>
+    <ol id="t6">
+    </ol>
+  </details>
+
+  <details  id="t2_details">
+    <summary>必做任务<span id="t2_count"></span></summary>
+    <ol id="t2">
+    </ol>
+  </details>
+
+  <details  id="t0_details">
+    <summary>可选任务<span id="t0_count"></span></summary>
+    <ol id="t0">
+    </ol>
+  </details>
+
+  <details open id="t9_details">
+    <summary>删除任务<span id="t9_count"></span></summary>
+    <ol id="t9">
+    </ol>
+  </details>
+
+  <button onclick="isHidden=!isHidden;hideLinks();" style="width:99%;">显示隐藏</button>
+  <div>
+    <input type="number" id="number" value="833" /><button onclick="openNumber()">打开</button> <button onclick="openNumberAdd1(1)">+1</button>
+    <button onclick="openNumberAdd1(5)">+5</button> 
+  </div>
+  <div>
+    <input type="text" id="iurl" value="" /><button onclick="openUrl()">打开</button> 
+  </div>  
+
+  <script src="../js/dexie.js"></script>
+  <script src="./js/md5.min.js"></script>
+  <script src="./urls_jd.js"></script>
+  <script src="./js/index.js"></script>
+
+</body>
+
+</html>
