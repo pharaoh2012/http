@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html manifest="aqy.manifest">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>学习强国答案</title>
+  <style>
+    body {
+      font-size: 20px;
+    }
+  </style>
+  <script src="./answer.js"></script>
+  <script type="text/javascript">
+    var msg;
+    var length = question.length;
+    var lastText = "";
+
+    function doSearch() {
+      var txt = document.getElementById('s').value.trim();
+      if (lastText == txt) return;
+      lastText = txt;
+      var sq = txt.split(/\s+/);
+      var result = searchQuestion(sq);
+      document.getElementById('status').innerHTML = result.join("</br>");
+    }
+
+    function searchQuestion(sq) {
+      var result = [];
+      var sqlength = sq.length;
+      for (var i = 0; i < length; i++) {
+        var find = 1;
+        for (let index = 0; index < sqlength; index++) {
+          const element = sq[index];
+          if (question[i].indexOf(element) == -1) {
+            find = 0;
+            break;
+          }
+        }
+        if (find) {
+          result.push(question[i]);
+          if (result.length >= 5) return result;
+        }
+
+      }
+      return result;
+    }
+  </script>
+</head>
+
+<body>
+  <input id='s' onkeyup="doSearch();" /><button onclick='doSearch();'>search</button>
+  <ol id="status" name="status">Status Message</ol>
+
+</body>
+
+</html>
