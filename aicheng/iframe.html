@@ -78,6 +78,13 @@
             $this.find("img").each(function () {
                 html.push('<div class="imgBox"><img src="', this.src, '" /></div>');
             })
+            $this.find("input[type='image']").each(function () {
+                var imgsrc = this.src;
+                if(!imgsrc) {
+                    imgsrc = this.attributes["data-src"];
+                }
+                html.push('<div class="imgBox"><img src="', imgsrc, '" /></div>');
+            })
         })
 
         var imgs = parent.document.images;
