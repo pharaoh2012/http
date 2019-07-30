@@ -10,7 +10,7 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet">
     <style type="text/css">
-    iframe {
+    #imgShowIframe {
         border: none;
         width: 100%;
         height: 100%;
@@ -203,7 +203,7 @@
     }
 
     function showAllImages() {
-        $(document.body).append('<iframe src="iframe.html" ></iframe>');
+        $(document.body).append('<iframe id="imgShowIframe" src="iframe.html" ></iframe>');
         window.history.pushState(null, "", "#imgList")
     }
 
