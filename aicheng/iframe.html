@@ -81,7 +81,7 @@
             $this.find("input[type='image']").each(function () {
                 var imgsrc = this.src;
                 if(!imgsrc) {
-                    imgsrc = this.attributes["data-src"];
+                    imgsrc = this.getAttribute("data-src");
                 }
                 html.push('<div class="imgBox"><img src="', imgsrc, '" /></div>');
             })
