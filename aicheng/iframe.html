@@ -68,6 +68,9 @@
     <script src="./js/transform.js"></script>
     <script src="./js/alloy_finger.js"></script>
     <script>
+        function skipImg(src) {
+            return src.endsWith(".gif") || src.endsWith(".GIF");
+        }
     (function() {
         var html = [];
         var dv = parent.$(".detail-view");
@@ -76,12 +79,12 @@
             var h1 = $this.find("h1").text();
             html.push("<h1>"+(index+1)+". "+h1+"</h1><hr />");
             $this.find("img").each(function () {
-                html.push('<div class="imgBox"><img src="', this.src, '" /></div>');
+                if(!skipImg(this.src))  html.push('<div class="imgBox"><img src="', this.src, '" /></div>');
             })
             $this.find("input[type='image']").each(function () {
                 var imgsrc = this.src;
                 if(!imgsrc) {
-                    imgsrc = this.getAttribute("data-src");
+                    if(!skipImg(imgsrc)) imgsrc = this.getAttribute("data-src");
                 }
                 html.push('<div class="imgBox"><img src="', imgsrc, '" /></div>');
             })
