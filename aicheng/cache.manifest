@@ -1,0 +1,25 @@
+CACHE MANIFEST
+#2019.07.31
+
+CACHE:
+/html/aicheng/iframe.html
+/html/aicheng/index.html
+/html/aicheng/js/alloy_finger.js
+/html/aicheng/js/iframe.js
+/html/aicheng/js/index.js
+/html/aicheng/js/to.js
+/html/aicheng/js/transform.js
+/html/aicheng/js/fonts/glyphicons-halflings-regular.woff2
+/html/aicheng/js/l/bootstrap-table-zh-CN.min.js
+/html/aicheng/js/l/bootstrap-table.min.css
+/html/aicheng/js/l/bootstrap-table.min.js
+/html/aicheng/js/l/bootstrap.min.css
+/html/aicheng/js/l/bootstrap.min.js
+/html/aicheng/js/l/fly.min.js
+/html/aicheng/js/l/jquery.min.js
+/html/aicheng/js/l/moment.min.js
+/html/aicheng/js/l/zh-cn.js
+/html/js/lc.js
+
+NETWORK:
+*
