@@ -1,6 +1,8 @@
 function skipImg(src) {
     return src.endsWith(".gif") || src.endsWith(".GIF");
 }
+var imgErrorCount=0;
+var totleImage = 0;
 (function () {
     var html = [];
     var dv = parent.$(".detail-view");
@@ -26,14 +28,22 @@ function skipImg(src) {
             html.push('<div class="imgBox"><img src="', imgsrc, '" /></div>');
         })
     })
+    totleImage = length;
 
-    document.getElementById('header').innerText = "共" + length + "个图片";
+    document.getElementById('header').innerText = "共" + totleImage + "个图片,"+imgErrorCount+"个错误";
     document.getElementById('imgList').innerHTML = html.join('');
     $("#imgList img").each(function (index, img) {
         $(img).on('error', function () {
             var src = this.src;
-            if (src.indexOf('getpage.now.sh') > 0) return;
-            this.src = "https://getpage.now.sh/?url=" + encodeURIComponent(this.src);
+            if ((src.indexOf('getpage.now.sh') > 0) || (src.indexOf("geturl.pharaoh.workers.dev")>0)) return;
+            imgErrorCount++;
+            if(imgErrorCount%2==0) {
+                this.src = "https://getpage.now.sh/?url=" + encodeURIComponent(this.src);
+            } else {
+                this.src = "https://geturl.pharaoh.workers.dev/--------" + this.src;
+            }
+            document.getElementById('header').innerText = "共" + totleImage + "个图片,"+imgErrorCount+"个错误";
+            
             //$(this).prop('src','img/broken.png');
         });
         Transform(img);
