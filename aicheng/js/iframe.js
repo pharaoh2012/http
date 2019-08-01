@@ -3,6 +3,11 @@ function skipImg(src) {
 }
 var imgErrorCount=0;
 var totleImage = 0;
+var imgLoadOk = 0;
+var headerObj = document.getElementById('header');
+function showImageInfo() {
+    headerObj.innerText = "共["+ imgLoadOk + "/" + totleImage + "]个图片,"+imgErrorCount+"个错误";    
+}
 (function () {
     var html = [];
     var dv = parent.$(".detail-view");
@@ -30,7 +35,7 @@ var totleImage = 0;
     })
     totleImage = length;
 
-    document.getElementById('header').innerText = "共" + totleImage + "个图片,"+imgErrorCount+"个错误";
+    showImageInfo();
     document.getElementById('imgList').innerHTML = html.join('');
     $("#imgList img").each(function (index, img) {
         $(img).on('error', function () {
@@ -42,9 +47,12 @@ var totleImage = 0;
             } else {
                 this.src = "https://geturl.pharaoh.workers.dev/--------" + this.src;
             }
-            document.getElementById('header').innerText = "共" + totleImage + "个图片,"+imgErrorCount+"个错误";
+            showImageInfo();
             
             //$(this).prop('src','img/broken.png');
+        }).on("load",function(){
+            imgLoadOk++;
+            showImageInfo();
         });
         Transform(img);
         img.initScale = 1;
