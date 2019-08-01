@@ -5,6 +5,8 @@ var imgErrorCount=0;
 var totleImage = 0;
 var imgLoadOk = 0;
 var headerObj = document.getElementById('header');
+var imgCacheUrls = ["https://geturl.pharaoh.workers.dev/--------","https://geturl0.pharaoh.workers.dev/--------","https://geturl1.pharaoh.workers.dev/--------","https://geturl2.pharaoh.workers.dev/--------","https://geturl3.pharaoh.workers.dev/--------","https://geturl4.pharaoh.workers.dev/--------"];
+var imgCacheCount = imgCacheUrls.length;
 function showImageInfo() {
     headerObj.innerText = "共["+ imgLoadOk + "/" + totleImage + "]个图片,"+imgErrorCount+"个错误";    
 }
@@ -42,11 +44,12 @@ function showImageInfo() {
             var src = this.src;
             if ((src.indexOf('getpage.now.sh') > 0) || (src.indexOf("geturl.pharaoh.workers.dev")>0)) return;
             imgErrorCount++;
-            if(imgErrorCount%2==0) {
-                this.src = "https://getpage.now.sh/?url=" + encodeURIComponent(this.src);
-            } else {
-                this.src = "https://geturl.pharaoh.workers.dev/--------" + this.src;
-            }
+            this.src = imgCacheUrls[imgErrorCount%imgCacheCount]+this.src;
+            // if(imgErrorCount%2==0) {
+            //     this.src = "https://getpage.now.sh/?url=" + encodeURIComponent(this.src);
+            // } else {
+            //     this.src = "https://geturl.pharaoh.workers.dev/--------" + this.src;
+            // }
             showImageInfo();
             
             //$(this).prop('src','img/broken.png');
