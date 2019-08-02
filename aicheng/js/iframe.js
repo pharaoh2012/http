@@ -5,6 +5,7 @@ var imgErrorCount=0;
 var totleImage = 0;
 var imgLoadOk = 0;
 var headerObj = document.getElementById('header');
+var maxImageCount = 200;
 var imgCacheUrls = ["https://geturl.pharaoh.workers.dev/--------","https://geturl0.pharaoh.workers.dev/--------","https://geturl1.pharaoh.workers.dev/--------","https://geturl2.pharaoh.workers.dev/--------","https://geturl3.pharaoh.workers.dev/--------","https://geturl4.pharaoh.workers.dev/--------"];
 var imgCacheCount = imgCacheUrls.length;
 function showImageInfo() {
@@ -21,6 +22,7 @@ function showImageInfo() {
         $this.find("img").each(function () {
             if (!skipImg(this.src)) {
                 length++;
+                if(length>maxImageCount) return;
                 html.push('<div class="imgBox"><img src="', this.src, '" /></div>');
             }
         })
@@ -32,6 +34,7 @@ function showImageInfo() {
                 }
             }
             length++;
+            if(length>maxImageCount) return;
             html.push('<div class="imgBox"><img src="', imgsrc, '" /></div>');
         })
     })
