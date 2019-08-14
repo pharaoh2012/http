@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>皇室战争宝箱</title>
+    <style type="text/css">
+    .user-grade {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-top: 4px;
+        margin-left: 5px;
+        font-size: 12px;
+        color: #fff;
+        line-height: 30px;
+        vertical-align: top;
+        font-style: normal;
+        text-align: center;
+        background: url(http://pub.dwstatic.com/p/crashroyale/1.0.0/img/user_grade_icon_663abd4.png) no-repeat left center
+    }
+    
+    .disabled-box {
+        opacity: 0.5;
+    }
+    
+    .box__item {
+        width:50px;
+        height: 50px;
+        margin: 7px;
+        display:inline-block;
+        font-size: 14px;
+        font-weight: 800;
+        text-shadow: 0 2px 4px rgba(0,0,0,.83);
+        color: #fff;
+        text-align: right;
+        vertical-align: top;
+        line-height: 80px;
+    }
+
+    button {
+        width: 32%;
+    }
+    #msg {
+        width: 95%;
+        height: 250px;
+    }   
+
+    .chests__epic {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_d38c568ec92cddccef801119c0e6f97a.png);background-size: cover;}
+.chests__giant {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_c5b0458fc8f449216ad2e82272024931.png);background-size: cover;}
+.chests__gold {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_9a60e724a317a0e01edda70f16ad2602.png);background-size: cover;}
+.chests__legendary {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_cc3613d2f4ac8052fb3e2e55aee98b6e.png);background-size: cover;}
+.chests__magic {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_2a1c9fb0ec422887124fcd9644148ee2.png);background-size: cover;}
+.chests__silver {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_9e776b2deb5340dee516c8cfed1c1cb7.png);background-size: cover;}
+.chests__super {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_cd4a03c05487e8623442e45a3b72cf88.png);background-size: cover;}
+
+
+    </style>
+</head>
+
+<body>
+    <button id="btnSearch" onclick="doSearch();">获取信息</button>
+    <button id="btnRefesh" onclick="doRefesh();">刷新信息</button>
+    <button onclick="document.getElementById('msg').value = '';">清空消息</button>
+    
+    <div id="playinfo_UQ280VL0"></div>
+    <div>
+        <h2 class="header">近期宝箱 Pharaoh</h2>
+        <div id='chests_UQ280VL0' class="clearfix"></div>
+    </div>
+    <div id="playinfo_UQJGLQQ2"></div>
+    <div>
+        <h2 class="header">近期宝箱 God</h2>
+        <div id='chests_UQJGLQQ2' class="clearfix"></div>
+    </div>    
+    <textarea id="msg"></textarea>
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
+    <script type="text/javascript">
+    moment.locale("zh-cn");
+
+    var names = {
+        "UQ280VL0":"pharaoh",
+        "UQJGLQQ2":"God"
+    };
+
+    function showMsg(msg) {
+    	document.getElementById('msg').value += msg+"\n";
+        $("#msg").scrollTop($("#msg")[0].scrollHeight);  
+    }
+
+    function showPlayInfo(data,name,isCache) {
+            var playInfo = data.data.player_info;
+            if(data.time) {
+            	playInfo.profile_refresh_msg = "用户信息更新于<b>" + moment(data.time).fromNow()+"</b> ";
+            }
+            if(data.battles_time) {
+                playInfo.profile_refresh_msg += "战争信息更新于<b>"+moment(data.battles_time).fromNow()+"</b> ";
+            }
+            $("#playinfo_"+name).html(`${playInfo.playerName} <i class="user-grade">${playInfo.playerlever}</i>  ${playInfo.playerTeamName} ${playInfo.profile_refresh_msg} 获取时间：<b>${moment(data.getTime).fromNow()}</b> ${isCache?"":"√"}`);
+            var chestInfo = data.data.chests;
+            var htmls = chestInfo.map(function(item) {
+                return `<div class="box__item ${item.type} ${item.disabled?"disabled-box":""}">${item.chestnumber}&nbsp;</div>`;
+            });
+            $("#chests_"+name).html(htmls.join(''));    	
+    }
+
+    function doSearch(name) {
+        if (!name) {
+            document.getElementById('btnSearch').disabled = true;
+            for(var name in names) doSearch(name);
+            setTimeout(function() {
+                document.getElementById('btnSearch').disabled = false;
+            }, 10000);                
+            return;
+        }
+            
+        showMsg('正在查询:'+names[name]);
+        var data = localStorage.getItem("cr_"+name);
+        if(data) {
+        	data = JSON.parse(data);
+        	showPlayInfo(data,name,1);
+        }
+        $.getJSON('http://dwadd.duowan.com/?r=card/Profile&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
+            console.info(data);
+            if ((data.code != 1) || (data.msg != 'success')) {
+                showMsg("加载错误！5s重试！");
+                setTimeout(function() {
+                    doSearch(name);
+                }, 5000);
+                return;
+            }
+            var timeText = data.data.player_info.profile_refresh_msg;
+            var ret = /(\d+) ([a-z]*)/.exec(timeText);
+            if(ret) {
+            	var dt = moment().subtract(ret[1],ret[2]);
+            	data.time = dt;
+            }
+            ret = /(\d+) ([a-z]*)/.exec(data.data.player_info.battles_refresh_msg);
+            if(ret) {
+                var dt = moment().subtract(ret[1],ret[2]);
+                data.battles_time = dt;
+            }
+
+            data.getTime = new Date();
+            showMsg("查询成功："+names[name]);
+            localStorage.setItem("cr_"+name,JSON.stringify(data));
+
+            showPlayInfo(data,name,0);
+        });
+    }
+
+    doRefesh();
+    doSearch();
+
+    function doRefesh(name) {
+        if (!name) {
+            document.getElementById('btnRefesh').disabled = true;
+            for(var name in names) doRefesh(name);
+            setTimeout(function() {
+                document.getElementById('btnRefesh').disabled = false;
+            }, 10000);
+            return;        
+        }
+        showMsg('正在刷新信息:'+names[name]);
+        $.getJSON('http://dwadd.duowan.com/?r=card/ProfileRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
+            console.info(data);
+
+
+            showMsg(names[name] +" 个人信息： " + JSON.stringify(data,null,2));
+        });
+        // $.getJSON('http://dwadd.duowan.com/?r=card/BattlesRefresh&type=JSONP&tag=' + name + '&callback=?&_=' + Date.now(), function(data) {
+        //     console.info(data);
+
+
+        //     showMsg(names[name] +" 战斗信息： " + JSON.stringify(data,null,2));
+        // });        
+    }
+
+    </script>
+</body>
+
+</html>
