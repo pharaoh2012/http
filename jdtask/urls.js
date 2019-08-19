@@ -66,13 +66,13 @@ var urls = [["https://eimi.cloud/user", "ss 签到", "t0"],
  //["https://m.jr.jd.com/spe/downloadApp/index.html?id=2339&jumpType=7&jumpUrl=https%3A%2F%2Fu.jr.jd.com%2Fwxgrowing%2Fmoneytree%2Findex.html%3FchannelLV%3Dsq", "收金果（12点）", "t2"],
  //["https://m.jr.jd.com/spe/downloadApp/index.html?id=2339&jumpType=7&jumpUrl=https%3A%2F%2Fu.jr.jd.com%2Fwxgrowing%2Fmoneytree%2Findex.html%3FchannelLV%3Dsq", "收金果（18点）", "t2"], 
 
- ["https://bean.m.jd.com/?sid=", "领金豆", "t6"],
- ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=215", "早起打卡", "t6"],
- ["openapp.jdmobile://virtual?params=%7B%22category%22%3A%22jump%22%2C%22des%22%3A%22IntelligentAssistant%22%7D", "京东小咚", "t6"],
- 
 
- ["open://com.eg.android.AlipayGphone", "APP:支付宝(早上)", "t6"],
+ ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=215", "早起打卡", "t6"],
+ ["openapp.jdmobile://virtual?params=%7B%22category%22%3A%22jump%22%2C%22des%22%3A%22IntelligentAssistant%22%7D", "京东小咚", "t2"],
  
+ ["open://com.tencent.mobileqq", "QQ签到(早上)", "t6"],
+ ["open://com.eg.android.AlipayGphone", "APP:支付宝(早上)", "t6"],
+ ["https://bean.m.jd.com/?sid=", "领金豆", "t6"], 
  //["openapp.jdmobile://virtual?params={\"category\":\"jump\",\"des\":\"jdreactcommon\",\"modulename\":\"JDReactJDBeansTaskCenter\",\"appname\":\"JDReactJDBeansTaskCenter\",\"ishidden\":true,\"param\":{\"page\":\"collectJDBeansTaskCenter\",\"transparentenable\":false},\"sourceType\":\"JDReactCollectJDBeans\"}", "进店领豆", "t6"],
 
  ["https://home.jdpay.com/my/welfare/jxWelfarePage?type=jingdou&source=JDSC", "合集1", "t9"],
