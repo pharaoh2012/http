@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+	input,textarea {
+		width:99%;
+	}
+	</style>
+</head>
+<body>
+<input type="text" placeholder="脚本名称" id="name">
+<textarea rows="20" id="code"></textarea>
+<input type="button" value="保存" onclick="save();">
+
+<script src='jdtask/js/jquery.min.js'></script>
+<script>
+function save() {
+	let name = $("#name").val();
+	let code = $("#code").val();
+	$.post('http://nodejsweb-20190905.appspot.com/save/'+name,{'code':code},r=>alert(r));
+}
+</script>
+
+</body>
+</html>
