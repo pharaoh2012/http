@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" manifest="cache.manifest">
 
 <head>
     <meta charset="utf-8">
@@ -7,337 +7,295 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>皇室战争宝箱</title>
     <style type="text/css">
-    /* .user-grade {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        margin-top: 4px;
-        margin-left: 5px;
-        font-size: 12px;
-        color: #fff;
-        line-height: 30px;
-        vertical-align: top;
-        font-style: normal;
-        text-align: center;
-        background: url(http://pub.dwstatic.com/p/crashroyale/1.0.0/img/user_grade_icon_663abd4.png) no-repeat left center
-    }
-    
-    .disabled-box {
-        opacity: 0.5;
-    }
-    
-    .box__item {
-        width:50px;
-        height: 50px;
-        margin: 7px;
-        display:inline-block;
-        font-size: 14px;
-        font-weight: 800;
-        text-shadow: 0 2px 4px rgba(0,0,0,.83);
-        color: #fff;
-        text-align: right;
-        vertical-align: top;
-        line-height: 80px;
-    }
+        .chests__queue {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+        }
 
-    button {
-        width: 32%;
-    }
-    #msg {
-        width: 95%;
-        height: 250px;
-    }   
+        .chests__next {
+            position: relative
+        }
 
-    .chests__epic {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_d38c568ec92cddccef801119c0e6f97a.png);background-size: cover;}
-.chests__giant {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_c5b0458fc8f449216ad2e82272024931.png);background-size: cover;}
-.chests__gold {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_9a60e724a317a0e01edda70f16ad2602.png);background-size: cover;}
-.chests__legendary {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_cc3613d2f4ac8052fb3e2e55aee98b6e.png);background-size: cover;}
-.chests__magic {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_2a1c9fb0ec422887124fcd9644148ee2.png);background-size: cover;}
-.chests__silver {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_9e776b2deb5340dee516c8cfed1c1cb7.png);background-size: cover;}
-.chests__super {background: url(http://screenshot.dwstatic.com/ojiasnsimage/20170630_cd4a03c05487e8623442e45a3b72cf88.png);background-size: cover;} */
+        .chests__next:before {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 65px;
+            border-radius: 8px;
+            border: 3px solid #0089ff;
+            box-sizing: border-box
+        }
 
-.chests__queue {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-}
+        .chests__silver.chests__next:before,
+        .chests__wooden.chests__next:before {
+            left: -9px;
+            top: -11px
+        }
 
-.chests__next {
-    position: relative
-}
+        .chests__gold.chests__next:before {
+            top: -9px;
+            left: -7px;
+            width: 70px;
+            height: 70px
+        }
 
-.chests__next:before {
-    content: "";
-    position: absolute;
-    width: 60px;
-    height: 65px;
-    border-radius: 8px;
-    border: 3px solid #0089ff;
-    box-sizing: border-box
-}
+        .chests__giant.chests__next:before {
+            top: -8px;
+            left: -7px;
+            width: 70px;
+            height: 75px
+        }
 
-.chests__silver.chests__next:before,.chests__wooden.chests__next:before {
-    left: -9px;
-    top: -11px
-}
+        .chests__magic.chests__next:before {
+            top: -9px;
+            left: -5px;
+            width: 78px;
+            height: 75px
+        }
 
-.chests__gold.chests__next:before {
-    top: -9px;
-    left: -7px;
-    width: 70px;
-    height: 70px
-}
+        .chests__legendary.chests__next:before,
+        .chests__mega.chests__next:before,
+        .chests__super.chests__next:before {
+            top: -7px;
+            left: -5px;
+            width: 67px;
+            height: 75px
+        }
 
-.chests__giant.chests__next:before {
-    top: -8px;
-    left: -7px;
-    width: 70px;
-    height: 75px
-}
+        .chests__epic.chests__next:before {
+            top: -9px;
+            left: -6px;
+            width: 67px;
+            height: 75px
+        }
 
-.chests__magic.chests__next:before {
-    top: -9px;
-    left: -5px;
-    width: 78px;
-    height: 75px
-}
+        .chests__silver,
+        .chests__wooden {
+            width: 43px;
+            height: 41px;
+            margin-right: 14px;
+            margin-bottom: 20px
+        }
 
-.chests__legendary.chests__next:before,.chests__mega.chests__next:before,.chests__super.chests__next:before {
-    top: -7px;
-    left: -5px;
-    width: 67px;
-    height: 75px
-}
+        .chests__silver:after {
+            background: url("images/silver-chest.png");
+            background-size: cover
+        }
 
-.chests__epic.chests__next:before {
-    top: -9px;
-    left: -6px;
-    width: 67px;
-    height: 75px
-}
+        .chests__silver:after,
+        .chests__wooden:after {
+            content: "";
+            width: 43px;
+            height: 41px;
+            display: block
+        }
 
-.chests__silver,.chests__wooden {
-    width: 43px;
-    height: 41px;
-    margin-right: 14px;
-    margin-bottom: 20px
-}
+        .chests__wooden:after {
+            background: url("images/wooden-chest.png");
+            background-size: cover
+        }
 
-.chests__silver:after {
-    background: url("//cdn.statsroyale.com/images/silver-chest.png");
-    background-size: cover
-}
+        .chests__gold {
+            width: 57px;
+            height: 52px;
+            margin-right: 14px;
+            margin-bottom: 20px
+        }
 
-.chests__silver:after,.chests__wooden:after {
-    content: "";
-    width: 43px;
-    height: 41px;
-    display: block
-}
+        .chests__gold:after {
+            content: "";
+            width: 57px;
+            height: 52px;
+            background: url("images/gold-chest.png");
+            background-size: cover;
+            display: block
+        }
 
-.chests__wooden:after {
-    background: url("//cdn.statsroyale.com/images/wooden-chest.png");
-    background-size: cover
-}
+        .chests__giant {
+            width: 57px;
+            height: 59px;
+            margin-right: 14px;
+            margin-bottom: 20px
+        }
 
-.chests__gold {
-    width: 57px;
-    height: 52px;
-    margin-right: 14px;
-    margin-bottom: 20px
-}
+        .chests__giant:after {
+            content: "";
+            width: 57px;
+            height: 59px;
+            background: url("images/giant-chest.png");
+            background-size: cover;
+            display: block
+        }
 
-.chests__gold:after {
-    content: "";
-    width: 57px;
-    height: 52px;
-    background: url("//cdn.statsroyale.com/images/gold-chest.png");
-    background-size: cover;
-    display: block
-}
+        .chests__super {
+            width: 56px;
+            height: 58px;
+            margin-right: 14px;
+            margin-bottom: 20px
+        }
 
-.chests__giant {
-    width: 57px;
-    height: 59px;
-    margin-right: 14px;
-    margin-bottom: 20px
-}
+        .chests__super:after {
+            content: "";
+            width: 56px;
+            height: 58px;
+            background: url("images/super-magical-chest.png");
+            background-size: cover;
+            display: block
+        }
 
-.chests__giant:after {
-    content: "";
-    width: 57px;
-    height: 59px;
-    background: url("//cdn.statsroyale.com/images/giant-chest.png");
-    background-size: cover;
-    display: block
-}
+        .chests__mega {
+            width: 56px;
+            height: 58px;
+            margin-right: 14px;
+            margin-bottom: 20px
+        }
 
-.chests__super {
-    width: 56px;
-    height: 58px;
-    margin-right: 14px;
-    margin-bottom: 20px
-}
+        .chests__mega:after {
+            content: "";
+            width: 56px;
+            height: 58px;
+            background: url("images/super-lightning-chest.png");
+            background-size: cover;
+            display: block
+        }
 
-.chests__super:after {
-    content: "";
-    width: 56px;
-    height: 58px;
-    background: url("//cdn.statsroyale.com/images/super-magical-chest.png");
-    background-size: cover;
-    display: block
-}
+        .chests__magic {
+            width: 68px;
+            height: 59px;
+            margin-right: 14px;
+            margin-bottom: 20px
+        }
 
-.chests__mega {
-    width: 56px;
-    height: 58px;
-    margin-right: 14px;
-    margin-bottom: 20px
-}
+        .chests__magic:after {
+            width: 68px;
+            height: 59px;
+            background: url("images/magical-chest.png");
+            background-size: cover;
+            display: block;
+            content: ""
+        }
 
-.chests__mega:after {
-    content: "";
-    width: 56px;
-    height: 58px;
-    background: url("//cdn.statsroyale.com/images/super-lightning-chest.png");
-    background-size: cover;
-    display: block
-}
+        .chests__legendary {
+            width: 57px;
+            height: 57px;
+            margin-right: 14px;
+            margin-bottom: 20px
+        }
 
-.chests__magic {
-    width: 68px;
-    height: 59px;
-    margin-right: 14px;
-    margin-bottom: 20px
-}
+        .chests__legendary:after {
+            width: 57px;
+            height: 57px;
+            background: url("images/legendary-chest.png");
+            background-size: cover;
+            display: block;
+            content: ""
+        }
 
-.chests__magic:after {
-    width: 68px;
-    height: 59px;
-    background: url("//cdn.statsroyale.com/images/magical-chest.png");
-    background-size: cover;
-    display: block;
-    content: ""
-}
+        .chests__epic {
+            width: 55px;
+            height: 56px;
+            margin-right: 14px;
+            margin-bottom: 20px
+        }
 
-.chests__legendary {
-    width: 57px;
-    height: 57px;
-    margin-right: 14px;
-    margin-bottom: 20px
-}
+        .chests__epic:after {
+            width: 55px;
+            height: 56px;
+            background: url("images/epic-chest.png");
+            background-size: cover;
+            display: block;
+            content: ""
+        }
 
-.chests__legendary:after {
-    width: 57px;
-    height: 57px;
-    background: url("//cdn.statsroyale.com/images/legendary-chest.png");
-    background-size: cover;
-    display: block;
-    content: ""
-}
+        .chests__counter {
+            font-size: 14px;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, .83);
+            color: #fff;
+            position: absolute;
+            right: 0;
+            bottom: 0
+        }
 
-.chests__epic {
-    width: 55px;
-    height: 56px;
-    margin-right: 14px;
-    margin-bottom: 20px
-}
+        .chests__silver .chests__counter,
+        .chests__wooden .chests__counter {
+            right: 4px;
+            bottom: -5px
+        }
 
-.chests__epic:after {
-    width: 55px;
-    height: 56px;
-    background: url("//cdn.statsroyale.com/images/epic-chest.png");
-    background-size: cover;
-    display: block;
-    content: ""
-}
+        .chests__golden .chests__counter {
+            right: 8px;
+            bottom: 1px
+        }
 
-.chests__counter {
-    font-size: 14px;
-    font-weight: 800;
-    text-shadow: 0 2px 4px rgba(0,0,0,.83);
-    color: #fff;
-    position: absolute;
-    right: 0;
-    bottom: 0
-}
+        .chests__giant .chests__counter {
+            right: 6px;
+            bottom: 4px
+        }
 
-.chests__silver .chests__counter,.chests__wooden .chests__counter {
-    right: 4px;
-    bottom: -5px
-}
+        .chests__mega .chests__counter,
+        .chests__super .chests__counter {
+            right: 8px;
+            bottom: 4px
+        }
 
-.chests__golden .chests__counter {
-    right: 8px;
-    bottom: 1px
-}
+        .chests__epic .chests__counter,
+        .chests__legendary .chests__counter {
+            right: 6px;
+            bottom: 3px
+        }
 
-.chests__giant .chests__counter {
-    right: 6px;
-    bottom: 4px
-}
+        .chests__magic .chests__counter {
+            right: 8px;
+            bottom: 3px
+        }
 
-.chests__mega .chests__counter,.chests__super .chests__counter {
-    right: 8px;
-    bottom: 4px
-}
+        .chests__next.chests__silver .chests__counter,
+        .chests__next.chests__wooden .chests__counter {
+            right: 6px;
+            bottom: -5px;
+            letter-spacing: .02em
+        }
 
-.chests__epic .chests__counter,.chests__legendary .chests__counter {
-    right: 6px;
-    bottom: 3px
-}
+        .chests__next.chests__gold .chests__counter {
+            right: 6px;
+            bottom: 0;
+            letter-spacing: .02em
+        }
 
-.chests__magic .chests__counter {
-    right: 8px;
-    bottom: 3px
-}
+        .chests__queue>:hover .chests__tooltip {
+            display: block
+        }
 
-.chests__next.chests__silver .chests__counter,.chests__next.chests__wooden .chests__counter {
-    right: 6px;
-    bottom: -5px;
-    letter-spacing: .02em
-}
+        .chests__tooltip.ui__tooltip {
+            position: absolute;
+            left: -42px;
+            top: calc(100% + 15px);
+            width: 132px;
+            text-align: center
+        }
 
-.chests__next.chests__gold .chests__counter {
-    right: 6px;
-    bottom: 0;
-    letter-spacing: .02em
-}
+        .chests__queue>* {
+            position: relative;
+        }
 
-.chests__queue>:hover .chests__tooltip {
-    display: block
-}
-
-.chests__tooltip.ui__tooltip {
-    position: absolute;
-    left: -42px;
-    top: calc(100% + 15px);
-    width: 132px;
-    text-align: center
-}
-
-.chests__queue>* {
-    position: relative;
-}
-
-.ui__tooltip {
-    position: relative;
-    top: 100%;
-    display: none;
-    z-index: 50;
-    box-sizing: border-box;
-    background: #fff;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.35);
-    -webkit-backface-visibility: visible;
-    backface-visibility: visible;
-    padding: 9px 10px 10px;
-    color: #41414a;
-    font-size: 14px;
-    line-height: 16px;
-    transition: opacity .2s ease-out;
-}
-
-
+        .ui__tooltip {
+            position: relative;
+            top: 100%;
+            display: none;
+            z-index: 50;
+            box-sizing: border-box;
+            background: #fff;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .35);
+            -webkit-backface-visibility: visible;
+            backface-visibility: visible;
+            padding: 9px 10px 10px;
+            color: #41414a;
+            font-size: 14px;
+            line-height: 16px;
+            transition: opacity .2s ease-out;
+        }
     </style>
 </head>
 
@@ -345,21 +303,23 @@
     <!-- <button id="btnSearch" onclick="doSearch();">获取信息</button>
     <button id="btnRefesh" onclick="doRefesh();">刷新信息</button>
     <button onclick="document.getElementById('msg').value = '';">清空消息</button> -->
-    
+
     <div id="playinfo_UQJGLQQ2"></div>
     <div>
         <h2 class="header">近期宝箱 God </h2>
         <span id="time">加载中。。。</span>
         <div id='chests_UQJGLQQ2' class="chests__queue" class="clearfix"></div>
-    </div>    
+    </div>
     <!-- <textarea id="msg"></textarea> -->
-    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    <script src="jquery.min.js"></script>
     <!-- <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script> -->
     <script type="text/javascript">
         function getinfo() {
             $("#time").text("加载中。。。");
-            $.get("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/?url=https%3A%2F%2Fstatsroyale.com%2Fzh%2Fprofile%2FUQJGLQQ2",ret=>showinfo(ret));
+            $.get("https://geturl.pharaoh.workers.dev/--------https://statsroyale.com/zh/profile/UQJGLQQ2", ret =>
+                showinfo(ret)).fail(res => alert(res.status + "\n" + res.statusText));
+            //https://geturl.pharaoh.workers.dev/--------https://statsroyale.com/zh/profile/UQJGLQQ2
         }
 
         function showinfo(h) {
@@ -371,7 +331,6 @@
         }
 
         getinfo();
-
     </script>
 </body>
 

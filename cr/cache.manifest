@@ -1,0 +1,18 @@
+CACHE MANIFEST
+#2019.08.01.5
+
+CACHE:
+images/epic-chest.png
+images/giant-chest.png
+images/gold-chest.png
+images/legendary-chest.png
+images/magical-chest.png
+images/silver-chest.png
+images/super-lightning-chest.png
+images/super-magical-chest.png
+images/user_grade_icon_663abd4.png
+images/wooden-chest.png
+jquery.min.js
+
+NETWORK:
+*
