@@ -39,6 +39,7 @@ var urls = [["https://eimi.cloud/user", "ss 签到", "t0"],
  ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=937", "领红包937 0.01", "t0"],
  ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=938", "领流量938", "t0"],
  ["open://com.cmbchina.ccd.pluto.cmbActivity", "APP:掌上生活", "t0"],
+ ["open://com.qiyi.video", "APP:爱奇艺（单位）", "t2"],
  ["open://com.greenpoint.android.mc10086.activity", "APP:中国移动", "t2"],
  ["jdmobile://share?jumpType=7&jumpUrl=https://u.jr.jd.com/wxgrowing/moneytree/index.html?channelLV=sq&productId=&channel=pc&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D2339&source=&time=1564377129826", "收金果（12点）", "t2"],
 
@@ -60,9 +61,11 @@ var urls = [["https://eimi.cloud/user", "ss 签到", "t0"],
  ["open://com.taobao.etao", "APP:一淘签到", "t2"],
  ["open://com.unionpay", "APP:云闪付", "t2"],
  ["open://com.baidu.iknow", "APP:百度知道", "t2"],
+
  
  ["https://bean.m.jd.com/plantBean/index.action?resourceValue=bean", "京豆培养（晚上）", "t2"],
 
+ ["open://com.qiyi.video", "APP:爱奇艺", "t2"],
  ["jdmobile://share?jumpType=7&jumpUrl=https://u.jr.jd.com/wxgrowing/moneytree/index.html?channelLV=sq&productId=&channel=pc&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D2339&source=&time=1564377129826", "收金果（18点）", "t2"],
  //["https://m.jr.jd.com/spe/downloadApp/index.html?id=2339&jumpType=7&jumpUrl=https%3A%2F%2Fu.jr.jd.com%2Fwxgrowing%2Fmoneytree%2Findex.html%3FchannelLV%3Dsq", "收金果（12点）", "t2"],
  //["https://m.jr.jd.com/spe/downloadApp/index.html?id=2339&jumpType=7&jumpUrl=https%3A%2F%2Fu.jr.jd.com%2Fwxgrowing%2Fmoneytree%2Findex.html%3FchannelLV%3Dsq", "收金果（18点）", "t2"], 
