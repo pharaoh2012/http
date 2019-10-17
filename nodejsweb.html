@@ -1,26 +1,63 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title></title>
 	<style>
-	input,textarea {
-		width:99%;
-	}
+		input,textarea {
+			width: 99%;
+		}
 	</style>
 </head>
-<body>
-<input type="text" placeholder="脚本名称" id="name">
-<textarea rows="40" id="code"></textarea>
-<input type="button" value="保存" onclick="save();">
 
-<script src='jdtask/js/jquery.min.js'></script>
-<script>
-function save() {
-	let name = $("#name").val();
-	let code = $("#code").val();
-	$.post('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com/save/'+name,{'code':code},r=>alert(r));
-}
-</script>
+<body>
+	<input type="text" placeholder="脚本名称" id="name" style="width:50%;"><button onclick="getcode();">获取</button>
+	<textarea rows="30" id="code"></textarea>
+	<textarea rows="5" id="codemin" readonly></textarea>
+	<input type="button" value="保存" onclick="save();">
+
+	<script src='jdtask/js/jquery.min.js'></script>
+	<script>
+		function getcode() {
+			let name = $("#name").val();
+			if (name) {
+				$.getJSON("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/db/get/code/" + name, j => {
+					console.info(j);
+					
+					if (j.code) {
+						$("#codemin").val(j.c);
+						$("#code").val(j.code);
+					} else {
+						$("#codemin").val(j.c);
+						$("#code").val(j.c);
+					}
+				})
+			}
+		}
+
+		function save() {
+			let name = $("#name").val();
+			let code = $("#code").val();
+			$.post("https://geturl.pharaoh.workers.dev/--------https://javascript-minifier.com/raw", { input: code }, r => {
+				$("#codemin").val(r)
+				if(name) {
+					//$.post('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com/save/'+name,{'code':code},r=>alert(r));
+					let item = {
+						_id:name,
+						c:r,
+						code:code
+					}
+					$.get('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com//db/insert/code',{json:JSON.stringify(item)},ret=>{
+						console.info(ret);
+						$.get("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/apirefresh",rr=>console.info(rr));
+						alert(ret);
+					});
+				}
+			});
+			//$.post('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com/save/'+name,{'code':code},r=>alert(r));
+		}
+	</script>
 
 </body>
+
 </html>
