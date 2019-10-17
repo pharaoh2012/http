@@ -25,6 +25,10 @@
     var msg;
     var length = question.length;
     var lastText = "";
+    fetch("./question1.json").then(r=>r.json()).then(json=>{
+      question = question.concat(json);
+      length = question.length;
+    })
 
     function doSearch() {
       var txt = document.getElementById('s').value.trim();
