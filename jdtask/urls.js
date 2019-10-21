@@ -41,7 +41,7 @@ var urls = [["https://eimi.cloud/user", "ss 签到", "t0"],
  ["open://com.cmbchina.ccd.pluto.cmbActivity", "APP:掌上生活", "t0"],
  ["open://com.qiyi.video", "APP:爱奇艺（单位）", "t2"],
  ["open://com.greenpoint.android.mc10086.activity", "APP:中国移动", "t0"],
- ["jdmobile://share?jumpType=7&jumpUrl=https://u.jr.jd.com/wxgrowing/moneytree/index.html?channelLV=sq&productId=&channel=pc&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D2339&source=&time=1564377129826", "收金果（12点）", "t6"],
+
  ["https://bean.m.jd.com/plantBean/index.action?resourceValue=bean", "京豆培养（12点）", "t2"],
 
  ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=473", "京东金融签到", "t2"],
@@ -75,9 +75,11 @@ var urls = [["https://eimi.cloud/user", "ss 签到", "t0"],
  ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=215", "早起打卡", "t6"],
  ["openapp.jdmobile://virtual?params=%7B%22category%22%3A%22jump%22%2C%22des%22%3A%22IntelligentAssistant%22%7D", "京东小咚", "t2"],
  
- ["open://com.tencent.mobileqq", "QQ签到(早上)", "t6"],
+// ["open://com.tencent.mobileqq", "QQ签到(早上)", "t6"],
  ["open://com.eg.android.AlipayGphone", "APP:支付宝(早上)", "t6"],
  ["https://bean.m.jd.com/?sid=", "领金豆", "t6"], 
+ ["jdmobile://share?jumpType=7&jumpUrl=https://u.jr.jd.com/wxgrowing/moneytree/index.html?channelLV=sq&productId=&channel=pc&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D2339&source=&time=1564377129826", "收金果（12点）", "t6"],
+ ["openapp.jdmobile://virtual?params=%7B%22category%22%3A%22jump%22%2C%22des%22%3A%22search%22%7D", "东东农场", "t6"],  
  //["openapp.jdmobile://virtual?params={\"category\":\"jump\",\"des\":\"jdreactcommon\",\"modulename\":\"JDReactJDBeansTaskCenter\",\"appname\":\"JDReactJDBeansTaskCenter\",\"ishidden\":true,\"param\":{\"page\":\"collectJDBeansTaskCenter\",\"transparentenable\":false},\"sourceType\":\"JDReactCollectJDBeans\"}", "进店领豆", "t6"],
 
  ["https://home.jdpay.com/my/welfare/jxWelfarePage?type=jingdou&source=JDSC", "合集1", "t9"],
