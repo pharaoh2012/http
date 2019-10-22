@@ -3,19 +3,17 @@
 
 <head>
 	<title>显示图片</title>
-	<style>
-		input,textarea {
-			width: 99%;
-		}
-	</style>
 </head>
 
 <body>
 <img id="img" />
 	<script>
 		let u = location.search.substr(1);
+		if(!u) u=location.hash.substr(1);
 		if(u) {
 			document.getElementById('img').src = decodeURIComponent(u);
+		} else {
+			document.title = "无效的数据";
 		}
 	</script>
 </body>
