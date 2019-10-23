@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>插入数据</title>
+	<style>
+		input,
+		textarea {
+			width: 99%;
+		}
+	</style>
+</head>
+
+<body>
+	<input type="text" placeholder="表名（集合名称）" id="name" />
+	<input type="text" placeholder="id" id="id" style='width:50%;' /><button onclick="getcode();">get</button>
+	<textarea rows="30" id="code"></textarea>
+	<textarea rows="5" id="codemin" readonly></textarea>
+	<input type="button" value="保存" onclick="save();">
+
+	<script src='../jdtask/js/jquery.min.js'></script>
+	<script>
+		function getcode() {
+			let name = $("#name").val();
+			let id = $("#id").val();
+			if (name && id) {
+				$.getJSON("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/db/get/" + name + "/" + id, j => {
+					console.info(j);
+					$("#codemin").val(JSON.stringify(j));
+					$("#code").val(JSON.stringify(j, null, 2));
+				})
+			}
+		}
+
+		function save() {
+			let name = $("#name").val();
+			let code = $("#code").val();
+			try {
+				let json = JSON.parse(code);
+				$("#codemin").val(JSON.stringify(json));
+				$.get('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com/db/insert/' + name, { json: json }, ret => {
+					console.info(ret);
+					alert(ret);
+				});
+			} catch (error) {
+				alert(error);
+				return;
+			}
+
+
+
+
+			//$.post('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com/save/'+name,{'code':code},r=>alert(r));
+		}
+	</script>
+
+</body>
+
+</html>

@@ -2,9 +2,11 @@
 <html>
 
 <head>
-	<title></title>
+	<meta charset="utf-8">
+	<title>JS脚本</title>
 	<style>
-		input,textarea {
+		input,
+		textarea {
 			width: 99%;
 		}
 	</style>
@@ -16,14 +18,14 @@
 	<textarea rows="5" id="codemin" readonly></textarea>
 	<input type="button" value="保存" onclick="save();">
 
-	<script src='jdtask/js/jquery.min.js'></script>
+	<script src='../jdtask/js/jquery.min.js'></script>
 	<script>
 		function getcode() {
 			let name = $("#name").val();
 			if (name) {
 				$.getJSON("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/db/get/code/" + name, j => {
 					console.info(j);
-					
+
 					if (j.code) {
 						$("#codemin").val(j.c);
 						$("#code").val(j.code);
@@ -40,16 +42,16 @@
 			let code = $("#code").val();
 			$.post("https://geturl.pharaoh.workers.dev/--------https://javascript-minifier.com/raw", { input: code }, r => {
 				$("#codemin").val(r)
-				if(name) {
+				if (name) {
 					//$.post('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com/save/'+name,{'code':code},r=>alert(r));
 					let item = {
-						_id:name,
-						c:r,
-						code:code
+						_id: name,
+						c: r,
+						code: code
 					}
-					$.get('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com//db/insert/code',{json:JSON.stringify(item)},ret=>{
+					$.get('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com//db/insert/code', { json: JSON.stringify(item) }, ret => {
 						console.info(ret);
-						$.get("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/apirefresh",rr=>console.info(rr));
+						$.get("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/apirefresh", rr => console.info(rr));
 						alert(ret);
 					});
 				}
