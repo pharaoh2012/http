@@ -38,8 +38,9 @@
 			let code = $("#code").val();
 			try {
 				let json = JSON.parse(code);
-				$("#codemin").val(JSON.stringify(json));
-				$.get('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com/db/insert/' + name, { json: json }, ret => {
+				let jsontext = JSON.stringify(json);
+				$("#codemin").val(jsontext);
+				$.get('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com/db/insert/' + name, { json: jsontext }, ret => {
 					console.info(ret);
 					alert(ret);
 				});
