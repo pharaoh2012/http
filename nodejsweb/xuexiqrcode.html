@@ -27,7 +27,8 @@
 			document.getElementById('qrcode').src = js.img;
 
 			let dt = new Date(js.time);
-			document.getElementById("time").innerText = dt.toLocaleString();
+			let ds = Math.floor((Date.now()-js.time)/1000);
+			document.getElementById("time").innerText = dt.toLocaleString() + "（距今"+ds+"s前）";
 		})
 
 	</script>
