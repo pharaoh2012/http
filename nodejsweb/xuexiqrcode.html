@@ -5,22 +5,28 @@
 	<meta charset="utf-8">
 	<title>学习强国登录二维码</title>
 	<style>
-		html,body,iframe {
-			width:100%;
-			height:100%;
+		html,
+		body,
+		iframe {
+			width: 100%;
+			height: 100%;
 			padding: 0;
-			margin:10px;
+			margin: 10px;
 			overflow: hidden;
 		}
 	</style>
 </head>
 
 <body>
-	<iframe id="qrcode" src="about:blank" frameborder="0" ></iframe>
+	<div id="time"></div>
+	<iframe id="qrcode" src="about:blank" frameborder="0"></iframe>
 	<script>
-fetch("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/api/xuexiqrcode").then(r=>r.json()).then(js=>{console.info(js);
-	document.getElementById('qrcode').src = js.subject;
-})
+		fetch("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/api/xuexiqrcode").then(r => r.json()).then(js => {
+			console.info(js);
+			document.getElementById('qrcode').src = js.subject;
+			let dt = new Date(js._id);
+			document.getElementById("time").innerText = dt.toLocaleString();
+		})
 	</script>
 
 </body>
