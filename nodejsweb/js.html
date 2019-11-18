@@ -49,7 +49,7 @@
 						c: r,
 						code: code
 					}
-					$.get('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com//db/insert/code', { json: JSON.stringify(item) }, ret => {
+					$.post('https://geturl.pharaoh.workers.dev/-------https://nodejsweb-20190905.appspot.com//db/insert/code', { json: JSON.stringify(item) }, ret => {
 						console.info(ret);
 						$.get("https://geturl.pharaoh.workers.dev/--------https://nodejsweb-20190905.appspot.com/apirefresh", rr => console.info(rr));
 						alert(ret);
