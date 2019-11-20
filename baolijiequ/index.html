@@ -35,7 +35,7 @@
 				alert('need token!');
 				return false;
 			}
-			document.getElementById('result').innerHTML='';
+			document.getElementById('result').innerHTML=`<li>${r[1]}</li>`;
 			urls.forEach(uu=>getUrl(uu+r[1]));
 			return false;
 		}
