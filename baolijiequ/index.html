@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html manifest="aqy.manifest">
 
 <head>
 	<meta charset="utf-8">
@@ -10,13 +10,14 @@
 		input,
 		textarea {
 			width: 99%;
+			font-size: 40px;
 		}
 	</style>
 </head>
 
 <body>
-	<form onsubmit="return sbmit();">
-		<input type="url" placeholder="网址" id="name" required><input type="submit" value="获取" />
+	<form autocomplete="off" onsubmit="return sbmit();">
+		<input type="url" placeholder="网址" id="name" required><input type="submit" value="获取" autocomplete="off" />
 	</form>
 	<ol id='result'>
 
