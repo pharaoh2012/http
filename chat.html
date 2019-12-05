@@ -16,13 +16,13 @@
     }
 
     #rst p.get {
-      border: 1px solid red;
-      background-color: lightgreen;
+      /* border: 1px solid red; */
+      background-color: #e2f7da;
     }
 
     #rst p.send {
-      border: 1px solid red;
-      background-color: #ffff80;
+      /* border: 1px solid red; */
+      background-color: #ffffe9;
     }
 
     #rst div {
@@ -35,9 +35,15 @@
       right: 0;
     }
 
-    /* #rst p::before {
-      content: "<button>copy</button>";
-    }  */
+    #rst p.send::before {
+      content: "↑";
+      color:green;
+    } 
+    #rst p.get::before {
+      content: "↓";
+      color:red;
+    } 
+
     #tip {
       position: fixed;
       top: 0;
