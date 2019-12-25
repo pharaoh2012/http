@@ -47,6 +47,12 @@
 			})
 		}
 
+		let u= location.hash.substr(1);
+		if(u) {
+			document.getElementById('name').value = u;
+			submit();
+		}
+
 	</script>
 
 </body>
