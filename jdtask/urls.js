@@ -34,10 +34,10 @@ var urls = [
     ["https://u.jd.com/m8i9ca", "发现页面，点去赚钱", "t9"],
     ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1260", "领红包1260 0.03 ??", "t9"],
     ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1513", "领红包1513 0.1  ???", "t9"],
-    ["https://s.pay.xiaomi.com/cash?channel=cashpayshopBanner#/daka", "小米打卡", "t6"],
-    ["openapp.jdmobile://virtual?params=%7B%22category%22%3A%22jump%22%2C%22des%22%3A%22IntelligentAssistant%22%7D", "京东助手", "t9"],
-    ["javascript:openApp('com.taobao.etao','fu致这行话￥wazs140hzQl￥转移至τаo宝аρρ，【快来跟我一起玩省钱消消消~】');void 0","淘宝消消乐","t6"],
-    ["javascript:openApp('com.taobao.etao','fu致这行话￥wazs140hzQl￥转移至τаo宝аρρ，【快来跟我一起玩省钱消消消~】');void 0","淘宝消消乐","t2"]
+  //  ["https://s.pay.xiaomi.com/cash?channel=cashpayshopBanner#/daka", "小米打卡", "t6"],
+    ["openapp.jdmobile://virtual?params=%7B%22category%22%3A%22jump%22%2C%22des%22%3A%22IntelligentAssistant%22%7D", "京东助手", "t9"]
+  //  ["javascript:openApp('com.taobao.etao','fu致这行话￥wazs140hzQl￥转移至τаo宝аρρ，【快来跟我一起玩省钱消消消~】');void 0","淘宝消消乐","t6"],
+  //  ["javascript:openApp('com.taobao.etao','fu致这行话￥wazs140hzQl￥转移至τаo宝аρρ，【快来跟我一起玩省钱消消消~】');void 0","淘宝消消乐","t2"]
 ]
 //1494 end
 //["openapp.jdmobile://virtual?params=%7B%22category%22%3A%22jump%22%2C%22des%22%3A%22$2%22%7D", "$1", "t9"],
