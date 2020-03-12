@@ -35,7 +35,11 @@ var urls = [
     ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1260", "领红包1260 0.03 ??", "t9"],
     ["jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=1513", "领红包1513 0.1  ???", "t9"],
   //  ["https://s.pay.xiaomi.com/cash?channel=cashpayshopBanner#/daka", "小米打卡", "t6"],
-     ["open://com.jd.jrapp#復制整条信息%EBa276EQrb!打開", "京东摇钱树", "t2"],
+     ["open://com.jinke.community", "金科大社区", "t2"],
+    ["alipays://platformapi/startapp?saId=66666674&clientVersion=3.7.0.0718", "支付宝小鸡", "t2"],
+     ["alipays://platformapi/startapp?saId=66666674&clientVersion=3.7.0.0718", "支付宝小鸡", "t6"],
+    ["open://com.jd.jrapp#復制整条信息%EBa276EQrb!打開", "京东摇钱树", "t2"],
+    ["https://vip.m.jd.com/newPage/reward/reward?lng=106.481214&lat=29.609021&sid=cc1d205265a59bb0aa61de32457aaecw&un_area=4_50950_88_0&utm_user=plusmember&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=Wxfriends&from=singlemessage", "京东红包", "t2"],
     ["openapp.jdmobile://virtual?params=%7B%22category%22%3A%22jump%22%2C%22des%22%3A%22IntelligentAssistant%22%7D", "京东助手", "t9"]
   //  ["javascript:openApp('com.taobao.etao','fu致这行话￥wazs140hzQl￥转移至τаo宝аρρ，【快来跟我一起玩省钱消消消~】');void 0","淘宝消消乐","t6"],
   //  ["javascript:openApp('com.taobao.etao','fu致这行话￥wazs140hzQl￥转移至τаo宝аρρ，【快来跟我一起玩省钱消消消~】');void 0","淘宝消消乐","t2"]
