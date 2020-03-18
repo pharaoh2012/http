@@ -2,10 +2,7 @@ CACHE MANIFEST
 #2020.3.14
 
 CACHE:
-
-js/md5.min.js
-urls.js
-js/index.js
+js/clip.js
 
 NETWORK:
 *

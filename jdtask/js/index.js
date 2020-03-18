@@ -108,3 +108,10 @@ function openUrl() {
     var u = document.getElementById("iurl").value;
     if(u) window.open(u);
 }
+
+function openApp(pname,clip) {
+    if(clip) {
+        AndroidJs.setClipText(clip);
+    }
+    AndroidJs.openApp(pname);
+}
