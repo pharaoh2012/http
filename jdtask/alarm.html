@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- <html lang="zh-cn"  manifest = "cache.manifest"> -->
+<html lang="zh-cn">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>定时提醒</title>
+  <style type="text/css">
+    body,
+    input,
+    select {
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <details open>
+    <summary>延时任务</summary>
+
+    <form onsubmit="formsubmit();return false;">
+      <div>
+        消息标题：
+        <input type="text" id="title"> </div>
+      <div>
+        消息内容：
+        <input type="text" required id="description">
+        包名：
+        <input type="text" list="packages" required id="extra.package" value="com.tencent.tmgp.supercell.clashroyale">  
+        <datalist id="packages">
+          <option label="皇室战争" value="com.tencent.tmgp.supercell.clashroyale">
+          <option value="Ford">
+          <option value="Volvo">
+        </datalist>
+      </div>
+
+      <input type="hidden" id="extra.action" value="app" />
+      <input type="submit" value="提交">
+    </form>
+  </details>
+  <details>
+    <summary>剪贴板</summary>
+
+    <form onsubmit="jtbformsubmit();return false;">
+      文本：
+      <input type="text" required id="clip" />
+      <input type="submit" value="发送" />
+    </form>
+  </details>
+
+  <script src="./js/alarm.js"></script>
+
+</body>
+
+</html>
