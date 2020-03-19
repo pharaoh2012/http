@@ -34,7 +34,7 @@ description:dt.toLocaleTimeString(),time_to_send:dt.getTime()+10000,"extra.actio
             description: clip,
             "extra.action": "app",
             "extra.clip": clip,
-            title: "剪贴板"
+            title: "剪贴板@"+new Date().toLocaleTimeString()
         }, r => {
             document.getElementById('result').innerText = "发送成功！";
             console.info(r)
