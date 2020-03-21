@@ -225,8 +225,6 @@
     }
 
     var AndroidJs;
-    let open1=AndroidJs?AndroidJs.openUrl:open;
-
     function openUrl() {
       var u = document.getElementById("iurl").value;
       if (u) {
@@ -238,6 +236,10 @@
       let u = window.g_urls[i];
       console.info(u);
       open1(u[0]);
+    }
+
+    function open1(u) {
+      AndroidJs?AndroidJs.openUrl(u):open(u);
     }
   </script>
 
