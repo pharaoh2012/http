@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-cn" >
-  <!-- <html lang="zh-cn"  manifest = "cache.manifest"> -->
+<html lang="zh-cn"  manifest = "index1.manifest">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
       padding: 5px;
     }
 
-    li a{
+    li a {
       color: blue;
     }
 
@@ -28,28 +28,28 @@
     }
 
     li.red a {
-      color:red;
+      color: red;
     }
+
     li.red {
       display: list-item;
-    }    
+    }
 
     .nothide li.visited {
       display: list-item;
     }
-
   </style>
 </head>
 
 <body>
 
-  <details open  id="t6_details">
+  <details open id="t6_details">
     <summary>早起任务<span id="t6_count"></span></summary>
     <ol id="t6">
     </ol>
   </details>
 
-  <details open  id="t12_details">
+  <details open id="t12_details">
     <summary>午间任务<span id="t12_count"></span></summary>
     <ol id="t12">
     </ol>
@@ -60,12 +60,12 @@
     <ol id="t18">
     </ol>
   </details>
-  <details open  id="t20_details" class="nothide">
+  <details open id="t20_details" class="nothide">
     <summary>多次<span id="t20_count"></span></summary>
-    <ol id="t20" >
+    <ol id="t20">
     </ol>
   </details>
-  <details open  id="t24_details">
+  <details open id="t24_details">
     <summary>全天任务<span id="t24_count"></span></summary>
     <ol id="t24">
     </ol>
@@ -79,149 +79,168 @@
 
   <button onclick="hideLinks();" style="width:99%;">显示隐藏</button>
   <div>
-    <input type="number" id="number" value="833" /><button onclick="openNumber()">打开</button> <button onclick="openNumberAdd1(1)">+1</button>
-    <button onclick="openNumberAdd1(5)">+5</button> 
+    <input type="number" id="number" value="833" /><button onclick="openNumber()">打开</button> <button
+      onclick="openNumberAdd1(1)">+1</button>
+    <button onclick="openNumberAdd1(5)">+5</button>
   </div>
   <div>
-    <input type="text" id="iurl" value="" /><button onclick="openUrl()">打开</button> 
-  </div>  
+    <input type="text" id="iurl" value="" /><button onclick="openUrl()">打开</button>
+  </div>
 
   <div>
-    <button onclick="loadRemoteData()">获取服务器数据</button> 
-  </div>  
+    <button onclick="loadRemoteData()">获取服务器数据</button>
+  </div>
   <script>
-  
-document.body.addEventListener("click", function (e) {
-    if (e.target.tagName === "A") {
+    document.body.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
         var a = e.target.parentElement;
-        if(a.classList.contains("visited")) {
+        if (a.classList.contains("visited")) {
           a.className = "visited red";
           return;
         }
         //if(a.className == "visited") return;
         a.className = "visited red";
         console.info(a.id);
-        taskInfo.ids.push(parseInt(a.id.replace('l_',''),10));
+        taskInfo.ids.push(parseInt(a.id.replace('l_', ''), 10));
         localStorage.setItem("jdtask", JSON.stringify(taskInfo));
         showCount(a.getAttribute("group"));
-    }
-    console.info(e);
-}, false);
+      }
+      console.info(e);
+    }, false);
 
 
-function showTaskInfo() {
-    taskInfo.ids.forEach(function (id) {
-        var li = document.getElementById("l_"+id);
+    function showTaskInfo() {
+      taskInfo.ids.forEach(function (id) {
+        var li = document.getElementById("l_" + id);
         if (li) li.className = "visited";
-    });
-    showCount("t6");
-    showCount("t0");
-    showCount("t12");
-    showCount("t18");
-    showCount("t20");
-    showCount("t24");
-    //localStorage.setItem("jdtask",JSON.stringify(taskInfo));
-}
+      });
+      showCount("t6");
+      showCount("t0");
+      showCount("t12");
+      showCount("t18");
+      showCount("t20");
+      showCount("t24");
+      //localStorage.setItem("jdtask",JSON.stringify(taskInfo));
+    }
 
-function showCount(id) {
-    var count = document.querySelectorAll('#'+id+' li:not(.visited)').length;
-    if(count) {
-        document.getElementById(id+"_count").innerText="("+count+")";
-    } else {
-        document.getElementById(id+"_count").innerText="";
-        var dt = document.getElementById(id+"_details");
-        if(!dt.classList.contains("nothide")) {
+    function showCount(id) {
+      var count = document.querySelectorAll('#' + id + ' li:not(.visited)').length;
+      if (count) {
+        document.getElementById(id + "_count").innerText = "(" + count + ")";
+      } else {
+        document.getElementById(id + "_count").innerText = "";
+        var dt = document.getElementById(id + "_details");
+        if (!dt.classList.contains("nothide")) {
           dt.open = false;
         }
-        
+
+      }
     }
-}
 
-function getToday() {
-    var now = new Date();
-    var today = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
-    return today;
-}
+    function getToday() {
+      var now = new Date();
+      var today = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+      return today;
+    }
 
-function initTaskInfo(today) {
-    return {
+    function initTaskInfo(today) {
+      return {
         date: today,
         ids: []
-    };
-}
+      };
+    }
 
-var taskInfo = null;
-function loadRemoteData() {
-  fetch("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/bthiang?sql=select * from daytask where disabled=0 order by group,index").then(r=>r.json()).then(j=>{
-    let urls = j.results.map(d=>[d.url,d.name,d.group,d.id]);
-    showUrls(urls);
-    localStorage.setItem("Daytask_Urls",JSON.stringify(urls));
-  })
-}
+    var taskInfo = null;
 
-function loadData() {
-  var d = localStorage.getItem("Daytask_Urls");
-  if(d) {
-    let urls = JSON.parse(d);
-    showUrls(urls);
-  } else {
-    loadRemoteData();
-  }
-}
+    function loadRemoteData() {
+      fetch(
+        "https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/bthiang?sql=select * from daytask where disabled=0 order by group,index"
+        ).then(r => r.json()).then(j => {
+        let urls = j.results.map(d => [d.url, d.name, d.group, d.id]);
+        showUrls(urls);
+        localStorage.setItem("Daytask_Urls", JSON.stringify(urls));
+      })
+    }
 
-loadData();
+    function loadData() {
+      var d = localStorage.getItem("Daytask_Urls");
+      if (d) {
+        let urls = JSON.parse(d);
+        showUrls(urls);
+      } else {
+        loadRemoteData();
+      }
+    }
 
-function showUrls(urls) {
-  var html = [];
-    var htmlids = {};
-    for (var i = 0; i < urls.length; i++) {
+    loadData();
+
+    function showUrls(urls) {
+      window.g_urls = urls;
+      var html = [];
+      var htmlids = {};
+      for (var i = 0; i < urls.length; i++) {
         console.info(urls[i]);
         var id = urls[i][2];
-        if(!htmlids[id]) htmlids[id] = [];
-        htmlids[id].push('<li id="l_'+urls[i][3]+'"><a target="_blank" href="', urls[i][0], '">', urls[i][1], '</a></li>');
-    }
-    for(var key in htmlids) {
-        document.getElementById("t"+key).innerHTML = htmlids[key].join('');
-    }
-    var today = getToday();
-    var jdtask = localStorage.getItem("jdtask");
-    if (jdtask) {
+        if (!htmlids[id]) htmlids[id] = [];
+        htmlids[id].push('<li id="l_' + urls[i][3] + '"><a href="javascript:oUrl(', i, ');">', urls[i][1], '</a></li>');
+      }
+      for (var key in htmlids) {
+        document.getElementById("t" + key).innerHTML = htmlids[key].join('');
+      }
+      var today = getToday();
+      var jdtask = localStorage.getItem("jdtask");
+      if (jdtask) {
         jdtask = JSON.parse(jdtask);
         if (jdtask.date == today) {
-            taskInfo = jdtask;
+          taskInfo = jdtask;
         }
+      }
+      if (!taskInfo) taskInfo = initTaskInfo(today);
+      showTaskInfo();
     }
-    if (!taskInfo) taskInfo = initTaskInfo(today);
-    showTaskInfo();    
-}
 
 
-function openNumber() {
-    var v = document.getElementById("number").value;
-    window.open("jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=" + v);
-}
+    function openNumber() {
+      var v = document.getElementById("number").value;
+      window.open(
+        "jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=" +
+        v);
+    }
 
-function openNumberAdd1(n) {
-    var v = n + parseInt(document.getElementById("number").value, 10);
-    document.getElementById("number").value = v;
-    window.open("jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=" + v);
-}
+    function openNumberAdd1(n) {
+      var v = n + parseInt(document.getElementById("number").value, 10);
+      document.getElementById("number").value = v;
+      window.open(
+        "jdmobile://share?jumpType=7&channel=default&sourceUrl=1000*https%3A%2F%2Fm.jr.jd.com%2Fspe%2FdownloadApp%2Findex.html%3Fid%3D190&source=&jumpUrl=" +
+        v);
+    }
 
-if(window.AndroidJs) {
-    window.AndroidJs.setBack(true);
-}
+    if (window.AndroidJs) {
+      window.AndroidJs.setBack(true);
+    }
 
-function hideLinks() {
-  var body = document.body.classList;
-  body.contains("nothide")?body.remove("nothide"):body.add("nothide");
+    function hideLinks() {
+      var body = document.body.classList;
+      body.contains("nothide") ? body.remove("nothide") : body.add("nothide");
+    }
 
-}
+    var AndroidJs;
+    function openUrl() {
+      var u = document.getElementById("iurl").value;
+      if (u) {
+        open1(u);
+      }
+    }
 
-function openUrl() {
-    var u = document.getElementById("iurl").value;
-    if(u) window.open(u);
-}
+    function oUrl(i) {
+      let u = window.g_urls[i];
+      console.info(u);
+      open1(u[0]);
+    }
 
+    function open1(u) {
+      AndroidJs?AndroidJs.openUrl(u):open(u);
+    }
   </script>
 
 </body>
