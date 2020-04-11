@@ -23,6 +23,7 @@ function showImageInfo() {
             if (!skipImg(this.src)) {
                 length++;
                 if(length>maxImageCount) return;
+                console.info('showimg:',this.src);
                 html.push('<div class="imgBox"><img src="', this.src, '" /></div>');
             }
         })
@@ -45,7 +46,8 @@ function showImageInfo() {
     $("#imgList img").each(function (index, img) {
         $(img).on('error', function () {
             var src = this.src;
-            if ((src.indexOf('getpage.now.sh') > 0) || (src.indexOf("geturl.pharaoh.workers.dev")>0)) return;
+            console.info('image error:',src);
+            if ((src.indexOf('getpage.now.sh') > 0) || (src.indexOf("pharaoh.workers.dev")>0)) return;
             imgErrorCount++;
             this.src = imgCacheUrls[imgErrorCount%imgCacheCount]+this.src;
             // if(imgErrorCount%2==0) {
