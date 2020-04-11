@@ -19,7 +19,6 @@ CACHE:
 ./js/l/jquery.min.js
 ./js/l/moment.min.js
 ./js/l/zh-cn.js
-./js/lc.js
 
 NETWORK:
 *
