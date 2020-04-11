@@ -1,4 +1,5 @@
 function skipImg(src) {
+    if(!src) return true;
     return src.endsWith(".gif") || src.endsWith(".GIF");
 }
 var imgErrorCount=0;
@@ -20,11 +21,12 @@ function showImageInfo() {
         var h1 = $this.find("h1").text();
         html.push("<h1>" + (index + 1) + ". " + h1 + "</h1><hr />");
         $this.find("img").each(function () {
-            if (!skipImg(this.src)) {
+            var src = this.src || $(this).attr("data-link") || $(this).attr("ess-data") 
+            if (!skipImg(src)) {
                 length++;
                 if(length>maxImageCount) return;
-                console.info('showimg:',this.src);
-                html.push('<div class="imgBox"><img src="', this.src, '" /></div>');
+                console.info('showimg:',src);
+                html.push('<div class="imgBox"><img src="', src, '" /></div>');
             }
         })
         $this.find("input[type='image']").each(function () {
