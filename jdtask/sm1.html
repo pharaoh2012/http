@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn"  manifest = "sm.manifest">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>京东收藏领豆</title>
+    <style type="text/css">
+        .visited {
+            color: gray;
+        }
+        #toolbar {
+            position: fixed;
+            bottom: 0;
+            width:100%;
+            margin-bottom: 10px;
+        }
+        #toolbar button {
+            width:49%;
+        }
+        a.red {
+            color:red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+
+    </div>
+    <div>&nbsp;</div>
+    <div id="toolbar">
+        <button id="btnLastClick" onclick="lastClick();">上次点击</button>
+        <button id="btnNext" onclick="nextClick();">下一个</button>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        var clickedUrl = localStorage.getItem("smJdClickUrl");
+        if (clickedUrl) {
+            clickedUrl = JSON.parse(clickedUrl);
+        } else {
+            clickedUrl = [];
+        }
+        (function () {
+            var loadTime = localStorage.getItem("smJdLoadTime");
+            if (!loadTime) loadTime = 0;
+            var now = +new Date();
+            var needLoad = (now - loadTime > 1 * 60000);
+            if (needLoad) {
+                $("#main").html('loading... V2019.03.29<br />' + localStorage.getItem("smJdHtml"));
+                setClicked();
+//              $.get("https://getpage.now.sh/?url=https%3A%2F%2Fshimo.im%2Fdocs%2Fb4LMFBapNUMp07ym%2Fread", r => {
+                $.get("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/?url=https%3A%2F%2Fshimo.im%2Fdocs%2FTrhdcdHjR6wdJXJw%2Fread", function(r) {
+                    //console.info(r);
+                    var $o = $(r).find(".ql-editor");
+                    $o.find("p:contains('收藏京豆集合')").remove();
+                    $o.find("p:contains('取消店铺关注')").remove();
+                    $o.find("p:contains('收藏实时京豆')").remove();
+                    $o.find("p:contains('批量取关')").remove();
+                    var p = $o.find("p");
+                    var p1=p.splice(500,5000);
+                    $(p1).remove();
+                    var txt =
+                        '<p>取消店铺关注<a href="https://u.jd.com/D4jTCn" target="_blank" rel="noopener noreferrer nofollow">https://u.jd.com/D4jTCn</a></p>' +
+                        $o.html();
+                    localStorage.setItem("smJdHtml", txt);
+                    $("#main").html(txt);
+                    setClicked();
+                    localStorage.setItem("smJdLoadTime", now);
+                });
+            } else {
+                $("#main").html('缓存<br />' + localStorage.getItem("smJdHtml"));
+                setClicked();
+            }
+        })();
+
+
+        $(document.body).on("click", "a.ql-link", function(e) {
+            var href = e.target.href;
+            window.lastHref = href;
+            if (clickedUrl.indexOf(href) == -1) {
+                e.target.className = "ql-link visited";
+                clickedUrl.push(href);
+                if (clickedUrl.length > 200) clickedUrl.shift();
+                localStorage.setItem("smJdClickUrl", JSON.stringify(clickedUrl));
+            }
+            $('a.red').removeClass("red");
+            $(e.target).addClass("red");
+            $("#btnNext").text("下一个["+$(".ql-link:not('.visited')").length+"]")
+            open(href);
+            return false;
+        });
+
+        function setClicked() {
+            var $a = $("a.ql-link");
+            var l = $a.length;
+            //if ($a.length < 100) l = $a.length;
+            for (var index = 0; index < l; index++) {
+                var a = $a[index];
+                if (clickedUrl.indexOf(a.href) >= 0) {
+                    a.className = "ql-link visited";
+                }
+            }
+            $("#btnNext").text("下一个["+$(".ql-link:not('.visited')").length+"]")
+        }
+
+        function nextClick() {
+            var a= $(".ql-link:not('.visited'):first");
+            if(a.length) {
+                a = a[0]
+                a.scrollIntoViewIfNeeded();
+                a.click();
+            }
+        }
+        function lastClick() {
+            if(window.lastHref) {
+                open(window.lastHref);
+            }
+        }       
+
+    </script>
+</body>
+
+</html>
