@@ -1,4 +1,5 @@
 function skipImg(src) {
+    if(!src) return true;
     return src.endsWith(".gif") || src.endsWith(".GIF");
 }
 var imgErrorCount=0;
@@ -20,10 +21,12 @@ function showImageInfo() {
         var h1 = $this.find("h1").text();
         html.push("<h1>" + (index + 1) + ". " + h1 + "</h1><hr />");
         $this.find("img").each(function () {
-            if (!skipImg(this.src)) {
+            var src = this.src || $(this).attr("data-link") || $(this).attr("ess-data") 
+            if (!skipImg(src)) {
                 length++;
                 if(length>maxImageCount) return;
-                html.push('<div class="imgBox"><img src="', this.src, '" /></div>');
+                console.info('showimg:',src);
+                html.push('<div class="imgBox"><img src="', src, '" /></div>');
             }
         })
         $this.find("input[type='image']").each(function () {
@@ -45,7 +48,8 @@ function showImageInfo() {
     $("#imgList img").each(function (index, img) {
         $(img).on('error', function () {
             var src = this.src;
-            if ((src.indexOf('getpage.now.sh') > 0) || (src.indexOf("geturl.pharaoh.workers.dev")>0)) return;
+            console.info('image error:',src);
+            if ((src.indexOf('getpage.now.sh') > 0) || (src.indexOf("pharaoh.workers.dev")>0)) return;
             imgErrorCount++;
             this.src = imgCacheUrls[imgErrorCount%imgCacheCount]+this.src;
             // if(imgErrorCount%2==0) {
