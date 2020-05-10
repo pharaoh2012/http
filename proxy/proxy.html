@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>proxy</title>
+</head>
+<body>
+	<form class="proxyFormPremium" method="post" id="request" action="https://www.croxyproxy.com/servers" _lpchecked="1">
+		<div class="input-group input-group-lg">
+			<input id="url" value="" name="url" type="url" class="form-control input-lg" value="https://www.youtube.com/"
+				placeholder="Enter an URL or a search query to access">
+			<span class="input-group-btn">
+				<button id="requestSubmit" type="submit" class="btn btn-primary btn-lg"><i class="fa fa-arrow-right"
+						aria-hidden="true"></i> Go!</button>
+			</span>
+		</div>
+	</form>
+	
+	<script>
+		let hash = location.hash;
+		if(hash) {
+			document.getElementById('url').value=hash.substr(1);
+			document.getElementById('requestSubmit').click();
+		}
+	</script>
+</body>
+</html>
