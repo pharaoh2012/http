@@ -10,6 +10,19 @@
     body {
       text-align: center;
     }
+
+    html,
+    body {
+      margin: 0px;
+      padding: 0px;
+      height: 100%;
+      width: 100%;
+    } 
+    .container {
+      top:20%;
+      position: relative;
+      margin: 0 auto; /*水平居中*/
+    }
   </style>
 </head>
 
@@ -19,7 +32,7 @@
     <div id="time">加载中。。。</div>
   </div>
   <script>
-    fetch("https://ph-node-sqlite.glitch.me/getqr").then(r=>r.json()).then(j=>{
+    fetch("https://ph-node-sqlite.glitch.me/getqr").then(r => r.json()).then(j => {
       document.getElementById('img').src = j.img;
       document.getElementById('time').innerText = new Date(j.time).toLocaleString();
     })
