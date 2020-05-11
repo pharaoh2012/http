@@ -19,9 +19,9 @@
     <div id="time">加载中。。。</div>
   </div>
   <script>
-    fetch("https://a5p317h79f.execute-api.ap-east-1.amazonaws.com/db/xuexiqiangguo_qrcode/geti/0").then(r=>r.json()).then(j=>{
+    fetch("https://ph-node-sqlite.glitch.me/getqr").then(r=>r.json()).then(j=>{
       document.getElementById('img').src = j.img;
-      document.getElementById('time').innerText = new Date(j._savetime).toLocaleString();
+      document.getElementById('time').innerText = new Date(j.time).toLocaleString();
     })
 
   </script>
