@@ -17,11 +17,13 @@
       padding: 0px;
       height: 100%;
       width: 100%;
-    } 
+    }
+
     .container {
-      top:20%;
+      top: 20%;
       position: relative;
-      margin: 0 auto; /*水平居中*/
+      margin: 0 auto;
+      /*水平居中*/
     }
   </style>
 </head>
@@ -32,10 +34,12 @@
     <div id="time">加载中。。。</div>
   </div>
   <script>
-    fetch("https://ph-node-sqlite.glitch.me/getqr").then(r => r.json()).then(j => {
+    fetch("https://5p7sa773vnsmn.cfc-execute.bj.baidubce.com/bthiang?sql=select%20*%20from%20images%20where%20objectId%3D'xuexiqiangguo'").then(r => r.json()).then(item => {
+      console.info(item)
+      let j = item.results[0];
       document.getElementById('img').src = j.img;
-      document.getElementById('time').innerText = new Date(j.time).toLocaleString();
-    })
+      document.getElementById('time').innerText = new Date(j.time).toLocaleString();      
+    });
 
   </script>
 
